@@ -1,5 +1,6 @@
 import { Rajdhani } from "next/font/google";
 import "./globals.css";
+import Header from "./_Components/Header/Header";
 
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: "600" });
 
@@ -11,7 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={rajdhani.className}>{children}</body>
+      <body className={rajdhani.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

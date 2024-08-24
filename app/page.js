@@ -4,7 +4,10 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <h1>Orfarm Grocery</h1>
+      <div>
+        <h1 className="mt-2">Orfarm Grocery</h1>
+        <h2>Test</h2>
+      </div>
     </div>
   );
 }
