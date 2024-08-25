@@ -28,22 +28,26 @@ const components = [
 ];
 
 const Navbar = () => {
+  const handleCategory = (cate) => {
+    console.log(cate);
+  };
+
   return (
-    <div className="flex items-center justify-between">
+    <div className="md:flex hidden items-center justify-between">
       <div>
-        <Select>
+        <Select onValueChange={handleCategory}>
           <SelectTrigger className="w-[220px] py-6 px-4 bg-[#80b500] text-white rounded-full">
             <Menu size={18} />
             <SelectValue placeholder="ALL CATEGORIES" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
+              <SelectLabel>CATEGORIES</SelectLabel>
+              <SelectItem value="Food_Drinks">Food & Drinks</SelectItem>
+              <SelectItem value="Vegetables">Vegetables</SelectItem>
+              <SelectItem value="Dried_Foods">Dried Foods</SelectItem>
+              <SelectItem value="Bread_Cake">Bread & Cake</SelectItem>
+              <SelectItem value="Fish_Meat">Fish & Meat</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
