@@ -26,6 +26,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import Navbar from "../Navbar/Navbar";
 
 const Header = () => {
   return (
@@ -111,6 +112,9 @@ const Header = () => {
             </HoverCardContent>
           </HoverCard>
         </div>
+      </div>
+      <div className="mt-4">
+        <Navbar />
       </div>
     </div>
   );
