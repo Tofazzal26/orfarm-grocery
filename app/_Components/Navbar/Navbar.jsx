@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Menu } from "lucide-react";
+import { Beef, CupSoda, Menu, Pizza, Soup, Cookie, Coffee } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -29,7 +29,7 @@ const components = [
 
 const Navbar = () => {
   return (
-    <div>
+    <div className="flex items-center justify-between">
       <div>
         <Select>
           <SelectTrigger className="w-[220px] py-6 px-4 bg-[#80b500] text-white rounded-full">
@@ -48,8 +48,33 @@ const Navbar = () => {
           </SelectContent>
         </Select>
       </div>
-      <div>
-        <NavbarLink name={"Home"} details={components} />
+      <div className="flex items-center gap-2">
+        <NavbarLink name={"HOME"} details={components} />
+        <NavbarLink name={"SHOP"} details={components} />
+        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+          <span>
+            <Soup size={20} className="text-gray-500" />
+          </span>
+          Food & Drinks
+        </button>
+        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+          <span>
+            <Cookie size={20} className="text-gray-500" />
+          </span>{" "}
+          Bakery
+        </button>
+        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+          <span>
+            <Coffee size={20} className="text-gray-500" />
+          </span>{" "}
+          Beverages
+        </button>
+        <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
+          Blog
+        </button>
+        <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
+          Contact
+        </button>
       </div>
     </div>
   );

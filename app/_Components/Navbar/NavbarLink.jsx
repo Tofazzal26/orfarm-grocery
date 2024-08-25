@@ -14,7 +14,9 @@ const NavbarLink = ({ name, details }) => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>{name}</NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            <span className="text-gray-700">{name}</span>
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {details.map((component) => (
