@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <div className="px-2 md:px-0">
-      <div className="border-b-[1px] border-t-[1px] mt-4 md:mt-10 py-3 md:py-6">
+      <div className="border-b-[1px] border-t-[1px] mt-4 md:mt-8 py-3 md:py-6">
         <div className="container mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
