@@ -27,6 +27,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import Navbar from "../Navbar/Navbar";
+import Link from "next/link";
 
 const Header = () => {
   const handleLocation = (local) => {
@@ -113,20 +114,30 @@ const Header = () => {
                   </div>
                 </div>
                 <div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild className="rounded-full">
-                      <Button variant="outline">
-                        <UserRound className="text-gray-600" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuLabel>Tofazzal</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Option 1</DropdownMenuItem>
-                      <DropdownMenuItem>Option 2</DropdownMenuItem>
-                      <DropdownMenuItem>Option 3</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <div>
+                    <Link
+                      className="text-lg border-2 rounded-md py-[6px] text-gray-600 px-3"
+                      href="/api/login"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                  <div className="hidden">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild className="rounded-full">
+                        <Button variant="outline">
+                          <UserRound className="text-gray-600" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-56">
+                        <DropdownMenuLabel>Tofazzal</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Option 1</DropdownMenuItem>
+                        <DropdownMenuItem>Option 2</DropdownMenuItem>
+                        <DropdownMenuItem>Option 3</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               </div>
 

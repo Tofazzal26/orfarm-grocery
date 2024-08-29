@@ -12,18 +12,33 @@ import {
 } from "@/components/ui/select";
 import NavbarLink from "./NavbarLink";
 
-const components = [
+const Home = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: "Home",
+    path: "/",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Orfarm Grocery is an online food website designed to provide users with a convenient platform to shop for groceries and other food items",
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    title: "Feature Home",
+    path: "/",
     description:
-      "For sighted users to preview content available behind a link.",
+      " The app offers a wide selection of products, making it easy for customers to find and purchase their desired items from the comfort of their homes.",
+  },
+];
+
+const Shop = [
+  {
+    title: "Shop",
+    path: "/shop",
+    description:
+      "Orfarm Grocery is an online food website designed to provide users with a convenient platform to shop for groceries and other food items",
+  },
+  {
+    title: "Feature Shop",
+    path: "/shop",
+    description:
+      " The app offers a wide selection of products, making it easy for customers to find and purchase their desired items from the comfort of their homes.",
   },
 ];
 
@@ -53,8 +68,8 @@ const Navbar = () => {
         </Select>
       </div>
       <div className="flex items-center gap-2">
-        <NavbarLink name={"HOME"} details={components} />
-        <NavbarLink name={"SHOP"} details={components} />
+        <NavbarLink name={"HOME"} Home={Home} link={"/"} />
+        <NavbarLink name={"SHOP"} Home={Shop} link={"/shop"} />
         <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
           <span>
             <Soup size={20} className="text-gray-500" />
