@@ -36,6 +36,7 @@ const Banner = () => {
             src={"/Banner2.gif"}
             width={400}
             height={110}
+            alt="banner"
           />
         </div>
       </div>
