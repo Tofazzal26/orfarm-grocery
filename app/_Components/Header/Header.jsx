@@ -32,6 +32,7 @@ import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const session = useSession();
+  console.log(session);
 
   const handleLocation = (local) => {
     console.log(local);
@@ -119,30 +120,75 @@ const Header = () => {
                 <div>
                   {session?.status === "authenticated" ? (
                     <div>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild className="rounded-full">
-                          <Button variant="outline">
-                            <UserRound className="text-gray-600" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
-                          <DropdownMenuLabel>
-                            {session?.data?.user?.name}
-                          </DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>
-                            {session?.data?.user?.email}
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <button
-                              onClick={() => signOut()}
-                              className="text-red-500"
+                      {session?.data?.user?.image ? (
+                        <div>
+                          <div className="flex flex-col items-center justify-center">
+                            <div className="flex space-x-5">
+                              <DropdownMenu>
+                                <DropdownMenuTrigger
+                                  asChild
+                                  className="rounded-full"
+                                >
+                                  <Button variant="none">
+                                    <img
+                                      alt=""
+                                      className="w-10 h-10 rounded-full ring-2 ring-offset-4 dark:bg-gray-500 dark:ring-violet-600 dark:ring-offset-gray-100"
+                                      src={session?.data?.user?.image}
+                                    />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56">
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuLabel>
+                                    {session?.data?.user?.name}
+                                  </DropdownMenuLabel>
+                                  <DropdownMenuItem>
+                                    {session?.data?.user?.email}
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem>
+                                    <button
+                                      onClick={() => signOut()}
+                                      className="text-red-500"
+                                    >
+                                      Logout
+                                    </button>
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger
+                              asChild
+                              className="rounded-full"
                             >
-                              Logout
-                            </button>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                              <Button variant="outline">
+                                <UserRound className="text-gray-600" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                              <DropdownMenuLabel>
+                                {session?.data?.user?.name}
+                              </DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem>
+                                {session?.data?.user?.email}
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <button
+                                  onClick={() => signOut()}
+                                  className="text-red-500"
+                                >
+                                  Logout
+                                </button>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      )}
                     </div>
                   ) : session.status === "loading" ? (
                     <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-[#80b500]"></div>

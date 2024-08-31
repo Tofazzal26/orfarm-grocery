@@ -1,6 +1,7 @@
 import ConnectMongoose from "@/lib/ConnectMongoose/ConnectMongoose";
 import NextAuth from "next-auth/next";
 import CredentialProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import UserModel from "../../UserModel/UserModel";
 import bcrypt from "bcrypt";
 
@@ -37,6 +38,10 @@ const handler = NextAuth({
         }
         return currentUser;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GoogleCLIENT,
+      clientSecret: process.env.GoogleSECRET,
     }),
   ],
   pages: {

@@ -2,12 +2,13 @@
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
 const Login = () => {
+  const session = useSession();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -28,6 +29,13 @@ const Login = () => {
       toast.success("Login Success");
     }
   };
+
+  const handleGoogleLogin = async (provider) => {
+    const resp = await signIn(provider);
+  };
+  if (session.status === "authenticated") {
+    router.push("/");
+  }
 
   return (
     <div className="flex justify-center items-center my-[20px] md:my-[100px]">
@@ -85,7 +93,10 @@ const Login = () => {
             </h2>
           </div>
           <div className="mt-4 flex justify-center items-center">
-            <button className="flex px-4 py-2 justify-center items-center gap-2 border-2">
+            <button
+              onClick={() => handleGoogleLogin("google")}
+              className="flex px-4 py-2 justify-center items-center gap-2 border-2"
+            >
               <Image src="/google.png" alt="google" width={30} height={30} />
               Continue to Google
             </button>
