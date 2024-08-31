@@ -47,7 +47,25 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
-  callbacks: {},
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "google") {
+        const { name, email, image } = user;
+        try {
+          await ConnectMongoose();
+          const exist = await UserModel.findOne({ email });
+          if (!exist) {
+            const resp = await UserModel.create(user);
+          } else {
+            return user;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      return user;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
