@@ -28,8 +28,11 @@ import {
 } from "@/components/ui/hover-card";
 import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+  const session = useSession();
+
   const handleLocation = (local) => {
     console.log(local);
   };
@@ -114,30 +117,45 @@ const Header = () => {
                   </div>
                 </div>
                 <div>
-                  <div>
-                    <Link
-                      className="text-lg border-2 rounded-md py-[6px] text-gray-600 px-3"
-                      href="/api/login"
-                    >
-                      Login
-                    </Link>
-                  </div>
-                  <div className="hidden">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild className="rounded-full">
-                        <Button variant="outline">
-                          <UserRound className="text-gray-600" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56">
-                        <DropdownMenuLabel>Tofazzal</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Option 1</DropdownMenuItem>
-                        <DropdownMenuItem>Option 2</DropdownMenuItem>
-                        <DropdownMenuItem>Option 3</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
+                  {session?.status === "authenticated" ? (
+                    <div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild className="rounded-full">
+                          <Button variant="outline">
+                            <UserRound className="text-gray-600" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuLabel>
+                            {session?.data?.user?.name}
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem>
+                            {session?.data?.user?.email}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <button
+                              onClick={() => signOut()}
+                              className="text-red-500"
+                            >
+                              Logout
+                            </button>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  ) : session.status === "loading" ? (
+                    <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-[#80b500]"></div>
+                  ) : (
+                    <div>
+                      <Link
+                        className="text-lg border-2 rounded-md py-[6px] text-gray-600 px-3"
+                        href="/api/login"
+                      >
+                        Login
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
 

@@ -3,9 +3,12 @@ import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +19,13 @@ const Login = () => {
       password,
       redirect: false,
     });
-    console.log(resp, "login page");
+    if (resp.status === 401) {
+      toast.error("Please enter a valid email and password");
+    }
+    if (resp.status === 200) {
+      router.push("/");
+      toast.success("Login Success");
+    }
   };
 
   return (
