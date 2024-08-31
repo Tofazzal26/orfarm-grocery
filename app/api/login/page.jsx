@@ -16,7 +16,7 @@ const Login = () => {
       password,
       redirect: false,
     });
-    console.log(resp);
+    console.log(resp, "login page");
   };
 
   return (

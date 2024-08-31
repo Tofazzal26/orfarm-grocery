@@ -20,6 +20,7 @@ const Register = () => {
         email,
         password,
       });
+
       if (resp.data.status) {
         event.target.reset();
       }
@@ -82,7 +83,7 @@ const Register = () => {
               )}
             </div>
             <button className="bg-[#80b500] text-white text-lg w-full py-[10px] mt-4">
-              Login
+              Register
             </button>
           </form>
           <div>
