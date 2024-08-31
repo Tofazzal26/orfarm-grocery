@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -82,6 +83,12 @@ const Login = () => {
                 Register
               </Link>
             </h2>
+          </div>
+          <div className="mt-4 flex justify-center items-center">
+            <button className="flex px-4 py-2 justify-center items-center gap-2 border-2">
+              <Image src="/google.png" alt="google" width={30} height={30} />
+              Continue to Google
+            </button>
           </div>
         </div>
       </div>
