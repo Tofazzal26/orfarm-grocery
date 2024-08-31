@@ -2,15 +2,21 @@
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
-    console.log({ email, password });
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(resp);
   };
 
   return (

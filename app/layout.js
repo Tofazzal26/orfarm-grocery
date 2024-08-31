@@ -2,6 +2,7 @@ import { Rajdhani } from "next/font/google";
 import "./globals.css";
 import Header from "./_Components/Header/Header";
 import Footer from "./_Components/Footer/Footer";
+import AuthProvider from "./Services/AuthProvider/AuthProvider";
 
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: "600" });
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={rajdhani.className}>
-        <Header />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
