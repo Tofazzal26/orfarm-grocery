@@ -32,7 +32,6 @@ import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const session = useSession();
-  console.log(session);
 
   const handleLocation = (local) => {
     console.log(local);
