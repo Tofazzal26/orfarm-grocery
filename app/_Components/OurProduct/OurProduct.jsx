@@ -3,9 +3,26 @@
 import { Apple, CakeSlice, Cherry, Fish, Salad } from "lucide-react";
 import { useState } from "react";
 import ProductCard from "./ProductCard";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const OurProduct = () => {
   const [toggle, setToggle] = useState(0);
+
+  const { data: allProduct = [] } = useQuery({
+    queryKey: ["allProduct"],
+    queryFn: async () => {
+      const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
+      return resp?.data?.data;
+    },
+  });
+
+  const Food_Drinks = allProduct.filter(
+    (item) => item.category === "Food_Drinks"
+  );
+  console.log(Food_Drinks);
+
+  // console.log(allProduct);
 
   return (
     <div>
