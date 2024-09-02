@@ -2,6 +2,7 @@
 
 import { Apple, CakeSlice, Cherry, Fish, Salad } from "lucide-react";
 import { useState } from "react";
+import ProductCard from "./ProductCard";
 
 const OurProduct = () => {
   const [toggle, setToggle] = useState(0);
@@ -62,6 +63,9 @@ const OurProduct = () => {
             FISH & MEAT
           </button>
           <Fish className="text-gray-400 pb-3" size={32} />
+        </div>
+        <div>
+          <ProductCard />
         </div>
       </div>
     </div>
