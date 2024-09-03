@@ -1,29 +1,51 @@
-import React from "react";
+"use client";
+import { Rating } from "@smastrom/react-rating";
 
+import "@smastrom/react-rating/style.css";
+import { Eye, Heart, ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import Card from "./Card/card.module.css";
 const ProductCard = () => {
+  const [rating, setRating] = useState(3);
+
   return (
     <div>
-      <div className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
+      <div className={`max-w-xs border-[1px] ${Card.card}`}>
         <img
-          src="https://source.unsplash.com/random/300x300/?2"
+          src="https://i.ibb.co/nmjtJhp/4.png"
           alt=""
-          className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500"
+          className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${Card.cardImage}`}
         />
-        <div className="flex flex-col justify-between p-6 space-y-8">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-semibold tracking-wide">
-              Donec lectus leo
-            </h2>
-            <p className="dark:text-gray-800">
-              Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.
-            </p>
+        <div className={Card.overlay}>
+          <div className="flex justify-center items-center gap-2">
+            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+              <Eye size={16} />
+            </button>
+            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+              <ShoppingCart size={16} />
+            </button>
+            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+              <Heart size={16} />
+            </button>
           </div>
-          <button
-            type="button"
-            className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-600 dark:text-gray-50"
-          >
-            Read more
-          </button>
+        </div>
+        <div className="flex flex-col justify-between p-6 items-center text-center">
+          <div className="space-y-2 flex flex-col justify-center items-center">
+            <Rating
+              style={{ maxWidth: 100 }}
+              value={rating}
+              onChange={setRating}
+              readOnly
+              className=""
+            />
+            <h2 className="text-lg">Carrots Group Scol</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-[23px] text-[#80b500]">$32.00</h2>
+              <h2 className="text-[23px] text-[#b3d366]">
+                <del>$42.00</del>
+              </h2>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -81,7 +81,7 @@ const OurProduct = () => {
           </button>
           <Fish className="text-gray-400 pb-3" size={32} />
         </div>
-        <div>
+        <div className="mb-10">
           <ProductCard />
         </div>
       </div>
