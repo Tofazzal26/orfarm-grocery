@@ -5,14 +5,26 @@ import "@smastrom/react-rating/style.css";
 import { Eye, Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Card from "./Card/card.module.css";
-const ProductCard = () => {
-  const [rating, setRating] = useState(3);
+const ProductCard = ({ item }) => {
+  const {
+    category,
+    disPrice,
+    discount,
+    image,
+    location,
+    price,
+    productStatus,
+    rating: prdRating,
+    stock,
+    title,
+  } = item || {};
 
+  console.log(prdRating);
   return (
     <div>
       <div className={`max-w-xs border-[1px] ${Card.card} relative`}>
         <img
-          src="https://i.ibb.co/nmjtJhp/4.png"
+          src={image}
           alt=""
           className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${Card.cardImage}`}
         />
@@ -38,16 +50,14 @@ const ProductCard = () => {
           <div className="space-y-2 flex flex-col justify-center items-center">
             <Rating
               style={{ maxWidth: 100 }}
-              value={rating}
-              onChange={setRating}
+              value={parseFloat(prdRating)}
               readOnly
-              className=""
             />
-            <h2 className="text-lg">Carrots Group Scol</h2>
+            <h2 className="text-lg">{title}</h2>
             <div className="flex items-center gap-2">
-              <h2 className="text-[23px] text-[#80b500]">$32.00</h2>
+              <h2 className="text-[23px] text-[#80b500]">${price}.00</h2>
               <h2 className="text-[23px] text-[#b3d366]">
-                <del>$42.00</del>
+                <del>${disPrice}.00</del>
               </h2>
             </div>
           </div>

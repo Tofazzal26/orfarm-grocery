@@ -20,7 +20,11 @@ import { FreeMode, Pagination, Grid } from "swiper/modules";
 const OurProduct = () => {
   const [toggle, setToggle] = useState(0);
 
-  const { data: allProduct = [] } = useQuery({
+  const {
+    refetch,
+    isLoading,
+    data: allProduct = [],
+  } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
       const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
@@ -31,7 +35,6 @@ const OurProduct = () => {
   const Food_Drinks = allProduct.filter(
     (item) => item.category === "Food_Drinks"
   );
-  console.log(Food_Drinks);
 
   // console.log(allProduct);
 
@@ -108,6 +111,11 @@ const OurProduct = () => {
           />
         </div>
         <div className="mb-10">
+          {isLoading && (
+            <div className="flex justify-center items-center">
+              <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-[#80b500]"></div>
+            </div>
+          )}
           <Swiper
             slidesPerView={4}
             spaceBetween={30}
@@ -140,11 +148,17 @@ const OurProduct = () => {
             modules={[FreeMode, Pagination, Grid]}
             className="mySwiper"
           >
-            {Food_Drinks.map((item) => (
-              <SwiperSlide key={item.id}>
-                <ProductCard item={item} />
-              </SwiperSlide>
-            ))}
+            {toggle === 0 ? (
+              <>
+                {Food_Drinks.map((item) => (
+                  <SwiperSlide key={item._id}>
+                    <ProductCard item={item} />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : (
+              ""
+            )}
           </Swiper>
         </div>
       </div>
