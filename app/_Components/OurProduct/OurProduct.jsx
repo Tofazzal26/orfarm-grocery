@@ -1,10 +1,21 @@
 "use client";
 
 import { Apple, CakeSlice, Cherry, Fish, Salad } from "lucide-react";
-import { useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+import React, { useRef, useState } from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import "swiper/css/grid";
+
+import { FreeMode, Pagination, Grid } from "swiper/modules";
 
 const OurProduct = () => {
   const [toggle, setToggle] = useState(0);
@@ -82,7 +93,44 @@ const OurProduct = () => {
           <Fish className="text-gray-400 pb-3" size={32} />
         </div>
         <div className="mb-10">
-          <ProductCard />
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={30}
+            freeMode={true}
+            pagination={{
+              clickable: true,
+            }}
+            grid={{
+              rows: 2,
+              fill: "row",
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+            }}
+            modules={[FreeMode, Pagination, Grid]}
+            className="mySwiper"
+          >
+            {Food_Drinks.map((item) => (
+              <SwiperSlide key={item.id}>
+                <ProductCard item={item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

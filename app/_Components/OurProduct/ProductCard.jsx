@@ -10,12 +10,17 @@ const ProductCard = () => {
 
   return (
     <div>
-      <div className={`max-w-xs border-[1px] ${Card.card}`}>
+      <div className={`max-w-xs border-[1px] ${Card.card} relative`}>
         <img
           src="https://i.ibb.co/nmjtJhp/4.png"
           alt=""
           className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${Card.cardImage}`}
         />
+        <div className="absolute top-5 right-5">
+          <span className="bg-[#80b500] text-white px-4 text-sm py-1 rounded-tl-[15px] rounded-tr-none rounded-bl-none rounded-br-[15px]">
+            NEW
+          </span>
+        </div>
         <div className={Card.overlay}>
           <div className="flex justify-center items-center gap-2">
             <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
