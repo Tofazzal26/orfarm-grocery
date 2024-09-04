@@ -19,7 +19,6 @@ const ProductCard = ({ item }) => {
     title,
   } = item || {};
 
-  console.log(prdRating);
   return (
     <div>
       <div className={`max-w-xs border-[1px] ${Card.card} relative`}>
@@ -35,13 +34,13 @@ const ProductCard = ({ item }) => {
         </div>
         <div className={Card.overlay}>
           <div className="flex justify-center items-center gap-2">
-            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+            <button className="w-[40px] bg-white hover:bg-[#80b500] h-[40px] transition-all hover:text-white rounded-full flex justify-center items-center">
               <Eye size={16} />
             </button>
-            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+            <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
               <ShoppingCart size={16} />
             </button>
-            <button className="w-[40px] bg-white h-[40px] rounded-full flex justify-center items-center">
+            <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
               <Heart size={16} />
             </button>
           </div>

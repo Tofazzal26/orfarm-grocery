@@ -35,8 +35,16 @@ const OurProduct = () => {
   const Food_Drinks = allProduct.filter(
     (item) => item.category === "Food_Drinks"
   );
-
-  // console.log(allProduct);
+  const Vegetables = allProduct.filter(
+    (item) => item.category === "Vegetables"
+  );
+  const Dried_Foods = allProduct.filter(
+    (item) => item.category === "Dried_Foods"
+  );
+  const Bread_Cake = allProduct.filter(
+    (item) => item.category === "Bread_Cake"
+  );
+  const Fish_Meat = allProduct.filter((item) => item.category === "Fish_Meat");
 
   return (
     <div>
@@ -151,6 +159,38 @@ const OurProduct = () => {
             {toggle === 0 ? (
               <>
                 {Food_Drinks.map((item) => (
+                  <SwiperSlide key={item._id}>
+                    <ProductCard item={item} />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : toggle === 1 ? (
+              <>
+                {Vegetables.map((item) => (
+                  <SwiperSlide key={item._id}>
+                    <ProductCard item={item} />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : toggle === 2 ? (
+              <>
+                {Dried_Foods.map((item) => (
+                  <SwiperSlide key={item._id}>
+                    <ProductCard item={item} />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : toggle === 3 ? (
+              <>
+                {Bread_Cake.map((item) => (
+                  <SwiperSlide key={item._id}>
+                    <ProductCard item={item} />
+                  </SwiperSlide>
+                ))}
+              </>
+            ) : toggle ? (
+              <>
+                {Fish_Meat.map((item) => (
                   <SwiperSlide key={item._id}>
                     <ProductCard item={item} />
                   </SwiperSlide>
