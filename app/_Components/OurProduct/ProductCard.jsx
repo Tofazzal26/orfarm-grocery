@@ -28,8 +28,12 @@ const ProductCard = ({ item }) => {
           className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${Card.cardImage}`}
         />
         <div className="absolute top-5 right-5">
-          <span className="bg-[#80b500] text-white px-4 text-sm py-1 rounded-tl-[15px] rounded-tr-none rounded-bl-none rounded-br-[15px]">
-            NEW
+          <span className="bg-[#80b500] text-white px-4 text-base py-1 rounded-tl-[15px] rounded-tr-none rounded-bl-none rounded-br-[15px]">
+            {productStatus === "NEW" ? (
+              <>{productStatus}</>
+            ) : (
+              <>{`-${discount}%`}</>
+            )}
           </span>
         </div>
         <div className={Card.overlay}>

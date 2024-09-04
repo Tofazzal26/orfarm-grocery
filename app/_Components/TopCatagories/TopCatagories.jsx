@@ -48,11 +48,11 @@ const TopCatagories = () => {
   ];
 
   return (
-    <div className="bg-[#f7f5eb] my-[100px]">
-      <div className="py-[80px]">
+    <div className="bg-[#f7f5eb] my-[40px] md:my-[100px]">
+      <div className="py-[40px] md:py-[80px]">
         <div className="text-center">
-          <h1 className="text-[50px]">Top Catagories</h1>
-          <p className="text-[18px] text-gray-600">
+          <h1 className="text-[25px] md:text-[50px]">Top Catagories</h1>
+          <p className="text-[16px] md:text-[18px] text-gray-600">
             A highly efficient slip-ring scanner for today's diagnostic
             requirements.
           </p>
