@@ -4,6 +4,7 @@ import Banner from "./_Components/Banner/Banner";
 import OurProduct from "./_Components/OurProduct/OurProduct";
 import TopCatagories from "./_Components/TopCatagories/TopCatagories";
 import SpecialOffers from "./_Components/SpecialOffers/SpecialOffers";
+import MakeCall from "./_Components/MakeCall/MakeCall";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       </div>
       <TopCatagories />
       <SpecialOffers />
+      <MakeCall />
     </div>
   );
 }
