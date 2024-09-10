@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,6 +13,7 @@ import "swiper/css/grid";
 
 import { FreeMode, Pagination, Grid } from "swiper/modules";
 import ProductCard from "../OurProduct/ProductCard";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 
 const SpecialOffers = () => {
   const {
@@ -28,10 +29,8 @@ const SpecialOffers = () => {
   });
 
   const Special_Offers = allProduct.filter(
-    (item) => parseInt(item.discount) > 40 || item.Special_Offers === "OLD"
+    (item) => parseInt(item?.discount) > 40 && item?.productStatus === "OLD"
   );
-
-  console.log(Special_Offers);
 
   return (
     <div className="mb-[100px]">

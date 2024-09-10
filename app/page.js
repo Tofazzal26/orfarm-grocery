@@ -5,6 +5,8 @@ import OurProduct from "./_Components/OurProduct/OurProduct";
 import TopCatagories from "./_Components/TopCatagories/TopCatagories";
 import SpecialOffers from "./_Components/SpecialOffers/SpecialOffers";
 import MakeCall from "./_Components/MakeCall/MakeCall";
+import MiniBanner from "./_Components/MiniBanner/MiniBanner";
+import BestProductCategory from "./_Components/BestProductCategory/BestProductCategory";
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
       <TopCatagories />
       <SpecialOffers />
       <MakeCall />
+      <MiniBanner />
+      <BestProductCategory />
     </div>
   );
 }

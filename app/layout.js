@@ -5,6 +5,7 @@ import Footer from "./_Components/Footer/Footer";
 import AuthProvider from "./Services/AuthProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Provider from "./Provider";
+import ProductProvider from "./Services/ProductProvider/ProductProvider";
 
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: "600" });
 
@@ -18,12 +19,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={rajdhani.className}>
         <Provider>
-          <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </AuthProvider>
+          <ProductProvider>
+            <AuthProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </AuthProvider>
+          </ProductProvider>
         </Provider>
       </body>
     </html>

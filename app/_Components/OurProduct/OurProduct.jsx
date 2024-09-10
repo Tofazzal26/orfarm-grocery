@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,21 +16,11 @@ import "swiper/css/pagination";
 import "swiper/css/grid";
 
 import { FreeMode, Pagination, Grid } from "swiper/modules";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 
 const OurProduct = () => {
+  const { allProduct, isLoading, refetch, product } = useContext(AuthProduct);
   const [toggle, setToggle] = useState(0);
-
-  const {
-    refetch,
-    isLoading,
-    data: allProduct = [],
-  } = useQuery({
-    queryKey: ["allProduct"],
-    queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
-      return resp?.data?.data;
-    },
-  });
 
   const Food_Drinks = allProduct.filter(
     (item) => item.category === "Food_Drinks"
