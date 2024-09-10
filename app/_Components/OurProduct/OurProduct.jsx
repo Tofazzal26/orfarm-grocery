@@ -118,6 +118,10 @@ const OurProduct = () => {
             slidesPerView={4}
             spaceBetween={30}
             freeMode={true}
+            style={{
+              "--swiper-pagination-color": "#80b500",
+              "--swiper-pagination-bullet-inactive-color": "#80b500",
+            }}
             pagination={{
               clickable: true,
             }}

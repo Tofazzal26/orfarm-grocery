@@ -34,7 +34,9 @@ const SpecialOffers = () => {
 
   return (
     <div className="mb-[100px]">
-      <h1 className="text-center text-[50px] mb-[40px]">Special Offers</h1>
+      <h1 className="text-center text-[25px] md:text-[50px] mb-[40px]">
+        Special Offers
+      </h1>
       <div className="container mx-auto">
         <Swiper
           slidesPerView={4}
@@ -42,6 +44,10 @@ const SpecialOffers = () => {
           freeMode={true}
           pagination={{
             clickable: true,
+          }}
+          style={{
+            "--swiper-pagination-color": "#80b500",
+            "--swiper-pagination-bullet-inactive-color": "#80b500",
           }}
           breakpoints={{
             320: {

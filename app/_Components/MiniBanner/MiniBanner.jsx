@@ -5,7 +5,7 @@ const MiniBanner = () => {
     <div className="my-[20px] md:my-[120px]">
       <div className="flex md:flex-row flex-col justify-center items-center gap-4 md:gap-8">
         <div
-          className={`w-[400px] h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
+          className={`md:w-[400px] md:h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
         >
           <Image
             src="/mini2.jpg"
@@ -17,7 +17,7 @@ const MiniBanner = () => {
         </div>
 
         <div
-          className={`w-[400px] h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
+          className={`md:w-[400px] md:h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
         >
           <Image
             src="/mini1.jpg"
@@ -29,7 +29,7 @@ const MiniBanner = () => {
         </div>
 
         <div
-          className={`w-[400px] h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
+          className={`md:w-[400px] md:h-[238px] overflow-hidden cursor-pointer ${ImageStyle.imageParent}`}
         >
           <Image
             src="/mini2.jpg"

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Rating } from "@smastrom/react-rating";
+import Shadow from "./ProductCategory/ProductCategory.module.css";
 const BestProductCard = ({ item }) => {
   const {
     category,
@@ -17,14 +18,18 @@ const BestProductCard = ({ item }) => {
 
   return (
     <div>
-      <div className="border-2 md:w-[370px]">
-        <div className="flex flex-col md:flex-row items-center py-8 px-6 gap-4">
+      <div
+        className={`border-2 cursor-pointer ${Shadow.cardShadow} ${Shadow.cardTransition}`}
+      >
+        <div
+          className={`flex flex-col md:flex-row items-center py-8 px-6 gap-4 `}
+        >
           <div>
-            <img src={image} alt="" className="w-[100px]" />
+            <img src={image} alt="" className={`w-[100px]`} />
           </div>
           <div className="space-y-3">
             <Rating style={{ maxWidth: 100 }} value={4} readOnly />
-            <h2 className="text-lg">{title}</h2>
+            <h2 className="text-lg hover:text-[#80b500]">{title}</h2>
             <h2 className="text-lg">
               ${disPrice}.00{" "}
               <span className="text-[#80b500] text-base">

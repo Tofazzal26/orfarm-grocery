@@ -63,6 +63,10 @@ const TopCatagories = () => {
               slidesPerView={4}
               freeMode={true}
               navigation={true}
+              style={{
+                "--swiper-navigation-color": "#80b500",
+                "--swiper-pagination-color": "#80b500",
+              }}
               modules={[FreeMode, Pagination, Navigation]}
               className="mySwiper"
               breakpoints={{
