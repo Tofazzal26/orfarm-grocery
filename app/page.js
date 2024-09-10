@@ -7,6 +7,7 @@ import SpecialOffers from "./_Components/SpecialOffers/SpecialOffers";
 import MakeCall from "./_Components/MakeCall/MakeCall";
 import MiniBanner from "./_Components/MiniBanner/MiniBanner";
 import BestProductCategory from "./_Components/BestProductCategory/BestProductCategory";
+import ProductBrand from "./_Components/ProductBrand/ProductBrand";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <MakeCall />
       <MiniBanner />
       <BestProductCategory />
+      <ProductBrand />
     </div>
   );
 }
