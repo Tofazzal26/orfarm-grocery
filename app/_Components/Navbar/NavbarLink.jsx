@@ -10,14 +10,24 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 
-const NavbarLink = ({ Home, name, link }) => {
+const NavbarLink = ({ Home, name, link, path }) => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href={link}>
-              <span className="text-gray-700">{name}</span>
+              <span
+                className={`text-gray-700 ${
+                  path === "/"
+                    ? "text-green-700"
+                    : path === "/shop"
+                    ? "text-green-700"
+                    : ""
+                }`}
+              >
+                {name}
+              </span>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -27,9 +37,9 @@ const NavbarLink = ({ Home, name, link }) => {
                   <NavigationMenuLink asChild>
                     <a
                       href={component.path}
-                      className="block rounded-md p-3 hover:bg-gray-100"
+                      className={`block rounded-md p-3 hover:bg-gray-100`}
                     >
-                      <div className="font-medium">{component.title}</div>
+                      <div className={`font-medium `}>{component.title}</div>
                       <p className="text-sm text-muted-foreground">
                         {component.description}
                       </p>

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import NavbarLink from "./NavbarLink";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 const Home = [
   {
     title: "Home",
@@ -43,6 +44,7 @@ const Shop = [
 ];
 
 const Navbar = () => {
+  const path = usePathname();
   const handleCategory = (cate) => {
     console.log(cate);
   };
@@ -68,7 +70,7 @@ const Navbar = () => {
         </Select>
       </div>
       <div className="flex items-center gap-2">
-        <NavbarLink name={"HOME"} Home={Home} link={"/"} />
+        <NavbarLink name={"HOME"} Home={Home} link={"/"} path={path} />
         <NavbarLink name={"SHOP"} Home={Shop} link={"/shop"} />
         <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
           <span>
@@ -91,7 +93,10 @@ const Navbar = () => {
         <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
           Blog
         </button>
-        <Link href="/api/contact">
+        <Link
+          href="/api/contact"
+          className={path === "/api/contact" ? "bg-[#dcfce7]" : ""}
+        >
           <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
             Contact
           </button>
