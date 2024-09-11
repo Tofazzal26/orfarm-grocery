@@ -25,7 +25,6 @@ const BestProductCategory = () => {
   const bestSellingProduct = allProduct.filter(
     (item) => parseInt(item.price) > 100 && item.productStatus === "OLD"
   );
-  console.log(bestSellingProduct);
 
   return (
     <div className="container mx-auto">

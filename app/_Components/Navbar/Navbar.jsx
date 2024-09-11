@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Beef, CupSoda, Menu, Pizza, Soup, Cookie, Coffee } from "lucide-react";
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import NavbarLink from "./NavbarLink";
-
+import Link from "next/link";
 const Home = [
   {
     title: "Home",
@@ -91,9 +91,11 @@ const Navbar = () => {
         <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
           Blog
         </button>
-        <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
-          Contact
-        </button>
+        <Link href="/api/contact">
+          <button className="text-[18px] hover:bg-green-100 px-[15px] text-gray-700 py-[7px] uppercase rounded-md">
+            Contact
+          </button>
+        </Link>
       </div>
     </div>
   );
