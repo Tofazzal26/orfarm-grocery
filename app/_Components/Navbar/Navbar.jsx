@@ -78,12 +78,18 @@ const Navbar = () => {
           </span>
           Food & Drinks
         </button>
-        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
-          <span>
-            <Cookie size={20} className="text-gray-500" />
-          </span>{" "}
-          Bakery
-        </button>
+
+        <Link
+          href="/api/bakery"
+          className={path === "/api/bakery" ? "bg-[#dcfce7]" : ""}
+        >
+          <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+            <span>
+              <Cookie size={20} className="text-gray-500" />
+            </span>{" "}
+            Bakery
+          </button>
+        </Link>
 
         <Link
           href="/api/beverages"
