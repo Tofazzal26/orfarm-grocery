@@ -17,7 +17,7 @@ const BlogCard = ({ item }) => {
         </span>
       </div>
 
-      <h2 className="text-[40px]">{title}</h2>
+      <h2 className="text-[25px] md:text-[40px]">{title}</h2>
       <p>{paragraph}</p>
       <button className="bg-blue-700 text-white px-6 py-2 rounded-md my-8">
         {readMore}

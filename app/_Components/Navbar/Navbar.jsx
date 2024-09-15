@@ -84,12 +84,18 @@ const Navbar = () => {
           </span>{" "}
           Bakery
         </button>
-        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
-          <span>
-            <Coffee size={20} className="text-gray-500" />
-          </span>{" "}
-          Beverages
-        </button>
+
+        <Link
+          href="/api/beverages"
+          className={path === "/api/beverages" ? "bg-[#dcfce7]" : ""}
+        >
+          <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+            <span>
+              <Coffee size={20} className="text-gray-500" />
+            </span>{" "}
+            Beverages
+          </button>
+        </Link>
 
         <Link
           href="/api/blog"
