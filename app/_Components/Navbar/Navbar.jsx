@@ -72,12 +72,18 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         <NavbarLink name={"HOME"} Home={Home} link={"/"} path={path} />
         <NavbarLink name={"SHOP"} Home={Shop} link={"/shop"} />
-        <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
-          <span>
-            <Soup size={20} className="text-gray-500" />
-          </span>
-          Food & Drinks
-        </button>
+
+        <Link
+          href="/api/foodDrinks"
+          className={path === "/api/foodDrinks" ? "bg-[#dcfce7]" : ""}
+        >
+          <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
+            <span>
+              <Soup size={20} className="text-gray-500" />
+            </span>
+            Food & Drinks
+          </button>
+        </Link>
 
         <Link
           href="/api/bakery"
