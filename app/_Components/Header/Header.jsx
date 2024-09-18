@@ -60,9 +60,9 @@ const Header = () => {
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>HOME</DropdownMenuItem>
                         <DropdownMenuItem>SHOP</DropdownMenuItem>
-                        <DropdownMenuItem>Food & DRINKS</DropdownMenuItem>
                         <DropdownMenuItem>BAKERY</DropdownMenuItem>
                         <DropdownMenuItem>BEVERAGES</DropdownMenuItem>
+                        <DropdownMenuItem>News</DropdownMenuItem>
                         <DropdownMenuItem>BLOG</DropdownMenuItem>
                         <DropdownMenuItem>CONTACT</DropdownMenuItem>
                       </DropdownMenuContent>

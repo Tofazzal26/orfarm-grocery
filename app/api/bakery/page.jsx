@@ -1,5 +1,4 @@
 import React from "react";
-import BakeryCard from "./bakeryCard";
 import BakeryCards from "./BakeryCards";
 
 const Bakery = () => {

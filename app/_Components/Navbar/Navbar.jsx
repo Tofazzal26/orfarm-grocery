@@ -74,18 +74,6 @@ const Navbar = () => {
         <NavbarLink name={"SHOP"} Home={Shop} link={"/shop"} />
 
         <Link
-          href="/api/foodDrinks"
-          className={path === "/api/foodDrinks" ? "bg-[#dcfce7]" : ""}
-        >
-          <button className="text-[18px] hover:bg-green-100 flex text-gray-700 items-center gap-2 px-[15px] py-[7px] uppercase rounded-md">
-            <span>
-              <Soup size={20} className="text-gray-500" />
-            </span>
-            Food & Drinks
-          </button>
-        </Link>
-
-        <Link
           href="/api/bakery"
           className={path === "/api/bakery" ? "bg-[#dcfce7]" : ""}
         >
@@ -106,6 +94,15 @@ const Navbar = () => {
               <Coffee size={20} className="text-gray-500" />
             </span>{" "}
             Beverages
+          </button>
+        </Link>
+
+        <Link
+          href="/api/foodDrinks"
+          className={path === "/api/foodDrinks" ? "bg-[#dcfce7]" : ""}
+        >
+          <button className="text-[18px] hover:bg-green-100 text-gray-700  px-[15px] py-[7px] uppercase rounded-md">
+            News
           </button>
         </Link>
 
