@@ -1,5 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { createContext, useState } from "react";
 export const AuthProduct = createContext();
 
@@ -18,9 +19,26 @@ const ProductProvider = ({ children }) => {
     },
   });
 
-  const singleProductShow = (id) => {};
+  const singleProductShow = async (id) => {
+    try {
+      const resp = await axios.get(
+        `http://localhost:3000/api/SingleProduct/${id}`
+      );
+      setSingleProduct(resp?.data?.data);
+    } catch (error) {
+      console.log("Server Error");
+    }
+  };
 
-  const productInfo = { allProduct, refetch, isLoading, singleProductShow };
+  console.log(singleProduct);
+
+  const productInfo = {
+    allProduct,
+    refetch,
+    isLoading,
+    singleProductShow,
+    singleProduct,
+  };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
   );
