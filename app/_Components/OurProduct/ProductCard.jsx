@@ -5,6 +5,7 @@ import "@smastrom/react-rating/style.css";
 import { Eye, Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Card from "./Card/card.module.css";
+import ProductButton from "./ProductButton/ProductButton";
 const ProductCard = ({ item }) => {
   const {
     category,
@@ -38,9 +39,10 @@ const ProductCard = ({ item }) => {
         </div>
         <div className={Card.overlay}>
           <div className="flex justify-center items-center gap-2">
-            <button className="w-[40px] bg-white hover:bg-[#80b500] h-[40px] transition-all hover:text-white rounded-full flex justify-center items-center">
+            {/* <button className="w-[40px] bg-white hover:bg-[#80b500] h-[40px] transition-all hover:text-white rounded-full flex justify-center items-center">
               <Eye size={16} />
-            </button>
+            </button> */}
+            <ProductButton />
             <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
               <ShoppingCart size={16} />
             </button>
