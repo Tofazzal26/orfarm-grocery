@@ -4,6 +4,8 @@ import { createContext, useState } from "react";
 export const AuthProduct = createContext();
 
 const ProductProvider = ({ children }) => {
+  const [singleProduct, setSingleProduct] = useState([]);
+
   const {
     refetch,
     isLoading,
@@ -16,7 +18,9 @@ const ProductProvider = ({ children }) => {
     },
   });
 
-  const productInfo = { allProduct, refetch, isLoading };
+  const singleProductShow = (id) => {};
+
+  const productInfo = { allProduct, refetch, isLoading, singleProductShow };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
   );

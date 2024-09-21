@@ -3,10 +3,12 @@ import { Rating } from "@smastrom/react-rating";
 
 import "@smastrom/react-rating/style.css";
 import { Eye, Heart, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const ProductCard = ({ item }) => {
+  const { singleProductShow } = useContext(AuthProduct);
   const {
     category,
     disPrice,
@@ -42,7 +44,7 @@ const ProductCard = ({ item }) => {
             {/* <button className="w-[40px] bg-white hover:bg-[#80b500] h-[40px] transition-all hover:text-white rounded-full flex justify-center items-center">
               <Eye size={16} />
             </button> */}
-            <ProductButton />
+            <ProductButton item={item} singleProductShow={singleProductShow}/>
             <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
               <ShoppingCart size={16} />
             </button>
