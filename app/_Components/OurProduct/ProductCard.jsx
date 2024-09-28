@@ -8,7 +8,7 @@ import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const ProductCard = ({ item }) => {
-  const { singleProductShow, singleProduct, handleAddToCart } =
+  const { singleProductShow, singleProduct, handleAddToCart, handleWishList } =
     useContext(AuthProduct);
   const {
     category,
@@ -57,7 +57,10 @@ const ProductCard = ({ item }) => {
             >
               <ShoppingCart size={16} />
             </button>
-            <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
+            <button
+              onClick={() => handleWishList(item)}
+              className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center"
+            >
               <Heart size={16} />
             </button>
           </div>

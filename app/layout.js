@@ -6,7 +6,6 @@ import AuthProvider from "./Services/AuthProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Provider from "./Provider";
 import ProductProvider from "./Services/ProductProvider/ProductProvider";
-
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: "600" });
 
 export const metadata = {
@@ -27,6 +26,7 @@ export default function RootLayout({ children }) {
               <Toaster />
             </ProductProvider>
           </AuthProvider>
+          <Toaster />
         </Provider>
       </body>
     </html>
