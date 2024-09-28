@@ -8,7 +8,8 @@ import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const ProductCard = ({ item }) => {
-  const { singleProductShow, singleProduct } = useContext(AuthProduct);
+  const { singleProductShow, singleProduct, handleAddToCart } =
+    useContext(AuthProduct);
   const {
     category,
     disPrice,
@@ -20,6 +21,7 @@ const ProductCard = ({ item }) => {
     rating: prdRating,
     stock,
     title,
+    _id,
   } = item || {};
 
   return (
@@ -49,7 +51,10 @@ const ProductCard = ({ item }) => {
               singleProductShow={singleProductShow}
               singleProduct={singleProduct}
             />
-            <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center"
+            >
               <ShoppingCart size={16} />
             </button>
             <button className="w-[40px] bg-white h-[40px] hover:bg-[#80b500] transition-all hover:text-white rounded-full flex justify-center items-center">

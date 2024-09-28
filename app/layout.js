@@ -19,14 +19,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={rajdhani.className}>
         <Provider>
-          <ProductProvider>
-            <AuthProvider>
+          <AuthProvider>
+            <ProductProvider>
               <Header />
               {children}
               <Footer />
               <Toaster />
-            </AuthProvider>
-          </ProductProvider>
+            </ProductProvider>
+          </AuthProvider>
         </Provider>
       </body>
     </html>
