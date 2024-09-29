@@ -7,10 +7,10 @@ import {
 } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
-const Provider = ({ children }) => {
+const ProviderQuery = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
 
-export default Provider;
+export default ProviderQuery;

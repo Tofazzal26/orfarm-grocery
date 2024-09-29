@@ -1,14 +1,19 @@
 "use client";
+import { increment } from "@/app/ReduxProvider/CreateSlice/CreateSlice";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { createContext, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 export const AuthProduct = createContext();
 
 const ProductProvider = ({ children }) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const session = useSession();
+  const count = useSelector((state) => state.counter.value);
+  const disPatch = useDispatch();
+  console.log(count);
 
   const {
     refetch,
@@ -83,6 +88,10 @@ const ProductProvider = ({ children }) => {
     }
   };
 
+  const handleIncrement = () => {
+    disPatch(increment());
+  };
+
   const productInfo = {
     allProduct,
     refetch,
@@ -91,6 +100,7 @@ const ProductProvider = ({ children }) => {
     singleProduct,
     handleWishList,
     handleAddToCart,
+    handleIncrement,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>

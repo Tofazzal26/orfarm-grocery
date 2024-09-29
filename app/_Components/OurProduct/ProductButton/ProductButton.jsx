@@ -12,7 +12,12 @@ import { Rating } from "@smastrom/react-rating";
 
 import { ArrowRightLeft, Eye, Heart, ShoppingCart } from "lucide-react";
 
-const ProductButton = ({ item, singleProductShow, singleProduct }) => {
+const ProductButton = ({
+  item,
+  singleProductShow,
+  singleProduct,
+  handleIncrement,
+}) => {
   const {
     category,
     disPrice,
@@ -82,7 +87,10 @@ const ProductButton = ({ item, singleProductShow, singleProduct }) => {
                         value={1}
                         className="w-[55px] h-[59px] outline-none border-2 text-center text-lg text-black"
                       />
-                      <button className="w-[40px] h-[60px] outline-none border-b-2 border-t-2 border-r-2 text-center text-lg text-black">
+                      <button
+                        onClick={handleIncrement}
+                        className="w-[40px] h-[60px] outline-none border-b-2 border-t-2 border-r-2 text-center text-lg text-black"
+                      >
                         +
                       </button>
                     </div>

@@ -4,8 +4,9 @@ import Header from "./_Components/Header/Header";
 import Footer from "./_Components/Footer/Footer";
 import AuthProvider from "./Services/AuthProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
-import Provider from "./Provider";
+import ProviderQuery from "./ProviderQuery";
 import ProductProvider from "./Services/ProductProvider/ProductProvider";
+import ReduxProvider from "./ReduxProvider/ReduxProvider";
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: "600" });
 
 export const metadata = {
@@ -17,17 +18,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={rajdhani.className}>
-        <Provider>
-          <AuthProvider>
-            <ProductProvider>
-              <Header />
-              {children}
-              <Footer />
-              <Toaster />
-            </ProductProvider>
-          </AuthProvider>
-          <Toaster />
-        </Provider>
+        <ReduxProvider>
+          <ProviderQuery>
+            <AuthProvider>
+              <ProductProvider>
+                <Header />
+                {children}
+                <Footer />
+                <Toaster />
+              </ProductProvider>
+            </AuthProvider>
+            <Toaster />
+          </ProviderQuery>
+        </ReduxProvider>
       </body>
     </html>
   );

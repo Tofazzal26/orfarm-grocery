@@ -8,8 +8,13 @@ import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const ProductCard = ({ item }) => {
-  const { singleProductShow, singleProduct, handleAddToCart, handleWishList } =
-    useContext(AuthProduct);
+  const {
+    singleProductShow,
+    singleProduct,
+    handleAddToCart,
+    handleWishList,
+    handleIncrement,
+  } = useContext(AuthProduct);
   const {
     category,
     disPrice,
@@ -50,6 +55,7 @@ const ProductCard = ({ item }) => {
               item={item}
               singleProductShow={singleProductShow}
               singleProduct={singleProduct}
+              handleIncrement={handleIncrement}
             />
             <button
               onClick={() => handleAddToCart(item)}
