@@ -17,6 +17,9 @@ const ProductButton = ({
   singleProductShow,
   singleProduct,
   handleIncrement,
+  handleDecrement,
+  count,
+  handleDetailsAddToCart,
 }) => {
   const {
     category,
@@ -77,14 +80,17 @@ const ProductButton = ({
 
                   <div className="flex items-center gap-4 mt-8">
                     <div className="">
-                      <button className="w-[40px] h-[60px] outline-none border-b-2 border-t-2 border-l-2 text-center text-lg text-black">
+                      <button
+                        onClick={handleDecrement}
+                        className="w-[40px] h-[60px] outline-none border-b-2 border-t-2 border-l-2 text-center text-lg text-black"
+                      >
                         -
                       </button>
                       <input
                         type="text"
                         name=""
                         id=""
-                        value={1}
+                        value={count}
                         className="w-[55px] h-[59px] outline-none border-2 text-center text-lg text-black"
                       />
                       <button
@@ -95,7 +101,10 @@ const ProductButton = ({
                       </button>
                     </div>
                     <div>
-                      <button className="flex items-center gap-2 bg-[#80b500] text-white px-6 py-3 text-lg">
+                      <button
+                        onClick={() => handleDetailsAddToCart(singleProduct)}
+                        className="flex items-center gap-2 bg-[#80b500] text-white px-6 py-3 text-lg"
+                      >
                         {" "}
                         <ShoppingCart size={20} /> ADD TO CART
                       </button>

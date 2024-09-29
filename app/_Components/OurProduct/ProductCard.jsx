@@ -14,6 +14,9 @@ const ProductCard = ({ item }) => {
     handleAddToCart,
     handleWishList,
     handleIncrement,
+    handleDecrement,
+    count,
+    handleDetailsAddToCart,
   } = useContext(AuthProduct);
   const {
     category,
@@ -56,6 +59,9 @@ const ProductCard = ({ item }) => {
               singleProductShow={singleProductShow}
               singleProduct={singleProduct}
               handleIncrement={handleIncrement}
+              handleDecrement={handleDecrement}
+              count={count}
+              handleDetailsAddToCart={handleDetailsAddToCart}
             />
             <button
               onClick={() => handleAddToCart(item)}

@@ -9,8 +9,11 @@ const CartModel = new mongoose.Schema({
   image: { type: String, required: true },
   rating: { type: String, required: true },
   title: { type: String, required: true },
-  price: { type: String, required: true },
   disPrice: { type: String, required: true },
+  price: {
+    type: Number,
+    required: true,
+  },
   productStatus: { type: String, required: true },
   location: { type: String, required: true },
   category: { type: String, required: true },

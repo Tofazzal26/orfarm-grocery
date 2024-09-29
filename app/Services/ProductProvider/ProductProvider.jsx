@@ -1,5 +1,8 @@
 "use client";
-import { increment } from "@/app/ReduxProvider/CreateSlice/CreateSlice";
+import {
+  decrement,
+  increment,
+} from "@/app/ReduxProvider/CreateSlice/CreateSlice";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -13,7 +16,6 @@ const ProductProvider = ({ children }) => {
   const session = useSession();
   const count = useSelector((state) => state.counter.value);
   const disPatch = useDispatch();
-  console.log(count);
 
   const {
     refetch,
@@ -48,19 +50,16 @@ const ProductProvider = ({ children }) => {
     };
     delete updatedProduct._id;
     delete updatedProduct.__v;
+    // console.log(updatedProduct);
 
-    try {
-      const resp = await axios.post(
-        `http://localhost:3000/api/AddToCartProduct`,
-        updatedProduct
-      );
-      if (resp.data.success === true) {
-        toast.success("Product Add Success");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Product Already Added");
+    let carts = JSON.parse(localStorage.getItem("carts")) || [];
+    const existing = carts.find((item) => item.prdID === updatedProduct.prdID);
+    if (existing) {
+      return toast.error("Product Already Added");
     }
+    carts.push(updatedProduct);
+    localStorage.setItem("carts", JSON.stringify(carts));
+    toast.success("Product Add Success");
   };
 
   const handleWishList = async (prd) => {
@@ -73,23 +72,54 @@ const ProductProvider = ({ children }) => {
     };
     delete updatedProduct._id;
     delete updatedProduct.__v;
-    console.log(updatedProduct);
-    try {
-      const resp = await axios.post(
-        `http://localhost:3000/api/AddWishList`,
-        updatedProduct
-      );
-      if (resp.data.success === true) {
-        toast.success("Product Add Success");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Already Added Wishlist");
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const existing = wishlist.find(
+      (item) => item.prdID === updatedProduct.prdID
+    );
+    if (existing) {
+      return toast.error("Already Added Wishlist");
     }
+    wishlist.push(updatedProduct);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    toast.success("Wishlist Add Success");
+  };
+
+  const handleDetailsAddToCart = async (prd) => {
+    const userEmail = session?.data?.user?.email;
+    const updatedData = {
+      ...prd,
+      prdID: prd._id,
+      quantity: count,
+      email: userEmail,
+      price: parseInt(prd.price) * count,
+    };
+    delete updatedData._id;
+    delete updatedData.__v;
+    let carts = JSON.parse(localStorage.getItem("carts")) || [];
+    const existingIndex = carts.findIndex(
+      (item) => item.prdID === updatedData.prdID
+    );
+    if (existingIndex !== -1) {
+      carts[existingIndex] = {
+        ...carts[existingIndex],
+        quantity: count,
+        price: parseInt(prd.price) * count,
+      };
+      localStorage.setItem("carts", JSON.stringify(carts));
+      return toast.success("Product Updated Successfully");
+    }
+    carts.push(updatedData);
+    localStorage.setItem("carts", JSON.stringify(carts));
+    toast.success("Product Added Successfully");
   };
 
   const handleIncrement = () => {
     disPatch(increment());
+  };
+  const handleDecrement = () => {
+    if (count > 1) {
+      disPatch(decrement());
+    }
   };
 
   const productInfo = {
@@ -101,6 +131,9 @@ const ProductProvider = ({ children }) => {
     handleWishList,
     handleAddToCart,
     handleIncrement,
+    handleDecrement,
+    count,
+    handleDetailsAddToCart,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
