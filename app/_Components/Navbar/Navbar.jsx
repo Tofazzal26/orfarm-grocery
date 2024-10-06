@@ -31,13 +31,13 @@ const Home = [
 const Shop = [
   {
     title: "Shop",
-    path: "/shop",
+    path: "/api/shop",
     description:
       "Orfarm Grocery is an online food website designed to provide users with a convenient platform to shop for groceries and other food items",
   },
   {
     title: "Feature Shop",
-    path: "/shop",
+    path: "/api/shop",
     description:
       " The app offers a wide selection of products, making it easy for customers to find and purchase their desired items from the comfort of their homes.",
   },
@@ -71,7 +71,7 @@ const Navbar = () => {
       </div>
       <div className="flex items-center gap-2">
         <NavbarLink name={"HOME"} Home={Home} link={"/"} path={path} />
-        <NavbarLink name={"SHOP"} Home={Shop} link={"/shop"} />
+        <NavbarLink name={"SHOP"} Home={Shop} link={"/api/shop"} path={path} />
 
         <Link
           href="/api/bakery"

@@ -19,10 +19,12 @@ const NavbarLink = ({ Home, name, link, path }) => {
             <Link href={link}>
               <span
                 className={`text-gray-700 ${
-                  path === "/"
+                  path === "/" && link === "/"
                     ? "text-green-700"
-                    : path === "/shop"
+                    : path === "/api/shop" && link === "/api/shop"
                     ? "text-green-700"
+                    : path === "/api/shop" && link === "/"
+                    ? "text-gray-500"
                     : ""
                 }`}
               >

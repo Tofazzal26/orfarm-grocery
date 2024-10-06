@@ -58,8 +58,13 @@ const Header = () => {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="w-56">
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>HOME</DropdownMenuItem>
-                        <DropdownMenuItem>SHOP</DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Link href="/">HOME</Link>
+                        </DropdownMenuItem>
+                        
+                        <DropdownMenuItem>
+                        <Link href="/api/shop">SHOP</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>BAKERY</DropdownMenuItem>
                         <DropdownMenuItem>BEVERAGES</DropdownMenuItem>
                         <DropdownMenuItem>News</DropdownMenuItem>
