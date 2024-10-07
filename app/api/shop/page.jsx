@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
+import ProductCard from "@/app/_Components/OurProduct/ProductCard";
+import { useContext, useState } from "react";
 
 const Shop = () => {
+  const { allProduct } = useContext(AuthProduct);
+
   const [price, setPrice] = useState(40);
   const [status, setStatus] = useState({
     NEW: false,
@@ -22,7 +26,7 @@ const Shop = () => {
     }));
   };
 
-  console.log(status);
+  console.log(allProduct);
 
   return (
     <div className="container mx-auto">
@@ -112,7 +116,11 @@ const Shop = () => {
           </div>
         </div>
         <div className="">
-          <h1>Product</h1>
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-8">
+            {allProduct.map((item) => (
+              <ProductCard item={item} key={item._id} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
