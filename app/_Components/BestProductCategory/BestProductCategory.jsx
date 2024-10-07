@@ -13,16 +13,16 @@ import BestProductCard from "./BestProductCard";
 import PaginationColor from "./ProductCategory/ProductCategory.module.css";
 
 const BestProductCategory = () => {
-  const { allProduct } = useContext(AuthProduct);
+  const { allProduct, ManageAllProduct } = useContext(AuthProduct);
 
-  const featureProduct = allProduct.filter(
+  const featureProduct = ManageAllProduct.filter(
     (item) => parseFloat(item.rating) > 3 && item.productStatus === "NEW"
   );
 
-  const popularProduct = allProduct.filter(
+  const popularProduct = ManageAllProduct.filter(
     (item) => parseInt(item.price) > 100 && item.productStatus === "NEW"
   );
-  const bestSellingProduct = allProduct.filter(
+  const bestSellingProduct = ManageAllProduct.filter(
     (item) => parseInt(item.price) > 100 && item.productStatus === "OLD"
   );
 

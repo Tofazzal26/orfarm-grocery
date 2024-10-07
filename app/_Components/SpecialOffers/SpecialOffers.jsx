@@ -17,18 +17,20 @@ import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 
 const SpecialOffers = () => {
   const {
-    refetch,
-    isLoading,
-    data: allProduct = [],
+    refetch: manageRefetch,
+    isLoading: manageLoading,
+    data: ManageAllProduct = [],
   } = useQuery({
-    queryKey: ["allProduct"],
+    queryKey: ["manageAllProduct"],
     queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
+      const resp = await axios.get(
+        `http://localhost:3000/api/AllProductManage`
+      );
       return resp?.data?.data;
     },
   });
 
-  const Special_Offers = allProduct.filter(
+  const Special_Offers = ManageAllProduct.filter(
     (item) => parseInt(item?.discount) > 40 && item?.productStatus === "OLD"
   );
 

@@ -4,11 +4,23 @@ import ProductModel from "../ProductModel/ProductModel";
 
 export const GET = async (request) => {
   try {
+    const { searchParams } = new URL(request.url);
+
+    const size = searchParams.get("size");
+    const page = searchParams.get("page");
+    const sizeNumber = parseInt(size) || 10;
+    const pageNumber = parseInt(page) || 4;
+    console.log(sizeNumber);
+    console.log(pageNumber);
     await ConnectMongoose();
-    const product = await ProductModel.find();
+    const productCount = await ProductModel.countDocuments();
+    const product = await ProductModel.find()
+      .skip(sizeNumber * pageNumber)
+      .limit(sizeNumber);
     return NextResponse.json(
       {
         data: product,
+        totalCount: productCount,
         message: "Product Data",
         success: true,
       },

@@ -29,6 +29,20 @@ const ProductProvider = ({ children }) => {
     },
   });
 
+  const {
+    refetch: manageRefetch,
+    isLoading: manageLoading,
+    data: ManageAllProduct = [],
+  } = useQuery({
+    queryKey: ["manageAllProduct"],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/AllProductManage`
+      );
+      return resp?.data?.data;
+    },
+  });
+
   const singleProductShow = async (id) => {
     try {
       const resp = await axios.get(
@@ -134,6 +148,8 @@ const ProductProvider = ({ children }) => {
     handleDecrement,
     count,
     handleDetailsAddToCart,
+    ManageAllProduct,
+    manageLoading,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>

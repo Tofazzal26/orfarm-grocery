@@ -1,11 +1,13 @@
 "use client";
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import ProductCard from "@/app/_Components/OurProduct/ProductCard";
 import { useContext, useState } from "react";
 
 const Shop = () => {
-  const { allProduct } = useContext(AuthProduct);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemPerPage, setItemPerPage] = useState(6);
 
   const [price, setPrice] = useState(40);
   const [status, setStatus] = useState({
@@ -26,7 +28,43 @@ const Shop = () => {
     }));
   };
 
-  console.log(allProduct);
+  const {
+    refetch,
+    isLoading,
+    data: { data: allProduct = [], totalCount = 0 } = {},
+  } = useQuery({
+    queryKey: ["allProduct", currentPage, itemPerPage],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/AllProduct?page=${currentPage}&size=${itemPerPage}`
+      );
+      return resp?.data;
+    },
+  });
+
+  const totalProductCount = allProduct.length;
+  console.log(totalProductCount);
+  const numberOfPage = Math.ceil(totalCount / itemPerPage);
+  const pages = [];
+  for (let index = 0; index < numberOfPage; index++) {
+    pages.push(index);
+  }
+  console.log(numberOfPage);
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleCurrentPage = (crnPage) => {
+    setCurrentPage(crnPage);
+  };
 
   return (
     <div className="container mx-auto">
@@ -120,6 +158,32 @@ const Shop = () => {
             {allProduct.map((item) => (
               <ProductCard item={item} key={item._id} />
             ))}
+          </div>
+
+          <div className="space-x-2 mt-8">
+            <button
+              onClick={handlePrevPage}
+              className="bg-[#80b500] px-4 py-2 text-white rounded-md"
+            >
+              Prev
+            </button>
+            {pages.map((item) => (
+              <button
+                key={item}
+                onClick={() => handleCurrentPage(item)}
+                className={`border-[1px] text-base border-[#adcf5a] px-4 py-2 text-[#80b500] rounded-md ${
+                  currentPage === item ? "bg-[#80b500] text-white" : ""
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+            <button
+              onClick={handleNextPage}
+              className="bg-[#80b500] px-4 py-2 text-white rounded-md"
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

@@ -19,22 +19,26 @@ import { FreeMode, Pagination, Grid } from "swiper/modules";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 
 const OurProduct = () => {
-  const { allProduct, isLoading, refetch, product } = useContext(AuthProduct);
+  const { ManageAllProduct, isLoading, manageLoading, refetch, product } =
+    useContext(AuthProduct);
+
   const [toggle, setToggle] = useState(0);
 
-  const Food_Drinks = allProduct.filter(
+  const Food_Drinks = ManageAllProduct.filter(
     (item) => item.category === "Food_Drinks"
   );
-  const Vegetables = allProduct.filter(
+  const Vegetables = ManageAllProduct.filter(
     (item) => item.category === "Vegetables"
   );
-  const Dried_Foods = allProduct.filter(
+  const Dried_Foods = ManageAllProduct.filter(
     (item) => item.category === "Dried_Foods"
   );
-  const Bread_Cake = allProduct.filter(
+  const Bread_Cake = ManageAllProduct.filter(
     (item) => item.category === "Bread_Cake"
   );
-  const Fish_Meat = allProduct.filter((item) => item.category === "Fish_Meat");
+  const Fish_Meat = ManageAllProduct.filter(
+    (item) => item.category === "Fish_Meat"
+  );
 
   return (
     <div>
@@ -109,7 +113,7 @@ const OurProduct = () => {
           />
         </div>
         <div className="mb-10">
-          {isLoading && (
+          {manageLoading && (
             <div className="flex justify-center items-center">
               <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-[#80b500]"></div>
             </div>
