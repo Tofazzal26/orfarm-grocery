@@ -9,10 +9,9 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(6);
 
-  const [price, setPrice] = useState(40);
+  const [price, setPrice] = useState(60);
   const [status, setStatus] = useState({
     NEW: false,
-    OLD: false,
     IN_STOCK: false,
   });
 
@@ -28,17 +27,28 @@ const Shop = () => {
     }));
   };
 
+  const NewStatus = status.NEW === true && "NEW";
+  const StockStatus = status.IN_STOCK === true && "In Stock";
+  console.log(NewStatus, StockStatus);
+
   const {
     refetch,
     isLoading,
     data: { data: allProduct = [], totalCount = 0 } = {},
   } = useQuery({
-    queryKey: ["allProduct", currentPage, itemPerPage, price],
+    queryKey: [
+      "allProduct",
+      currentPage,
+      itemPerPage,
+      price,
+      NewStatus,
+      StockStatus,
+    ],
     queryFn: async () => {
       const resp = await axios.get(
         `http://localhost:3000/api/AllProduct?page=${
           currentPage - 1
-        }&size=${itemPerPage}&price=${price}`
+        }&size=${itemPerPage}&price=${price}&New=${NewStatus}&Stock=${StockStatus}`
       );
       return resp?.data;
     },
@@ -115,17 +125,6 @@ const Shop = () => {
                     onChange={handleStatusChange}
                   />
                   <span>NEW</span>
-                </label>
-
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    name="OLD"
-                    className="checkbox checkbox-error"
-                    checked={status.OLD}
-                    onChange={handleStatusChange}
-                  />
-                  <span>OLD</span>
                 </label>
 
                 <label className="flex items-center space-x-2">

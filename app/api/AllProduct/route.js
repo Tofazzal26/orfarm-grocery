@@ -8,20 +8,30 @@ export const GET = async (request) => {
 
     const size = searchParams.get("size");
     const page = searchParams.get("page");
-    const priceFilter = searchParams.get("price") || 40;
+    const New = searchParams.get("New") || "";
+    const Stock = searchParams.get("Stock") || "";
+    const priceFilter = searchParams.get("price") || 60;
 
     let query = {};
     if (priceFilter) {
-      query = { price: { $lte: parseFloat(priceFilter) } };
+      query.price = { $gte: parseFloat(priceFilter) };
+    }
+
+    if (New === "NEW") {
+      query.productStatus = New;
+    }
+
+    if (Stock === "In Stock") {
+      query.stock = Stock;
     }
 
     const sizeNumber = parseInt(size) || 10;
-    const pageNumber = parseInt(page) || 4;
+    const pageNumber = parseInt(page) || 1;
 
     await ConnectMongoose();
     const productCount = await ProductModel.countDocuments(query);
     const product = await ProductModel.find(query)
-      .skip(sizeNumber * pageNumber)
+      .skip(sizeNumber * (pageNumber - 1))
       .limit(sizeNumber);
 
     return NextResponse.json(
