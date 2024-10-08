@@ -6,7 +6,7 @@ import ProductCard from "@/app/_Components/OurProduct/ProductCard";
 import { useContext, useState } from "react";
 
 const Shop = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(6);
 
   const [price, setPrice] = useState(40);
@@ -36,7 +36,9 @@ const Shop = () => {
     queryKey: ["allProduct", currentPage, itemPerPage],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllProduct?page=${currentPage}&size=${itemPerPage}`
+        `http://localhost:3000/api/AllProduct?page=${
+          currentPage - 1
+        }&size=${itemPerPage}`
       );
       return resp?.data;
     },
@@ -46,18 +48,18 @@ const Shop = () => {
   console.log(totalProductCount);
   const numberOfPage = Math.ceil(totalCount / itemPerPage);
   const pages = [];
-  for (let index = 0; index < numberOfPage; index++) {
+  for (let index = 1; index <= numberOfPage; index++) {
     pages.push(index);
   }
-  console.log(numberOfPage);
 
   const handleNextPage = () => {
-    if (currentPage < pages.length - 1) {
+    if (currentPage < numberOfPage) {
       setCurrentPage(currentPage + 1);
     }
   };
+
   const handlePrevPage = () => {
-    if (currentPage > 0) {
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
@@ -167,15 +169,15 @@ const Shop = () => {
             >
               Prev
             </button>
-            {pages.map((item) => (
+            {pages.map((item, index) => (
               <button
-                key={item}
-                onClick={() => handleCurrentPage(item)}
+                key={index + 1} // Adjust key to start from 1
+                onClick={() => handleCurrentPage(index + 1)} // Start from page 1
                 className={`border-[1px] text-base border-[#adcf5a] px-4 py-2 text-[#80b500] rounded-md ${
-                  currentPage === item ? "bg-[#80b500] text-white" : ""
+                  currentPage === index + 1 ? "bg-[#80b500] text-white" : ""
                 }`}
               >
-                {item}
+                {index + 1} {/* Display page numbers starting from 1 */}
               </button>
             ))}
             <button
