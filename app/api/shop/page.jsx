@@ -33,19 +33,18 @@ const Shop = () => {
     isLoading,
     data: { data: allProduct = [], totalCount = 0 } = {},
   } = useQuery({
-    queryKey: ["allProduct", currentPage, itemPerPage],
+    queryKey: ["allProduct", currentPage, itemPerPage, price],
     queryFn: async () => {
       const resp = await axios.get(
         `http://localhost:3000/api/AllProduct?page=${
           currentPage - 1
-        }&size=${itemPerPage}`
+        }&size=${itemPerPage}&price=${price}`
       );
       return resp?.data;
     },
   });
 
   const totalProductCount = allProduct.length;
-  console.log(totalProductCount);
   const numberOfPage = Math.ceil(totalCount / itemPerPage);
   const pages = [];
   for (let index = 1; index <= numberOfPage; index++) {

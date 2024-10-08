@@ -8,15 +8,22 @@ export const GET = async (request) => {
 
     const size = searchParams.get("size");
     const page = searchParams.get("page");
+    const priceFilter = searchParams.get("price") || 40;
+
+    let query = {};
+    if (priceFilter) {
+      query = { price: { $lte: parseFloat(priceFilter) } };
+    }
+
     const sizeNumber = parseInt(size) || 10;
     const pageNumber = parseInt(page) || 4;
-    console.log(sizeNumber);
-    console.log(pageNumber);
+
     await ConnectMongoose();
-    const productCount = await ProductModel.countDocuments();
-    const product = await ProductModel.find()
+    const productCount = await ProductModel.countDocuments(query);
+    const product = await ProductModel.find(query)
       .skip(sizeNumber * pageNumber)
       .limit(sizeNumber);
+
     return NextResponse.json(
       {
         data: product,
