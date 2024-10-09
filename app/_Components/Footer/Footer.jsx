@@ -1,9 +1,14 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Mail, MapPin, Navigation, Phone } from "lucide-react";
 import Image from "next/image";
 
 const Footer = () => {
+  const path = usePathname();
+
   return (
-    <div>
+    <div className={path === "/api/dashboard" ? "hidden" : ""}>
       <div className="bg-[#f7f5eb]">
         <footer className="md:px-4 divide-y dark:bg-gray-100 dark:text-gray-800">
           <div className="flex flex-col justify-between px-4 md:px-10 py-4 md:py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
