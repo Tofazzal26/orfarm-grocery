@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
-import { ShoppingCart, User, FileText, LogOut } from "lucide-react"; // Importing icons
+import { useRouter } from "next/navigation";
+import { ShoppingCart, User, FileText, LogOut } from "lucide-react";
 import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
 import UserInVoiceHistory from "./UserInVoiceHistory/page";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const NAV_ITEMS = [
     { id: "my-product", label: "My Product", icon: <ShoppingCart /> },
@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   const handleNavigation = (id) => {
     if (id === "exit") {
-      router.push("/"); // Redirect to home if "Exit" is clicked
+      router.push("/");
     } else {
       setSelected(id);
     }
@@ -39,7 +39,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="flex h-[calc(100vh-81px)]">
+      <div className="flex h-[calc(100vh-83px)]">
         {/* Sidebar */}
         <div className="w-64 bg-gray-800 text-white h-full p-5">
           <ul>
@@ -59,7 +59,7 @@ const Sidebar = () => {
         </div>
 
         {/* Main content */}
-        <div className="flex-grow px-4 py-4">
+        <div className="flex-grow px-6 py-4">
           <h1 className="text-2xl font-bold">
             {selected === "my-product" && <UserProduct />}
             {selected === "my-profile" && <UserProfile />}

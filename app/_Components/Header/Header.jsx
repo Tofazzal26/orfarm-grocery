@@ -217,28 +217,30 @@ const Header = () => {
                 {/* cart section */}
               </div>
               <div>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <Button variant="link">
-                      <h2 className="text-xl text-gray-600 mr-4 hidden md:flex">
-                        $0.00
-                      </h2>
-                      <div>
-                        <div className="bg-[#fff1ee] w-[45px] relative h-[45px] flex justify-center items-center rounded-full">
-                          <ShoppingCart className="text-red-400" size={20} />
-                          <span className="bg-red-600 top-[-2px] right-[-3px] absolute w-[18px] h-[18px] flex justify-center items-center rounded-full text-white">
-                            0
-                          </span>
+                <Link href="/dashboard">
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <Button variant="link">
+                        <h2 className="text-xl text-gray-600 mr-4 hidden md:flex">
+                          $0.00
+                        </h2>
+                        <div>
+                          <div className="bg-[#fff1ee] w-[45px] relative h-[45px] flex justify-center items-center rounded-full">
+                            <ShoppingCart className="text-red-400" size={20} />
+                            <span className="bg-red-600 top-[-2px] right-[-3px] absolute w-[18px] h-[18px] flex justify-center items-center rounded-full text-white">
+                              0
+                            </span>
+                          </div>
                         </div>
+                      </Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <div className="space-y-1">
+                        <h2>Content Here</h2>
                       </div>
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80">
-                    <div className="space-y-1">
-                      <h2>Content Here</h2>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
+                    </HoverCardContent>
+                  </HoverCard>
+                </Link>
               </div>
             </div>
             <div className="mt-0 lg:mt-4">
