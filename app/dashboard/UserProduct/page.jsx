@@ -1,6 +1,6 @@
 "use client"
 
-const MyProduct = () => {
+const UserProduct = () => {
   return (
     <div>
       <h1>My Product Page</h1>
@@ -8,4 +8,4 @@ const MyProduct = () => {
   );
 };
 
-export default MyProduct;
+export default UserProduct;
