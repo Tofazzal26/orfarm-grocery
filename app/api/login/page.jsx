@@ -33,6 +33,9 @@ const Login = () => {
   const handleGoogleLogin = async (provider) => {
     const resp = await signIn(provider);
   };
+  const handleGithubLogin = async (provider) => {
+    const resp = await signIn(provider);
+  };
   if (session.status === "authenticated") {
     router.push("/");
   }
@@ -92,13 +95,20 @@ const Login = () => {
               </Link>
             </h2>
           </div>
-          <div className="mt-4 flex justify-center items-center">
+          <div className="mt-4 flex justify-center items-center gap-2">
             <button
               onClick={() => handleGoogleLogin("google")}
               className="flex px-4 py-2 justify-center items-center gap-2 border-2"
             >
               <Image src="/google.png" alt="google" width={30} height={30} />
               Continue to Google
+            </button>
+            <button
+              onClick={() => handleGithubLogin("github")}
+              className="flex px-4 py-2 justify-center items-center gap-2 border-2"
+            >
+              <Image src="/github.png" alt="google" width={30} height={30} />
+              Continue to Github
             </button>
           </div>
         </div>

@@ -2,6 +2,7 @@ import ConnectMongoose from "@/lib/ConnectMongoose/ConnectMongoose";
 import NextAuth from "next-auth/next";
 import CredentialProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 import UserModel from "../../UserModel/UserModel";
 import bcrypt from "bcrypt";
 
@@ -43,6 +44,10 @@ const handler = NextAuth({
       clientId: process.env.GoogleCLIENT,
       clientSecret: process.env.GoogleSECRET,
     }),
+    GitHubProvider({
+      clientId: process.env.GitHubClientID,
+      clientSecret: process.env.GitHubClientSecret,
+    }),
   ],
   pages: {
     signIn: "/login",
@@ -50,6 +55,20 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account.provider === "google") {
+        const { name, email, image } = user;
+        try {
+          await ConnectMongoose();
+          const exist = await UserModel.findOne({ email });
+          if (!exist) {
+            const resp = await UserModel.create(user);
+          } else {
+            return user;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      if (account.provider === "github") {
         const { name, email, image } = user;
         try {
           await ConnectMongoose();

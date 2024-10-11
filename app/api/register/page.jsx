@@ -2,11 +2,15 @@
 
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const route = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,9 +24,16 @@ const Register = () => {
         email,
         password,
       });
-
-      if (resp.data.status) {
-        event.target.reset();
+      if (resp.data.status === 200) {
+        const res = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        if (res.status === 200) {
+          route.push("/");
+          toast.success("Register Success");
+        }
       }
     } catch (error) {
       console.log(error);
