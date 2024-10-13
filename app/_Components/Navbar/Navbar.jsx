@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Beef, CupSoda, Menu, Pizza, Soup, Cookie, Coffee } from "lucide-react";
 import {
   Select,
@@ -13,6 +13,7 @@ import {
 import NavbarLink from "./NavbarLink";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const Home = [
   {
     title: "Home",
@@ -45,9 +46,7 @@ const Shop = [
 
 const Navbar = () => {
   const path = usePathname();
-  const handleCategory = (cate) => {
-    console.log(cate);
-  };
+  const { handleCategory } = useContext(AuthProduct);
 
   return (
     <div className={path === "/api/dashboard" ? "hidden" : ""}>

@@ -11,6 +11,9 @@ export const GET = async (request) => {
     const New = searchParams.get("New") || "";
     const Stock = searchParams.get("Stock") || "";
     const priceFilter = searchParams.get("price") || 60;
+    const location = searchParams.get("location");
+    const search = searchParams.get("search");
+    const category = searchParams.get("category");
 
     let query = {};
     if (priceFilter) {
@@ -23,6 +26,17 @@ export const GET = async (request) => {
 
     if (Stock === "In Stock") {
       query.stock = Stock;
+    }
+
+    if (location) {
+      query.location = location;
+    }
+    if (category) {
+      query.category = category;
+    }
+    if (search) {
+      const regex = new RegExp(`^${search}`, "i");
+      query.title = { $regex: regex };
     }
 
     const sizeNumber = parseInt(size) || 10;

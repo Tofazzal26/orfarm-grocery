@@ -6,6 +6,8 @@ import ProductCard from "@/app/_Components/OurProduct/ProductCard";
 import { useContext, useState } from "react";
 
 const Shop = () => {
+  const { productLocation, productSearch, productCategory } =
+    useContext(AuthProduct);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(6);
 
@@ -42,12 +44,15 @@ const Shop = () => {
       price,
       NewStatus,
       StockStatus,
+      productLocation,
+      productSearch,
+      productCategory,
     ],
     queryFn: async () => {
       const resp = await axios.get(
         `http://localhost:3000/api/AllProduct?page=${
           currentPage - 1
-        }&size=${itemPerPage}&price=${price}&New=${NewStatus}&Stock=${StockStatus}`
+        }&size=${itemPerPage}&price=${price}&New=${NewStatus}&Stock=${StockStatus}&location=${productLocation}&search=${productSearch}&category=${productCategory}`
       );
       return resp?.data;
     },

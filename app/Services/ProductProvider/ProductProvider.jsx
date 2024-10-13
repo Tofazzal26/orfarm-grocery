@@ -16,10 +16,12 @@ const ProductProvider = ({ children }) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const session = useSession();
   const count = useSelector((state) => state.counter.value);
+  const [productLocation, setProductLocation] = useState("");
+  const [productSearch, setProductSearch] = useState("");
+  const [productCategory, setProductCategory] = useState("");
   const disPatch = useDispatch();
   const router = useRouter();
   const [myCart, setMyCart] = useState([]);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCarts = JSON.parse(localStorage.getItem("carts")) || [];
@@ -152,6 +154,16 @@ const ProductProvider = ({ children }) => {
       disPatch(decrement());
     }
   };
+  const handleLocation = (local) => {
+    setProductLocation(local);
+  };
+
+  const handleSearch = (search) => {
+    setProductSearch(search.target.value);
+  };
+  const handleCategory = (cate) => {
+    setProductCategory(cate);
+  };
 
   const productInfo = {
     allProduct,
@@ -167,7 +179,15 @@ const ProductProvider = ({ children }) => {
     handleDetailsAddToCart,
     ManageAllProduct,
     manageLoading,
+    setProductLocation,
     myCart,
+    productLocation,
+    handleLocation,
+    handleSearch,
+    setProductSearch,
+    productSearch,
+    handleCategory,
+    productCategory,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>

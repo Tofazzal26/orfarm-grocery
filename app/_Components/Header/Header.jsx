@@ -33,7 +33,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const Header = () => {
-  const { myCart } = useContext(AuthProduct);
+  const { myCart, handleLocation, handleSearch } = useContext(AuthProduct);
   const session = useSession();
   const myCartProduct = myCart.filter(
     (item) => item.email === session?.data?.user?.email
@@ -46,14 +46,6 @@ const Header = () => {
     ) || "00";
 
   const path = usePathname();
-
-  const handleLocation = (local) => {
-    console.log(local);
-  };
-
-  const handleSearch = (search) => {
-    console.log(search.target.value);
-  };
 
   return (
     <div className={path === "/api/dashboard" ? "hidden" : ""}>
@@ -248,12 +240,17 @@ const Header = () => {
                     </HoverCardTrigger>
                     <HoverCardContent className="w-80">
                       <div className="space-y-1">
-                        {myCartProduct.map((item) => (
-                          <div className="flex items-center justify-between" key={item.prdID}>
-                            <h2>{item?.title}</h2>
-                            <h2>Quantity: {item?.quantity}</h2>
-                          </div>
-                        ))}
+                        {myCartProduct.length > 0
+                          ? myCartProduct.map((item) => (
+                              <div
+                                className="flex items-center justify-between"
+                                key={item.prdID}
+                              >
+                                <h2>{item?.title}</h2>
+                                <h2>Quantity: {item?.quantity}</h2>
+                              </div>
+                            ))
+                          : "No Product Here"}
                       </div>
                     </HoverCardContent>
                   </HoverCard>
