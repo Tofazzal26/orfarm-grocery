@@ -30,8 +30,10 @@ import Navbar from "../Navbar/Navbar";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-
+import { useState, useEffect, useContext } from "react";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const Header = () => {
+  const { myCart } = useContext(AuthProduct);
   const session = useSession();
   const path = usePathname();
 
@@ -228,7 +230,7 @@ const Header = () => {
                           <div className="bg-[#fff1ee] w-[45px] relative h-[45px] flex justify-center items-center rounded-full">
                             <ShoppingCart className="text-red-400" size={20} />
                             <span className="bg-red-600 top-[-2px] right-[-3px] absolute w-[18px] h-[18px] flex justify-center items-center rounded-full text-white">
-                              0
+                              {myCart?.length || 0}
                             </span>
                           </div>
                         </div>

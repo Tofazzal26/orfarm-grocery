@@ -16,6 +16,9 @@ const ProductProvider = ({ children }) => {
   const session = useSession();
   const count = useSelector((state) => state.counter.value);
   const disPatch = useDispatch();
+  const [myCart, setMyCart] = useState(
+    JSON.parse(localStorage.getItem("carts")) || []
+  );
 
   const {
     refetch,
@@ -73,6 +76,7 @@ const ProductProvider = ({ children }) => {
     }
     carts.push(updatedProduct);
     localStorage.setItem("carts", JSON.stringify(carts));
+    setMyCart(carts);
     toast.success("Product Add Success");
   };
 
@@ -124,6 +128,7 @@ const ProductProvider = ({ children }) => {
     }
     carts.push(updatedData);
     localStorage.setItem("carts", JSON.stringify(carts));
+    setMyCart(carts);
     toast.success("Product Added Successfully");
   };
 
@@ -150,6 +155,7 @@ const ProductProvider = ({ children }) => {
     handleDetailsAddToCart,
     ManageAllProduct,
     manageLoading,
+    myCart,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
