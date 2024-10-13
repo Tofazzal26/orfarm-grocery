@@ -38,7 +38,13 @@ const Header = () => {
   const myCartProduct = myCart.filter(
     (item) => item.email === session?.data?.user?.email
   );
-  console.log(session);
+
+  const totalProductPrice =
+    myCartProduct.reduce(
+      (prev, after) => parseInt(prev) + parseInt(after.price),
+      0
+    ) || "00";
+
   const path = usePathname();
 
   const handleLocation = (local) => {
@@ -228,7 +234,7 @@ const Header = () => {
                     <HoverCardTrigger asChild>
                       <Button variant="link">
                         <h2 className="text-xl text-gray-600 mr-4 hidden md:flex">
-                          $0.00
+                          ${totalProductPrice}.00
                         </h2>
                         <div>
                           <div className="bg-[#fff1ee] w-[45px] relative h-[45px] flex justify-center items-center rounded-full">
@@ -242,7 +248,12 @@ const Header = () => {
                     </HoverCardTrigger>
                     <HoverCardContent className="w-80">
                       <div className="space-y-1">
-                        <h2>Content Here</h2>
+                        {myCartProduct.map((item) => (
+                          <div className="flex items-center justify-between" key={item.prdID}>
+                            <h2>{item?.title}</h2>
+                            <h2>Quantity: {item?.quantity}</h2>
+                          </div>
+                        ))}
                       </div>
                     </HoverCardContent>
                   </HoverCard>

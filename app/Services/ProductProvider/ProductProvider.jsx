@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 export const AuthProduct = createContext();
@@ -18,9 +18,14 @@ const ProductProvider = ({ children }) => {
   const count = useSelector((state) => state.counter.value);
   const disPatch = useDispatch();
   const router = useRouter();
-  const [myCart, setMyCart] = useState(
-    JSON.parse(localStorage.getItem("carts")) || []
-  );
+  const [myCart, setMyCart] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCarts = JSON.parse(localStorage.getItem("carts")) || [];
+      setMyCart(storedCarts);
+    }
+  }, []);
 
   const {
     refetch,
@@ -72,7 +77,6 @@ const ProductProvider = ({ children }) => {
     };
     delete updatedProduct._id;
     delete updatedProduct.__v;
-    // console.log(updatedProduct);
 
     let carts = JSON.parse(localStorage.getItem("carts")) || [];
     const existing = carts.find((item) => item.prdID === updatedProduct.prdID);

@@ -29,7 +29,6 @@ const Shop = () => {
 
   const NewStatus = status.NEW === true && "NEW";
   const StockStatus = status.IN_STOCK === true && "In Stock";
-  console.log(NewStatus, StockStatus);
 
   const {
     refetch,
