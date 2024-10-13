@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,13 +10,13 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [images, setImages] = useState(null);
   const route = useRouter();
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setImages(file);
     }
   };
 
@@ -25,53 +25,49 @@ const Register = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-
+    setLoginLoading(true);
     const formData = new FormData();
-    if (image) {
-      formData.append("image", image);
+    if (images) {
+      formData.append("image", images);
     } else {
       console.error("No image selected!");
       return;
     }
+
+    const response = await axios.post(
+      "https://api.imgbb.com/1/upload",
+      formData,
+      {
+        params: {
+          key: process.env.NEXT_PUBLIC_ImageBB_API_Key,
+        },
+      }
+    );
+
+    const image = await response.data.data.url;
+
     try {
-      const response = await axios.post(
-        "https://api.imgbb.com/1/upload",
-        formData,
-        {
-          params: {
-            key: process.env.NEXT_PUBLIC_ImageBB_API_Key,
-          },
+      const resp = await axios.post(`http://localhost:3000/api/User`, {
+        name,
+        email,
+        password,
+        image,
+      });
+      if (resp.data.status === 200) {
+        const res = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        if (res.status === 200) {
+          route.push("/");
+          toast.success("Register Success");
         }
-      );
-
-      setImageUrl(response.data.data.url);
-      console.log(response.data.data.url, "48");
+      }
+      setLoginLoading(false);
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.log(error);
     }
-
-    console.log(imageUrl);
-
-    // try {
-    //   const resp = await axios.post(`http://localhost:3000/api/User`, {
-    //     name,
-    //     email,
-    //     password,
-    //   });
-    //   if (resp.data.status === 200) {
-    //     const res = await signIn("credentials", {
-    //       email,
-    //       password,
-    //       redirect: false,
-    //     });
-    //     if (res.status === 200) {
-    //       route.push("/");
-    //       toast.success("Register Success");
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (
@@ -137,9 +133,15 @@ const Register = () => {
                 </span>
               )}
             </div>
-            <button className="bg-[#80b500] text-white text-lg w-full py-[10px] mt-4">
-              Register
-            </button>
+            {loginLoading ? (
+              <h2 className="bg-[#80b500] text-white flex items-center justify-center text-lg w-full py-[10px] mt-4">
+                <Loader className="animate-spin" size={25} />
+              </h2>
+            ) : (
+              <button className="bg-[#80b500] text-white text-lg w-full py-[10px] mt-4">
+                Register
+              </button>
+            )}
           </form>
           <div>
             <h2 className="mt-4 text-gray-500">
