@@ -6,6 +6,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,7 @@ const ProductProvider = ({ children }) => {
   const session = useSession();
   const count = useSelector((state) => state.counter.value);
   const disPatch = useDispatch();
+  const router = useRouter();
   const [myCart, setMyCart] = useState(
     JSON.parse(localStorage.getItem("carts")) || []
   );
@@ -58,6 +60,9 @@ const ProductProvider = ({ children }) => {
   };
 
   const handleAddToCart = async (prd) => {
+    if (session?.status === "unauthenticated") {
+      return router.push("/api/login");
+    }
     const userEmail = session?.data?.user?.email;
     const updatedProduct = {
       ...prd,
@@ -104,6 +109,9 @@ const ProductProvider = ({ children }) => {
 
   const handleDetailsAddToCart = async (prd) => {
     const userEmail = session?.data?.user?.email;
+    if (session?.status === "unauthenticated") {
+      return router.push("/api/login");
+    }
     const updatedData = {
       ...prd,
       prdID: prd._id,
