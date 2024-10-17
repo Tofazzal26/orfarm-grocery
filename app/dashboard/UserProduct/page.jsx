@@ -3,15 +3,44 @@
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import { CircleDollarSign, Trash2, Trash } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 const UserProduct = () => {
   const session = useSession();
-  const { UserAllProduct } = useContext(AuthProduct);
-  const UserProduct = UserAllProduct.filter(
+  const [userProduct, setUserProduct] = useState([]);
+  useEffect(() => {
+    const carts = JSON.parse(localStorage.getItem("carts")) || [];
+    setUserProduct(carts);
+  }, []);
+  const product = userProduct.filter(
     (item) => item.email === session?.data?.user?.email
   );
-  console.log(UserProduct);
+
+  const handleDeleteProduct = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete it?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const filterPrd = product.filter((item) => item.prdID !== id);
+        setUserProduct(filterPrd);
+        localStorage.setItem("carts", JSON.stringify(filterPrd));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your product has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
+  console.log(userProduct);
 
   return (
     <div>
@@ -52,7 +81,7 @@ const UserProduct = () => {
                 </tr>
               </thead>
               <tbody>
-                {UserProduct.map((item) => (
+                {product.map((item) => (
                   <tr
                     key={item?.prdID}
                     className="border-b text-xs md:text-sm text-center text-gray-800"
@@ -63,12 +92,15 @@ const UserProduct = () => {
                     <td className="p-2 md:p-4">{item?.title}</td>
                     <td className="p-2 md:p-4">{item?.category}</td>
                     <td className="p-2 md:p-4">{item?.quantity}</td>
-                    <td className="p-2 md:p-4">{item?.price}</td>
+                    <td className="p-2 md:p-4">${item?.price}</td>
                     <td className="relative p-2 md:p-4 flex justify-center space-x-2">
                       <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
                         <CircleDollarSign size={20} />
                       </button>
-                      <button className="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
+                      <button
+                        onClick={() => handleDeleteProduct(item?.prdID)}
+                        className="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                      >
                         <Trash size={20} />
                       </button>
                     </td>

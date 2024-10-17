@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, User, FileText, LogOut } from "lucide-react";
+import { ShoppingCart, User, FileText, LogOut, Heart } from "lucide-react";
 import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
-import UserInVoiceHistory from "./UserInVoiceHistory/page";
+import UserWishList from "./UserWishList/page";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
@@ -12,8 +12,8 @@ const Sidebar = () => {
 
   const NAV_ITEMS = [
     { id: "my-product", label: "My Product", icon: <ShoppingCart /> },
+    { id: "my-wishlist", label: "My Wishlist", icon: <Heart /> },
     { id: "my-profile", label: "My Profile", icon: <User /> },
-    { id: "invoice-history", label: "Invoice History", icon: <FileText /> },
     { id: "exit", label: "Exit", icon: <LogOut /> },
   ];
 
@@ -65,7 +65,7 @@ const Sidebar = () => {
           <h1 className="text-2xl font-bold">
             {selected === "my-product" && <UserProduct />}
             {selected === "my-profile" && <UserProfile />}
-            {selected === "invoice-history" && <UserInVoiceHistory />}
+            {selected === "my-wishlist" && <UserWishList />}
           </h1>
         </div>
       </div>
