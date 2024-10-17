@@ -19,6 +19,7 @@ const ProductProvider = ({ children }) => {
   const [productLocation, setProductLocation] = useState("");
   const [productSearch, setProductSearch] = useState("");
   const [productCategory, setProductCategory] = useState("");
+  const UserAllProduct = JSON.parse(localStorage.getItem("carts"));
   const disPatch = useDispatch();
   const router = useRouter();
   const [myCart, setMyCart] = useState([]);
@@ -188,6 +189,7 @@ const ProductProvider = ({ children }) => {
     productSearch,
     handleCategory,
     productCategory,
+    UserAllProduct
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
