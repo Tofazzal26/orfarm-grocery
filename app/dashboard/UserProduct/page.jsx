@@ -106,21 +106,6 @@ const UserProduct = () => {
                     </td>
                   </tr>
                 ))}
-                {/* <tr className="border-b text-xs md:text-sm text-center text-gray-800">
-                  <td className="p-2 md:p-4">01</td>
-                  <td className="p-2 md:p-4">className 1</td>
-                  <td className="p-2 md:p-4">Beginner</td>
-                  <td className="p-2 md:p-4">Beginner</td>
-                  <td className="p-2 md:p-4">Beginner</td>
-                  <td className="relative p-2 md:p-4 flex justify-center space-x-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                      <CircleDollarSign size={20} />
-                    </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                      <Trash size={20} />
-                    </button>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
           </div>
