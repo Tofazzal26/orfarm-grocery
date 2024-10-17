@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { CircleDollarSign, Trash2, Trash } from "lucide-react";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 const UserWishList = () => {
   const [userWishlistProduct, setUserWishlistProduct] = useState([]);
   useEffect(() => {
@@ -32,6 +33,18 @@ const UserWishList = () => {
         });
       }
     });
+  };
+
+  const handleAddProduct = (prd) => {
+    const carts = JSON.parse(localStorage.getItem("carts")) || [];
+    const filterPrd = userWishlistProduct.filter(
+      (item) => item.prdID !== prd.prdID
+    );
+    setUserWishlistProduct(filterPrd);
+    localStorage.setItem("wishlist", JSON.stringify(filterPrd));
+    carts.push(prd);
+    localStorage.setItem("carts", JSON.stringify(carts));
+    toast.success("Product to Carts Success");
   };
 
   return (
@@ -86,8 +99,11 @@ const UserWishList = () => {
                     <td className="p-2 md:p-4">{item?.quantity}</td>
                     <td className="p-2 md:p-4">${item?.price}</td>
                     <td className="relative p-2 md:p-4 flex justify-center space-x-2">
-                      <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                        <CircleDollarSign size={20} />
+                      <button
+                        onClick={() => handleAddProduct(item)}
+                        className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                      >
+                        Add
                       </button>
                       <button
                         onClick={() => handleDeleteProduct(item?.prdID)}
