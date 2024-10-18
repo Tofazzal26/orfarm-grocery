@@ -16,7 +16,7 @@ const UserProduct = () => {
   const session = useSession();
   const [userProduct, setUserProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemPerPage = 3;
+  const itemPerPage = 4;
   const startIndex = (currentPage - 1) * itemPerPage;
   const endIndex = startIndex + itemPerPage;
   const paginationData = userProduct.slice(startIndex, endIndex);
@@ -163,7 +163,7 @@ const UserProduct = () => {
                 ))}
                 <button
                   onClick={handleNext}
-                  className="bg-green-500 px-[7px] py-[12px] text-white pt-1 flex items-center ml-[4px] justify-center rounded-md"
+                  className={`bg-green-500 px-[7px] py-[12px] text-white pt-1 flex items-center ml-[4px] justify-center rounded-md ${currentPage === totalPages ? "bg-green-400" : ""}`}
                 >
                   <ChevronRight size={25} />
                 </button>
