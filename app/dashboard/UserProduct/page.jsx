@@ -1,7 +1,13 @@
 "use client";
 
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
-import { CircleDollarSign, Trash2, Trash } from "lucide-react";
+import {
+  CircleDollarSign,
+  Trash2,
+  Trash,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -9,6 +15,17 @@ import Swal from "sweetalert2";
 const UserProduct = () => {
   const session = useSession();
   const [userProduct, setUserProduct] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemPerPage = 3;
+  const startIndex = (currentPage - 1) * itemPerPage;
+  const endIndex = startIndex + itemPerPage;
+  const paginationData = userProduct.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(userProduct.length / itemPerPage);
+  const pageNumbers = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1
+  );
+
   useEffect(() => {
     const carts = JSON.parse(localStorage.getItem("carts")) || [];
     setUserProduct(carts);
@@ -40,7 +57,18 @@ const UserProduct = () => {
       }
     });
   };
-  console.log(userProduct);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div>
@@ -49,7 +77,7 @@ const UserProduct = () => {
 
         <div className="relative overflow-auto">
           <div className="overflow-x-auto rounded-lg">
-            <table className="min-w-full bg-white border mb-20">
+            <table className="min-w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
                   <th className="p-0">
@@ -81,7 +109,7 @@ const UserProduct = () => {
                 </tr>
               </thead>
               <tbody>
-                {product.map((item) => (
+                {paginationData.map((item) => (
                   <tr
                     key={item?.prdID}
                     className="border-b text-xs md:text-sm text-center text-gray-800"
@@ -108,6 +136,39 @@ const UserProduct = () => {
                 ))}
               </tbody>
             </table>
+
+            <div className="flex justify-between items-center">
+              <div>
+                <h1></h1>
+              </div>
+              <div className="flex justify-center items-center">
+                <button
+                  onClick={handlePrevious}
+                  className={`bg-green-500 px-[7px] py-[12px] text-white pt-1 flex items-center mr-[4px] justify-center rounded-md ${currentPage === 1 ? "bg-green-400" : ""}`}
+                >
+                  <ChevronLeft size={25} />
+                </button>
+                {pageNumbers.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => setCurrentPage(item)}
+                    className={`px-4 py-1 ${
+                      currentPage === item
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-300 text-black"
+                    } rounded-md mx-1`}
+                  >
+                    {item}
+                  </button>
+                ))}
+                <button
+                  onClick={handleNext}
+                  className="bg-green-500 px-[7px] py-[12px] text-white pt-1 flex items-center ml-[4px] justify-center rounded-md"
+                >
+                  <ChevronRight size={25} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

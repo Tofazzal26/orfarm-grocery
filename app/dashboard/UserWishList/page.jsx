@@ -44,7 +44,7 @@ const UserWishList = () => {
     localStorage.setItem("wishlist", JSON.stringify(filterPrd));
     carts.push(prd);
     localStorage.setItem("carts", JSON.stringify(carts));
-    toast.success("Product to Carts Success");
+    toast.success("Product add to Carts Success");
   };
 
   return (
@@ -103,7 +103,7 @@ const UserWishList = () => {
                         onClick={() => handleAddProduct(item)}
                         className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"
                       >
-                        Add
+                        Cart
                       </button>
                       <button
                         onClick={() => handleDeleteProduct(item?.prdID)}
