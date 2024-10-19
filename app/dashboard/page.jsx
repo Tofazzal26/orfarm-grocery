@@ -62,11 +62,11 @@ const Sidebar = () => {
 
         {/* Main content */}
         <div className="flex-grow px-6 py-4">
-          <h1 className="text-2xl font-bold">
+          <div className="text-2xl font-bold">
             {selected === "my-product" && <UserProduct />}
             {selected === "my-profile" && <UserProfile />}
             {selected === "my-wishlist" && <UserWishList />}
-          </h1>
+          </div>
         </div>
       </div>
     </div>

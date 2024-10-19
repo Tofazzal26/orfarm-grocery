@@ -3,8 +3,6 @@ import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { useSession } from "next-auth/react";
 const UserProfile = () => {
   const session = useSession();
-  console.log(session?.data.user);
-  console.log(session?.data?.user?.email);
 
   return (
     <div className="mt-2 md:mt-[60px]">
@@ -22,7 +20,7 @@ const UserProfile = () => {
             <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 rounded-full overflow-hidden">
               <img
                 className="object-cover w-full h-full"
-                src="https://randomuser.me/api/portraits/men/32.jpg"
+                src={session?.data?.user?.image}
                 alt="Profile"
               />
             </div>
@@ -35,7 +33,7 @@ const UserProfile = () => {
               </p>
             </div>
           </div>
-          <p className="mt-2 sm:mt-6 text-gray-600 text-center text-xl text-[15px] sm:text-left">
+          <p className="mt-2 sm:mt-6 text-gray-600 text-center md:text-xl text-[15px] sm:text-left">
             Experienced in React, Next.js, and building responsive eCommerce
             platforms. Passionate about UI design and development.
           </p>

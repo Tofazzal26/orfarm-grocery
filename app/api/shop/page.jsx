@@ -83,8 +83,8 @@ const Shop = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex  gap-[70px] my-[50px]">
-        <div className="w-[280px]">
+      <div className="flex md:flex-row flex-col gap-[70px] my-[20px] md:my-[50px]">
+        <div className="md:w-[280px]">
           <div>
             <h1 className="text-lg uppercase mb-4">Filter by price</h1>
             <div className="w-full">

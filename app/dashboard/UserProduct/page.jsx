@@ -137,7 +137,7 @@ const UserProduct = () => {
               </tbody>
             </table>
 
-            <div className="flex justify-between items-center">
+            <div className="flex md:justify-between md:flex-row flex-col items-center">
               <div>
                 <h1></h1>
               </div>

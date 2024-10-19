@@ -72,11 +72,70 @@ const Header = () => {
                           <DropdownMenuItem>
                             <Link href="/api/shop">SHOP</Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>BAKERY</DropdownMenuItem>
-                          <DropdownMenuItem>BEVERAGES</DropdownMenuItem>
-                          <DropdownMenuItem>News</DropdownMenuItem>
-                          <DropdownMenuItem>BLOG</DropdownMenuItem>
-                          <DropdownMenuItem>CONTACT</DropdownMenuItem>
+
+                          <DropdownMenuItem>
+                            <Link
+                              href="/api/bakery"
+                              className={
+                                path === "/api/bakery" ? "text-[#dcfce7]" : ""
+                              }
+                            >
+                              <button className="text-[14px]  text-gray-700  uppercase ">
+                                Bakery
+                              </button>
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem>
+                            {" "}
+                            <Link
+                              href="/api/beverages"
+                              className={
+                                path === "/api/beverages"
+                                  ? "text-[#dcfce7]"
+                                  : ""
+                              }
+                            >
+                              <button className="text-[14px]   text-gray-700 uppercase ">
+                                Beverages
+                              </button>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Link
+                              href="/api/foodDrinks"
+                              className={
+                                path === "/api/foodDrinks"
+                                  ? "text-[#dcfce7]"
+                                  : ""
+                              }
+                            >
+                              <button className="text-[14px] text-gray-700   uppercase ">
+                                News
+                              </button>
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem>
+                          <Link
+            href="/api/blog"
+            className={path === "/api/blog" ? "text-[#dcfce7]" : ""}
+          >
+            <button className="text-[14px] text-gray-700 uppercase ">
+              Blog
+            </button>
+          </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                          <Link
+            href="/api/contact"
+            className={path === "/api/contact" ? "text-[#dcfce7]" : ""}
+          >
+            <button className="text-[14px] text-gray-700  uppercase ">
+              Contact
+            </button>
+          </Link>
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>

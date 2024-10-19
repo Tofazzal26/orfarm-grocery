@@ -22,12 +22,26 @@ const ProductProvider = ({ children }) => {
   const disPatch = useDispatch();
   const router = useRouter();
   const [myCart, setMyCart] = useState([]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCarts = JSON.parse(localStorage.getItem("carts")) || [];
       setMyCart(storedCarts);
     }
   }, []);
+
+  const email = session?.data?.user?.email;
+  const { data: userRole = [] } = useQuery({
+    queryKey: ["userRole", !email],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/AllUserRole/${email}`
+      );
+      return resp?.data;
+    },
+  });
+
+  console.log(userRole?.data);
 
   const {
     refetch,
