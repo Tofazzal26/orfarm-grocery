@@ -29,7 +29,7 @@ const FoodDrinks = () => {
     <div>
       <div className="bg-[#f6f6e8] my-10">
         <div className="container mx-auto">
-          <div className="flex py-[40px] md:flex-row flex-col justify-between items-center">
+          <div className="flex py-[40px] md:flex-row gap-8 md:gap-0 flex-col justify-between items-center">
             <div className=" md:space-y-4">
               <h2 className="text-[20px]">Rubber plant get 30% off</h2>
               <h2 className="text-[20px] md:text-[60px] leading-[60px] md:w-[300px]">
@@ -67,7 +67,7 @@ const FoodDrinks = () => {
         </div>
       </div>
       <div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-8">
+        <div className="grid grid-cols-1 md:gap-8 md:grid-cols-3 mb-8">
           {newsDetails.map((item, idx) => (
             <div key={idx}>
               <div className="p-4 shadow-md dark:bg-gray-50 dark:text-gray-800 h-full">

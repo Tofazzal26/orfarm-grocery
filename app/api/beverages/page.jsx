@@ -37,13 +37,13 @@ const Beverages = () => {
   return (
     <div className="container mx-auto">
       <div className="my-10">
-        <div className="md:w-full md:h-[400px] bg-cover rounded-md bg-no-repeat bg-center bg-[url('/bakeryBanner.jpg')]">
-          <div className="flex flex-col justify-center items-center translate-y-[150px]">
+        <div className="md:w-full md:h-[400px] w-[320px] h-[200px] bg-cover rounded-md bg-no-repeat bg-center bg-[url('/bakeryBanner.jpg')]">
+          <div className="flex flex-col justify-center items-center md:translate-y-[150px] translate-y-[60px]">
             <div>
-              <h2 className="text-[25px] text-gray-500">
+              <h2 className="text-[16px] md:text-[25px] text-gray-500">
                 Organic Meals Prepared
               </h2>
-              <h2 className="text-[35px]">
+              <h2 className="text-[16px] md:text-[35px]">
                 Delivered to <span className="text-[#80b500]">your Home</span>
               </h2>
               <p className="text-gray-500">
@@ -58,7 +58,7 @@ const Beverages = () => {
               <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-[#80b500]"></div>
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
             {currentProducts.map((item) => (
               <ProductCard key={item._id} item={item} />
             ))}
