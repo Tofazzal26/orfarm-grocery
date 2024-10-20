@@ -41,8 +41,6 @@ const ProductProvider = ({ children }) => {
     },
   });
 
-  console.log(userRole?.data);
-
   const {
     refetch,
     isLoading,
@@ -202,6 +200,7 @@ const ProductProvider = ({ children }) => {
     productSearch,
     handleCategory,
     productCategory,
+    userRole,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
