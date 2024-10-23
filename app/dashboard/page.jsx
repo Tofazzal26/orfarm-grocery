@@ -8,16 +8,25 @@ import {
   LogOut,
   Heart,
   ChevronRight,
+  LayoutDashboard,
+  UserCog,
+  GitPullRequestArrow,
+  GitPullRequestCreateArrow,
 } from "lucide-react";
 import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
 import UserWishList from "./UserWishList/page";
 import { AuthProduct } from "../Services/ProductProvider/ProductProvider";
+import AdminDashBoard from "./AdminDashboard/page";
+import AdminAllUsers from "./AdminAllUsers/page";
+import AdminAllVendors from "./AdminAllVendors/page";
+import AdminVendorRequest from "./AdminVendorRequest/AdminVendorRequest";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
+  const [dashboardSelect, setDashboardSelect] = useState("dashboard");
   const router = useRouter();
-  const { userRole } = useContext(AuthProduct);
+  const { userRole, userRoleLoading } = useContext(AuthProduct);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -32,11 +41,24 @@ const Sidebar = () => {
     { id: "exit", label: "Exit", icon: <LogOut /> },
   ];
 
+  const NAV_ADMIN_ITEM = [
+    { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard /> },
+    { id: "all-user", label: "All Users", icon: <User /> },
+    { id: "all-vendor", label: "All Vendors", icon: <UserCog /> },
+    {
+      id: "vendor-request",
+      label: "Vendor Request",
+      icon: <GitPullRequestCreateArrow />,
+    },
+    { id: "exit", label: "Exit", icon: <LogOut /> },
+  ];
+
   const handleNavigation = (id) => {
     if (id === "exit") {
       router.push("/");
     } else {
       setSelected(id);
+      setDashboardSelect(id);
     }
   };
 
@@ -74,10 +96,55 @@ const Sidebar = () => {
             <button className="p-4 text-white" onClick={toggleDrawer}>
               Close
             </button>
-
-            {/* Navigation Menu */}
             <ul>
-              {NAV_ITEMS.map((item) => (
+              {userRoleLoading ? (
+                <div className="flex justify-center items-center">
+                  <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin dark:border-green-600"></div>
+                </div>
+              ) : userRole?.data === "user" ? (
+                NAV_ITEMS.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
+                      selected === item.id
+                        ? "bg-green-500"
+                        : "hover:bg-gray-700"
+                    }`}
+                    onClick={() => handleNavigation(item.id)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </li>
+                ))
+              ) : userRole?.data === "vendor" ? (
+                ""
+              ) : (
+                NAV_ADMIN_ITEM.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
+                      dashboardSelect === item.id
+                        ? "bg-green-500"
+                        : "hover:bg-gray-700"
+                    }`}
+                    onClick={() => handleNavigation(item.id)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
+        </div>
+        <div className="w-64 bg-gray-800 text-white h-full p-5 lg:block hidden">
+          <ul>
+            {userRoleLoading ? (
+              <div className="flex justify-center items-center">
+                <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin dark:border-green-600"></div>
+              </div>
+            ) : userRole?.data === "user" ? (
+              NAV_ITEMS.map((item) => (
                 <li
                   key={item.id}
                   className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
@@ -88,34 +155,46 @@ const Sidebar = () => {
                   {item.icon}
                   <span>{item.label}</span>
                 </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="w-64 bg-gray-800 text-white h-full p-5 lg:block hidden">
-          <ul>
-            {NAV_ITEMS.map((item) => (
-              <li
-                key={item.id}
-                className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
-                  selected === item.id ? "bg-green-500" : "hover:bg-gray-700"
-                }`}
-                onClick={() => handleNavigation(item.id)}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </li>
-            ))}
+              ))
+            ) : userRole?.data === "vendor" ? (
+              ""
+            ) : (
+              NAV_ADMIN_ITEM.map((item) => (
+                <li
+                  key={item.id}
+                  className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
+                    dashboardSelect === item.id
+                      ? "bg-green-500"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => handleNavigation(item.id)}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </li>
+              ))
+            )}
           </ul>
         </div>
 
         {/* Main content */}
         <div className="flex-grow px-6 py-4 mt-8 md:mt-0">
-          <div className="text-2xl font-bold">
-            {selected === "my-product" && <UserProduct />}
-            {selected === "my-profile" && <UserProfile />}
-            {selected === "my-wishlist" && <UserWishList />}
-          </div>
+          {userRole?.data === "user" ? (
+            <div className="text-2xl font-bold">
+              {selected === "my-product" && <UserProduct />}
+              {selected === "my-profile" && <UserProfile />}
+              {selected === "my-wishlist" && <UserWishList />}
+            </div>
+          ) : userRole?.data === "vendor" ? (
+            ""
+          ) : (
+            <div className="text-2xl font-bold">
+              {dashboardSelect === "dashboard" && <AdminDashBoard />}
+              {dashboardSelect === "all-user" && <AdminAllUsers />}
+              {dashboardSelect === "all-vendor" && <AdminAllVendors />}
+              {dashboardSelect === "vendor-request" && <AdminVendorRequest />}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@ const ProductProvider = ({ children }) => {
   }, []);
 
   const email = session?.data?.user?.email;
-  const { data: userRole = [] } = useQuery({
+  const { isLoading: userRoleLoading, data: userRole = [] } = useQuery({
     queryKey: ["userRole", !email],
     queryFn: async () => {
       const resp = await axios.get(
@@ -201,6 +201,7 @@ const ProductProvider = ({ children }) => {
     handleCategory,
     productCategory,
     userRole,
+    userRoleLoading
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
