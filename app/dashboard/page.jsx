@@ -178,7 +178,7 @@ const Sidebar = () => {
         </div>
 
         {/* Main content */}
-        <div className="flex-grow px-6 py-4 mt-8 md:mt-0">
+        <div className="flex-grow px-12 py-4 mt-6 md:mt-7 bg-[#f5f5f9]">
           {userRole?.data === "user" ? (
             <div className="text-2xl font-bold">
               {selected === "my-product" && <UserProduct />}
@@ -188,7 +188,7 @@ const Sidebar = () => {
           ) : userRole?.data === "vendor" ? (
             ""
           ) : (
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold ">
               {dashboardSelect === "dashboard" && <AdminDashBoard />}
               {dashboardSelect === "all-user" && <AdminAllUsers />}
               {dashboardSelect === "all-vendor" && <AdminAllVendors />}
