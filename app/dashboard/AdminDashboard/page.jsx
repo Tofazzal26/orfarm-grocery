@@ -3,6 +3,7 @@ import React from "react";
 import BarChart from "./BarChart/page";
 import RoundedChart from "./RoundedChart/page";
 import LineChart from "./LineChart/page";
+import WeekRoundedChart from "./WeekRoundedChart/page";
 
 const AdminDashBoard = () => {
   return (
@@ -84,6 +85,32 @@ const AdminDashBoard = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
+            <div className="p-6">
+              <div className="flex justify-between">
+                <div>
+                  <h2 className="text-[18px] text-[#57626c]">
+                    Order Statistics
+                  </h2>
+                  <h2 className="text-[15px] text-[#8f969e]">
+                    42.82k Total Sales
+                  </h2>
+                </div>
+                <div>
+                  <EllipsisVertical size={20} className="text-[#a7acb2]" />
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-[28px]">8,258</h2>
+                  <h2 className="text-[#a7acb2]">Total Orders</h2>
+                </div>
+                <div>
+                  <WeekRoundedChart />
                 </div>
               </div>
             </div>
@@ -189,6 +216,9 @@ const AdminDashBoard = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <h1>Right Side</h1>
           </div>
         </div>
       </div>
