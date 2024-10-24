@@ -178,8 +178,12 @@ const Sidebar = () => {
         </div>
 
         {/* Main content */}
-        <div className="flex-grow px-12 py-4 mt-6 md:mt-7 bg-[#f5f5f9]">
-          {userRole?.data === "user" ? (
+        <div className="flex-grow px-12 py-4 mt-6 md:mt-0 pt-0 md:pt-10 bg-[#f5f5f9]">
+          {userRoleLoading ? (
+            <div className="flex justify-center items-center">
+              <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-green-600"></div>
+            </div>
+          ) : userRole?.data === "user" ? (
             <div className="text-2xl font-bold">
               {selected === "my-product" && <UserProduct />}
               {selected === "my-profile" && <UserProfile />}
