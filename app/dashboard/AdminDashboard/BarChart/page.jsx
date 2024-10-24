@@ -65,7 +65,7 @@ const StackedBarChart = () => {
   };
 
   return (
-    <div style={{ width: "650px" }}>
+    <div className="md:w-[650px]">
       {" "}
       {/* Set the width of the chart container */}
       <Bar data={data} options={options} />

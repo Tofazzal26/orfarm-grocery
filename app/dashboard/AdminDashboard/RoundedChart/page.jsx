@@ -30,7 +30,7 @@ const RoundedChart = () => {
   };
 
   return (
-    <div style={{ width: "180px", height: "180px", position: "relative" }}>
+    <div className="md:w-[180px] w-[150px] h-[150px] md:h-[180px] relative">
       <Doughnut data={data} options={options} />
       {/* Text inside the circle */}
       <div

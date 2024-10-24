@@ -34,7 +34,7 @@ const AdminDashBoard = () => {
           </div>
           <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3">
             <div className="p-6">
-              <div className="flex gap-4">
+              <div className="flex md:flex-row flex-col gap-4">
                 <div>
                   <div className="flex justify-between ">
                     <h2 className="text-[18px] text-[#57626c]">
@@ -44,7 +44,7 @@ const AdminDashBoard = () => {
                   </div>
                   <BarChart />
                 </div>
-                <div className="flex-1 border-l-[1px] border-gray-300 space-y-5">
+                <div className="flex-1 md:border-l-[1px] border-gray-300 space-y-5">
                   <div className="flex justify-center">
                     <button className="border-[#696cff] text-[#696cff] border-[1px] hover:text-white hover:bg-[#696cff] transition-all ease-in-out text-[18px] rounded-sm px-6 py-[6px]">
                       2024
@@ -171,9 +171,9 @@ const AdminDashBoard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-Cards w-[460px] rounded-md mt-3 md:mt-6">
+          <div className="bg-white shadow-Cards md:w-[460px] rounded-md mt-3 md:mt-6">
             <div className="p-6">
-              <div className="flex items-center gap-4 md:gap-8">
+              <div className="flex md:flex-row flex-col items-center gap-4 md:gap-8">
                 <div className="h-[120px]">
                   <h2 className="text-gray-600 text-[20px]">Profile Report</h2>
                   <button className="text-[#ffb41c] bg-[#fff2d6] px-3 text-[16px] rounded-md">
