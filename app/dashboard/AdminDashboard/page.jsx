@@ -1,4 +1,11 @@
-import { ArrowDown, ArrowUp, EllipsisVertical } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  EllipsisVertical,
+  Shirt,
+  Smartphone,
+  Trophy,
+} from "lucide-react";
 import React from "react";
 import BarChart from "./BarChart/page";
 import RoundedChart from "./RoundedChart/page";
@@ -89,28 +96,119 @@ const AdminDashBoard = () => {
               </div>
             </div>
           </div>
-          <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
-            <div className="p-6">
-              <div className="flex justify-between">
-                <div>
-                  <h2 className="text-[18px] text-[#57626c]">
-                    Order Statistics
-                  </h2>
-                  <h2 className="text-[15px] text-[#8f969e]">
-                    42.82k Total Sales
-                  </h2>
+          <div className="flex gap-3 md:gap-6">
+            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
+              <div className="p-6">
+                <div className="flex justify-between">
+                  <div>
+                    <h2 className="text-[18px] text-[#57626c]">
+                      Order Statistics
+                    </h2>
+                    <h2 className="text-[15px] text-[#8f969e]">
+                      42.82k Total Sales
+                    </h2>
+                  </div>
+                  <div>
+                    <EllipsisVertical size={20} className="text-[#a7acb2]" />
+                  </div>
                 </div>
-                <div>
-                  <EllipsisVertical size={20} className="text-[#a7acb2]" />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-[28px]">8,258</h2>
+                    <h2 className="text-[#a7acb2] mt-3">Total Orders</h2>
+                  </div>
+                  <div>
+                    <WeekRoundedChart />
+                  </div>
+                </div>
+                <div className="mt-4 space-y-6">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <div className="bg-[#e7e7ff] px-[10px] py-[10px] rounded-md">
+                          <Smartphone size={20} className="text-[#696cfe]" />
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-base text-gray-600">Electronic</h2>
+                        <h2 className="text-sm text-[#a2a8af]">
+                          Mobile, Earbuds, TV
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-700 text-lg">82.5k</h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <div className="bg-[#e8fadf] px-[10px] py-[10px] rounded-md">
+                          <Shirt size={20} className="text-[#71dd37]" />
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-base text-gray-600">Fashion</h2>
+                        <h2 className="text-sm text-[#a2a8af]">
+                          T-shirt, Jeans, Shoes
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-700 text-lg">23.8k</h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <div className="bg-[#d7f5fc] px-[10px] py-[10px] rounded-md">
+                          <Smartphone size={20} className="text-[#03c2eb]" />
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-base text-gray-600">Decor</h2>
+                        <h2 className="text-sm text-[#a2a8af]">
+                          Fine Art, Dining
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-700 text-lg">849k</h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <div className="bg-[#ebeef0] px-[10px] py-[10px] rounded-md">
+                          <Trophy size={20} className="text-[#696cfe]" />
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-base text-gray-600">Sports</h2>
+                        <h2 className="text-sm text-[#a2a8af]">
+                          Football, Cricket Kit
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-700 text-lg">99</h2>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-[28px]">8,258</h2>
-                  <h2 className="text-[#a7acb2]">Total Orders</h2>
-                </div>
-                <div>
-                  <WeekRoundedChart />
+            </div>
+            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
+              <div className="p-6">
+                <div className="space-x-1">
+                  <button className="bg-[#696cff] px-6 py-[7px] rounded-md text-white">
+                    Income
+                  </button>
+                  <button className="px-6 py-[7px] hover:bg-[#e7e7ff] hover:text-[#6163e6] transition-all hover:ease-in-out rounded-md text-gray-700">
+                    Expense
+                  </button>
+                  <button className="px-6 py-[7px] hover:bg-[#e7e7ff] hover:text-[#6163e6] transition-all hover:ease-in-out rounded-md text-gray-700">
+                    Profit
+                  </button>
                 </div>
               </div>
             </div>
