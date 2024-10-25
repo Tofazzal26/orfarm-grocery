@@ -352,8 +352,123 @@ const AdminDashBoard = () => {
               </div>
             </div>
           </div>
-          <div>
-            <h1>Right Side</h1>
+          <div className="bg-white shadow-Cards md:w-[460px] rounded-md mt-3 md:mt-6">
+            <div className="p-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-gray-600 text-[18px]">Transactions</h2>
+                <EllipsisVertical size={20} className="text-[#9ca3af]" />
+              </div>
+              <div className="mt-10">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/paypal.png" alt="" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">Paypal</h2>
+                        <h2 className="text-[16px] text-gray-700">
+                          Send money
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        +82.6 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/wallet.png" alt="" className="w-[40px]" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">Wallet</h2>
+                        <h2 className="text-[16px] text-gray-700">Mac'D</h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        +270.69 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/chart.png" alt="" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">Transfer</h2>
+                        <h2 className="text-[16px] text-gray-700">Refund</h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        +637.91 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/cc-primary.png" alt="" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">
+                          Credit Card
+                        </h2>
+                        <h2 className="text-[16px] text-gray-700">
+                          Ordered Food
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        -838.71 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/wallet.png" alt="" className="w-[40px]" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">Wallet</h2>
+                        <h2 className="text-[16px] text-gray-700">Starbucks</h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        +203.33 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <img src="/cc-warning.png" alt="" />
+                      </div>
+                      <div className="leading-[22px]">
+                        <h2 className="text-[14px] text-gray-500">
+                          Mastercard
+                        </h2>
+                        <h2 className="text-[16px] text-gray-700">
+                          Ordered Food
+                        </h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-gray-600 text-[18px]">
+                        -92.45 <span className="text-gray-400">USD</span>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
