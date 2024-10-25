@@ -12,6 +12,7 @@ import RoundedChart from "./RoundedChart/page";
 import LineChart from "./LineChart/page";
 import WeekRoundedChart from "./WeekRoundedChart/page";
 import BalanceLineChart from "./BalanceLineChart/page";
+import IncomeCircleChart from "./IncomeCircleChart/page";
 
 const AdminDashBoard = () => {
   return (
@@ -233,7 +234,19 @@ const AdminDashBoard = () => {
                 <div>
                   <BalanceLineChart />
                 </div>
-                <div>bottom</div>
+                <div className="flex justify-center items-center">
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <IncomeCircleChart />
+                    </div>
+                    <div>
+                      <h2 className="text-gray-700">Income this week</h2>
+                      <h2 className="text-gray-400">
+                        $39k less than last week
+                      </h2>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
