@@ -61,7 +61,7 @@ const BalanceLineChart = () => {
   };
 
   return (
-    <div style={{ width: "450px", height: "300px" }}>
+    <div className="md:w-[450px]  md:h-[300px]">
       <Line data={data} options={options} />
     </div>
   );

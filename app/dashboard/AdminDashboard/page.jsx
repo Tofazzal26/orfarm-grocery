@@ -98,8 +98,9 @@ const AdminDashBoard = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-3 md:gap-6">
-            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
+          {/* last row chart  */}
+          <div className="flex md:flex-row flex-col gap-3 md:gap-6">
+            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 md:w-[500px]">
               <div className="p-6">
                 <div className="flex justify-between">
                   <div>
@@ -199,7 +200,7 @@ const AdminDashBoard = () => {
                 </div>
               </div>
             </div>
-            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 w-[500px]">
+            <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 md:w-[500px]">
               <div className="p-6">
                 <div className="space-x-1">
                   <button className="bg-[#696cff] px-6 py-[7px] rounded-md text-white">
@@ -251,6 +252,7 @@ const AdminDashBoard = () => {
             </div>
           </div>
         </div>
+        {/* right side content */}
         <div className="col-span-2">
           <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-6">
             <div className="text-base bg-white rounded-md md:w-[220px] w-[290px]  h-[205px] shadow-Cards">
@@ -335,7 +337,7 @@ const AdminDashBoard = () => {
           </div>
           <div className="bg-white shadow-Cards md:w-[460px] rounded-md mt-3 md:mt-6">
             <div className="p-6">
-              <div className="flex md:flex-row flex-col items-center gap-4 md:gap-8">
+              <div className="flex md:flex-row flex-col md:items-center gap-4 md:gap-8">
                 <div className="h-[120px]">
                   <h2 className="text-gray-600 text-[20px]">Profile Report</h2>
                   <button className="text-[#ffb41c] bg-[#fff2d6] px-3 text-[16px] rounded-md">
@@ -358,8 +360,8 @@ const AdminDashBoard = () => {
                 <h2 className="text-gray-600 text-[18px]">Transactions</h2>
                 <EllipsisVertical size={20} className="text-[#9ca3af]" />
               </div>
-              <div className="mt-10">
-                <div className="space-y-6">
+              <div className="mt-4 md:mt-[38px]">
+                <div className="space-y-3 md:space-y-6">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
