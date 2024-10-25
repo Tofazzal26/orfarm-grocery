@@ -11,6 +11,7 @@ import BarChart from "./BarChart/page";
 import RoundedChart from "./RoundedChart/page";
 import LineChart from "./LineChart/page";
 import WeekRoundedChart from "./WeekRoundedChart/page";
+import BalanceLineChart from "./BalanceLineChart/page";
 
 const AdminDashBoard = () => {
   return (
@@ -210,6 +211,29 @@ const AdminDashBoard = () => {
                     Profit
                   </button>
                 </div>
+                <div className="mt-4">
+                  <div className="flex items-center gap-3">
+                    <div>
+                      <img src="/wallet.png" alt="" className="w-[40px]" />
+                    </div>
+                    <div>
+                      <h2 className="text-gray-500 text-[16px]">
+                        Total Balance
+                      </h2>
+                      <h2 className="flex items-center gap-2 text-gray-700">
+                        $459.10{" "}
+                        <span className="text-[#71dd37] flex items-center gap-2">
+                          {" "}
+                          <ArrowUp size={18} className="text-[#71dd37]" /> 42.9%
+                        </span>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <BalanceLineChart />
+                </div>
+                <div>bottom</div>
               </div>
             </div>
           </div>
