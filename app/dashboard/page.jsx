@@ -64,7 +64,7 @@ const Sidebar = () => {
 
   return (
     <div className="">
-      <div className="bg-[#1f2937] text-white py-4 border-b-[1px] border-gray-600">
+      <div className="bg-[#1f2937] text-white py-4 md:fixed w-full z-50 border-b-[1px] border-gray-600">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 ml-4">
             {" "}
@@ -78,7 +78,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="flex h-[calc(150vh-83px)]">
+      <div className="flex h-[calc(160vh-83px)]">
         {/* Sidebar */}
         <div className="md:hidden flex z-50">
           <button
@@ -138,7 +138,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="w-64 bg-gray-800 text-white h-full p-5 lg:block hidden">
-          <ul>
+          <ul className="md:fixed md:w-[220px] md:mt-[85px]">
             {userRoleLoading ? (
               <div className="flex justify-center items-center">
                 <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin dark:border-green-600"></div>
@@ -178,7 +178,7 @@ const Sidebar = () => {
         </div>
 
         {/* Main content */}
-        <div className="flex-grow px-12 py-4 mt-6 md:mt-0 pt-0 md:pt-10 bg-[#f5f5f9]">
+        <div className="flex-grow px-12 py-4 mt-6 md:mt-[80px] pt-0 md:pt-10 bg-[#f5f5f9]">
           {userRoleLoading ? (
             <div className="flex justify-center items-center">
               <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-green-600"></div>
