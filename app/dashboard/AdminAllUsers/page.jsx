@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 const AdminAllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const UserPerPage = 2;
+  const UserPerPage = 4;
   const { isLoading: allUserLoading, data: allUserData = {} } = useQuery({
     queryKey: ["allUser", currentPage, UserPerPage],
     queryFn: async () => {
@@ -39,11 +39,11 @@ const AdminAllUsers = () => {
     }
   };
 
-  console.log(currentPage);
+ 
 
   return (
     <div className="bg-white md:px-8 md:py-2">
-      <h2 className="text-lg md:text-2xl mb-4">My Product</h2>
+      <h2 className="text-lg md:text-2xl mb-4">All Users</h2>
 
       {/* Table container with horizontal scroll for smaller screens */}
       <div className="relative overflow-x-auto">
