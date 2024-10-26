@@ -5,9 +5,22 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
   try {
     await ConnectMongoose();
-    const allUser = await UserModel.find();
+    const { searchParams } = new URL(request.url);
+    const size = searchParams.get("size");
+    const page = searchParams.get("page");
+    const sizeNumber = parseInt(size);
+    const pageNumber = parseInt(page);
+    const totalUsers = await UserModel.countDocuments();
+    const allUser = await UserModel.find()
+      .skip(sizeNumber * (pageNumber - 1))
+      .limit(sizeNumber);
     return NextResponse.json(
-      { data: allUser, message: "All user get success", success: true },
+      {
+        data: allUser,
+        totalUsers,
+        message: "All user get success",
+        success: true,
+      },
       { status: 200 }
     );
   } catch (error) {

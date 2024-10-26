@@ -30,14 +30,6 @@ const ProductProvider = ({ children }) => {
     }
   }, []);
 
-  const { isLoading: allUserLoading, data: allUser = [] } = useQuery({
-    queryKey: ["allUser"],
-    queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AllUser`);
-      return resp?.data?.data;
-    },
-  });
-
   const email = session?.data?.user?.email;
   const { isLoading: userRoleLoading, data: userRole = [] } = useQuery({
     queryKey: ["userRole", !email],
@@ -210,8 +202,6 @@ const ProductProvider = ({ children }) => {
     productCategory,
     userRole,
     userRoleLoading,
-    allUser,
-    allUserLoading,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>

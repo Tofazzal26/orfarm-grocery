@@ -1,11 +1,45 @@
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
-import React, { useContext } from "react";
-import { Trash } from "lucide-react";
-
+import React, { useContext, useState } from "react";
+import { ChevronLeft, ChevronRight, Trash } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 const AdminAllUsers = () => {
-  const { allUser, allUserLoading } = useContext(AuthProduct);
+  const [currentPage, setCurrentPage] = useState(1);
+  const UserPerPage = 2;
+  const { isLoading: allUserLoading, data: allUserData = {} } = useQuery({
+    queryKey: ["allUser", currentPage, UserPerPage],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/AllUser?page=${currentPage}&size=${UserPerPage}`
+      );
+      return resp?.data;
+    },
+  });
 
-  console.log(allUser);
+  const userCount = allUserData.totalUsers || 0;
+  const allUser = allUserData.data || [];
+  const numberOfPage = Math.ceil(userCount / UserPerPage);
+  const pages = [];
+  for (let i = 1; i <= numberOfPage; i++) {
+    pages.push(i);
+  }
+  const handlePageChange = (count) => {
+    setCurrentPage(count);
+  };
+
+  const handleNext = () => {
+    if (currentPage < numberOfPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  console.log(currentPage);
 
   return (
     <div className="bg-white md:px-8 md:py-2">
@@ -71,6 +105,32 @@ const AdminAllUsers = () => {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-between mb-2">
+          <h2></h2>
+          <div className="space-x-2 flex items-center">
+            <button
+              onClick={handlePrev}
+              className={`bg-[#22c55e] text-white px-[8px] py-[8px] rounded-md`}
+            >
+              <ChevronLeft />
+            </button>
+            {pages.map((item) => (
+              <button
+                onClick={() => handlePageChange(item)}
+                className={` text-black px-4 py-1 rounded-md ${currentPage === item ? "bg-[#22c55e] text-white" : "bg-[#d1d5db]"}`}
+                key={item}
+              >
+                {item}
+              </button>
+            ))}
+            <button
+              onClick={handleNext}
+              className={`bg-[#22c55e] text-white px-[8px] py-[8px] rounded-md`}
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
