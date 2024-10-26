@@ -21,13 +21,16 @@ import AdminDashBoard from "./AdminDashboard/page";
 import AdminAllUsers from "./AdminAllUsers/page";
 import AdminAllVendors from "./AdminAllVendors/page";
 import AdminVendorRequest from "./AdminVendorRequest/AdminVendorRequest";
-
+import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
   const router = useRouter();
   const { userRole, userRoleLoading } = useContext(AuthProduct);
   const [isOpen, setIsOpen] = useState(false);
+  const session = useSession();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -62,6 +65,34 @@ const Sidebar = () => {
     }
   };
 
+  const handleBeComeVendor = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to send a vendor request ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, send it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const email = session?.data?.user?.email;
+
+        const resp = await axios.patch(
+          `http://localhost:3000/api/VendorRequestSend/${email}`
+        );
+
+        if (resp?.data?.success) {
+          Swal.fire({
+            title: "Send Success",
+            text: "Your vendor request has been sent.",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
+
   return (
     <div className="">
       <div className="bg-[#1f2937] text-white py-4 md:fixed w-full z-50 border-b-[1px] border-gray-600">
@@ -72,7 +103,10 @@ const Sidebar = () => {
             <h1 className="md:text-[25px] text-[16px] mt-2">Orfarm-Grocery</h1>
           </div>
           <div className="mr-4">
-            <button className="md:text-[16px] bg-[#22c55e] md:px-4 px-[10px] py-[6px] md:py-2 rounded-md text-[14px] mt-2">
+            <button
+              onClick={handleBeComeVendor}
+              className="md:text-[16px] bg-[#22c55e] md:px-4 px-[10px] py-[6px] md:py-2 rounded-md text-[14px] mt-2"
+            >
               Become a vendor
             </button>
           </div>

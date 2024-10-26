@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  vendor: {
+    type: String,
+    default: "No",
+  },
 });
 
 const UserModel = mongoose.models.User || mongoose.model("User", UserSchema);
