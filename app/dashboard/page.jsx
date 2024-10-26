@@ -32,7 +32,7 @@ const Sidebar = () => {
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
-  console.log(userRole?.data);
+  // console.log(userRole?.data);
 
   const NAV_ITEMS = [
     { id: "my-product", label: "My Product", icon: <ShoppingCart /> },
