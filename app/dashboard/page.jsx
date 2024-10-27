@@ -28,13 +28,15 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
   const router = useRouter();
-  const { userRole, userRoleLoading } = useContext(AuthProduct);
+  const { userRole, userRoleLoading, singleUserData, singleUserLoading } =
+    useContext(AuthProduct);
   const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
+  const [userData] = singleUserData;
   // console.log(userRole?.data);
 
   const NAV_ITEMS = [
@@ -81,7 +83,7 @@ const Sidebar = () => {
         const resp = await axios.patch(
           `http://localhost:3000/api/VendorRequestSend/${email}`
         );
-
+        singleUserLoading();
         if (resp?.data?.success) {
           Swal.fire({
             title: "Send Success",
@@ -91,6 +93,10 @@ const Sidebar = () => {
         }
       }
     });
+  };
+
+  const handleWaitVendor = () => {
+    Swal.fire("Wait for admin approval");
   };
 
   return (
@@ -103,12 +109,27 @@ const Sidebar = () => {
             <h1 className="md:text-[25px] text-[16px] mt-2">Orfarm-Grocery</h1>
           </div>
           <div className="mr-4">
-            <button
-              onClick={handleBeComeVendor}
-              className="md:text-[16px] bg-[#22c55e] md:px-4 px-[10px] py-[6px] md:py-2 rounded-md text-[14px] mt-2"
-            >
-              Become a vendor
-            </button>
+            {userRole?.data === "user" ? (
+              userData?.vendor === "No" ? (
+                <button
+                  onClick={handleBeComeVendor}
+                  className="md:text-[16px] bg-[#22c55e] md:px-4 px-[10px] py-[6px] md:py-2 rounded-md text-[14px] mt-2"
+                >
+                  Become a vendor
+                </button>
+              ) : userData?.vendor === "Yes" ? (
+                <button
+                  onClick={handleWaitVendor}
+                  className="md:text-[16px] bg-orange-500 md:px-4 px-[10px] py-[6px] md:py-2 rounded-md text-[14px] mt-2"
+                >
+                  Request Processing
+                </button>
+              ) : (
+                ""
+              )
+            ) : (
+              session?.data?.user?.name
+            )}
           </div>
         </div>
       </div>
@@ -225,13 +246,15 @@ const Sidebar = () => {
             </div>
           ) : userRole?.data === "vendor" ? (
             ""
-          ) : (
+          ) : userRole?.data === "admin" ? (
             <div className="text-2xl font-bold ">
               {dashboardSelect === "dashboard" && <AdminDashBoard />}
               {dashboardSelect === "all-user" && <AdminAllUsers />}
               {dashboardSelect === "all-vendor" && <AdminAllVendors />}
               {dashboardSelect === "vendor-request" && <AdminVendorRequest />}
             </div>
+          ) : (
+            ""
           )}
         </div>
       </div>

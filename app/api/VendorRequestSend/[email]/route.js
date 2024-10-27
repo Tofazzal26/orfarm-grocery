@@ -8,11 +8,10 @@ export const PATCH = async (request, { params }) => {
     const email = params.email;
     const query = { email: email };
 
-    // Update the `vendorRequest` field to true
     const updatedUser = await UserModel.findOneAndUpdate(
       query,
       { $set: { vendor: "Yes" } },
-      { new: true, upsert: true } // `new: true` returns the updated document
+      { new: true, upsert: true }
     );
 
     return NextResponse.json({ success: true, user: updatedUser });

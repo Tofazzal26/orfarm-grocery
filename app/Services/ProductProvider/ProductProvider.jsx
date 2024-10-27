@@ -31,6 +31,17 @@ const ProductProvider = ({ children }) => {
   }, []);
 
   const email = session?.data?.user?.email;
+
+  const { refetch: singleUserLoading, data: singleUserData = [] } = useQuery({
+    queryKey: ["singleUserData", !email],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/SingleUserData/${email}`
+      );
+      return resp?.data?.data;
+    },
+  });
+
   const { isLoading: userRoleLoading, data: userRole = [] } = useQuery({
     queryKey: ["userRole", !email],
     queryFn: async () => {
@@ -202,6 +213,8 @@ const ProductProvider = ({ children }) => {
     productCategory,
     userRole,
     userRoleLoading,
+    singleUserData,
+    singleUserLoading,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
