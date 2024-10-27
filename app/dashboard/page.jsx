@@ -12,6 +12,8 @@ import {
   UserCog,
   GitPullRequestArrow,
   GitPullRequestCreateArrow,
+  ShoppingBag,
+  PlusSquare,
 } from "lucide-react";
 import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
@@ -24,9 +26,15 @@ import AdminVendorRequest from "./AdminVendorRequest/AdminVendorRequest";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import VendorDashboard from "./VendorDashboard/page";
+import OrderManagement from "./OrderManagement/page";
+import AddProduct from "./AddProduct/page";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
+  const [vendorDashboardSelect, setVendorDashboardSelect] =
+    useState("dashboard");
+
   const router = useRouter();
   const { userRole, userRoleLoading, singleUserData, singleUserLoading } =
     useContext(AuthProduct);
@@ -42,6 +50,18 @@ const Sidebar = () => {
   const NAV_ITEMS = [
     { id: "my-product", label: "My Product", icon: <ShoppingCart /> },
     { id: "my-wishlist", label: "My Wishlist", icon: <Heart /> },
+    { id: "my-profile", label: "My Profile", icon: <User /> },
+    { id: "exit", label: "Exit", icon: <LogOut /> },
+  ];
+
+  const NAV_VENDOR_ITEM = [
+    { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard /> },
+    {
+      id: "order-management",
+      label: "Order Management",
+      icon: <ShoppingBag />,
+    },
+    { id: "add-product", label: "Add Product", icon: <PlusSquare /> },
     { id: "my-profile", label: "My Profile", icon: <User /> },
     { id: "exit", label: "Exit", icon: <LogOut /> },
   ];
@@ -64,6 +84,7 @@ const Sidebar = () => {
     } else {
       setSelected(id);
       setDashboardSelect(id);
+      setVendorDashboardSelect(id);
     }
   };
 
@@ -212,7 +233,20 @@ const Sidebar = () => {
                 </li>
               ))
             ) : userRole?.data === "vendor" ? (
-              ""
+              NAV_VENDOR_ITEM.map((item) => (
+                <li
+                  key={item.id}
+                  className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
+                    dashboardSelect === item.id
+                      ? "bg-green-500"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => handleNavigation(item.id)}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </li>
+              ))
             ) : (
               NAV_ADMIN_ITEM.map((item) => (
                 <li
@@ -245,7 +279,14 @@ const Sidebar = () => {
               {selected === "my-wishlist" && <UserWishList />}
             </div>
           ) : userRole?.data === "vendor" ? (
-            ""
+            <div className="text-2xl font-bold ">
+              {vendorDashboardSelect === "dashboard" && <VendorDashboard />}
+              {vendorDashboardSelect === "order-management" && (
+                <OrderManagement />
+              )}
+              {vendorDashboardSelect === "add-product" && <AddProduct />}
+              {selected === "my-profile" && <UserProfile />}
+            </div>
           ) : userRole?.data === "admin" ? (
             <div className="text-2xl font-bold ">
               {dashboardSelect === "dashboard" && <AdminDashBoard />}
