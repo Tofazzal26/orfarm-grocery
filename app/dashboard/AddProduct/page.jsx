@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as React from "react";
-
+import axios from "axios";
 import {
   Select,
   SelectContent,
@@ -20,24 +20,76 @@ const AddProduct = () => {
     }
   };
 
+  const [prdCategory, setPrdCategory] = useState();
+  const [prdLocation, setPrdLocation] = useState();
+  const [prdStatus, setPrdStatus] = useState();
+  const [prdStock, setPrdStock] = useState();
+
   const handleSelectValue = (cate) => {
-    console.log(cate);
+    setPrdCategory(cate);
   };
 
   const handleLocationValue = (loc) => {
-    console.log(loc);
+    setPrdLocation(loc);
   };
   const handleProductStatus = (stat) => {
-    console.log(stat);
+    setPrdStatus(stat);
   };
-  const handleProductStock = (stoc) => {
-    console.log(stoc);
+  const handleProductStock = (sto) => {
+    setPrdStock(sto);
+  };
+
+  const handleAddProduct = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    if (images) {
+      formData.append("image", images);
+    } else {
+      console.error("No image selected!");
+      return;
+    }
+
+    const response = await axios.post(
+      "https://api.imgbb.com/1/upload",
+      formData,
+      {
+        params: {
+          key: process.env.NEXT_PUBLIC_ImageBB_API_Key,
+        },
+      }
+    );
+
+    let from = event.target;
+    const image = await response.data.data.url;
+    const discount = from.discount.value;
+    const rating = from.rating.value;
+    const title = from.title.value;
+    const price = from.price.value;
+    const disPrice = from.discountPrice.value;
+    const productStatus = prdStatus;
+    const location = prdLocation;
+    const category = prdCategory;
+    const stock = prdStock;
+    const allData = {
+      image,
+      discount,
+      rating,
+      title,
+      price,
+      disPrice,
+      productStatus,
+      location,
+      category,
+      stock,
+    };
+    console.log(allData);
   };
 
   return (
     <div>
       <h1 className="text-center">Add Product</h1>
-      <form className="mt-8">
+      <form onSubmit={handleAddProduct} className="mt-8">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="col-span-1">
             <div>
@@ -47,6 +99,7 @@ const AddProduct = () => {
                 <input
                   type="text"
                   name="title"
+                  required
                   className="md:py-[10px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none"
                 />
               </div>
@@ -56,6 +109,7 @@ const AddProduct = () => {
                 <input
                   type="number"
                   name="price"
+                  required
                   className="md:py-[10px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none"
                 />
               </div>
@@ -65,6 +119,7 @@ const AddProduct = () => {
                 <input
                   type="number"
                   name="discount"
+                  required
                   className="md:py-[10px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none"
                 />
               </div>
@@ -73,7 +128,7 @@ const AddProduct = () => {
                   <label className="text-gray-500 text-[20px]">Category</label>
                   <br />
                   <div className="md:py-[8px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none">
-                    <Select onValueChange={handleSelectValue}>
+                    <Select onValueChange={handleSelectValue} required>
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="CATEGORIES" />
                       </SelectTrigger>
@@ -101,7 +156,7 @@ const AddProduct = () => {
                 <label className="text-gray-500 text-[20px]">Status</label>
                 <br />
                 <div className="md:py-[8px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none">
-                  <Select onValueChange={handleProductStatus}>
+                  <Select onValueChange={handleProductStatus} required>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="STATUS" />
                     </SelectTrigger>
@@ -137,6 +192,7 @@ const AddProduct = () => {
                 <input
                   type="number"
                   name="discountPrice"
+                  required
                   className="md:py-[10px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none"
                 />
               </div>
@@ -146,6 +202,7 @@ const AddProduct = () => {
                 <input
                   type="number"
                   name="rating"
+                  required
                   className="md:py-[10px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none"
                 />
               </div>
@@ -153,7 +210,7 @@ const AddProduct = () => {
                 <label className="text-gray-500 text-[20px]">Location</label>
                 <br />
                 <div className="md:py-[8px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none">
-                  <Select onValueChange={handleLocationValue}>
+                  <Select onValueChange={handleLocationValue} required>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Location" />
                     </SelectTrigger>
@@ -174,7 +231,7 @@ const AddProduct = () => {
                 <label className="text-gray-500 text-[20px]">Stock</label>
                 <br />
                 <div className="md:py-[8px] py-2 mt-2 text-[18px] mb-4 px-3 w-full md:px-5 bg-gray-200 border-[1px]  outline-none rounded-none">
-                  <Select onValueChange={handleProductStock}>
+                  <Select onValueChange={handleProductStock} required>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="STOCK" />
                     </SelectTrigger>
@@ -191,6 +248,9 @@ const AddProduct = () => {
             </div>
           </div>
         </div>
+        <button className="bg-[#22c55e] w-full py-2 text-white text-[20px] rounded-sm">
+          ADD
+        </button>
       </form>
     </div>
   );

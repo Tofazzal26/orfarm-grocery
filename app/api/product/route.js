@@ -6,9 +6,7 @@ export const POST = async (request) => {
   try {
     await ConnectMongoose();
     const productData = await request.json();
-
     const newProducts = await ProductModel.insertMany(productData);
-
     return NextResponse.json({
       data: newProducts,
       message: "Products Created Successfully",
