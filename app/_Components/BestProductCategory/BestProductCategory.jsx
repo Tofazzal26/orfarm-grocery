@@ -59,7 +59,7 @@ const BestProductCategory = () => {
                   spaceBetween: 15,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 1,
                   spaceBetween: 20,
                 },
                 1024: {
@@ -106,7 +106,7 @@ const BestProductCategory = () => {
                   spaceBetween: 15,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 1,
                   spaceBetween: 20,
                 },
                 1024: {
@@ -153,7 +153,7 @@ const BestProductCategory = () => {
                   spaceBetween: 15,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 1,
                   spaceBetween: 20,
                 },
                 1024: {

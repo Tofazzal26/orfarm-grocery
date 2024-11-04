@@ -117,24 +117,28 @@ const Header = () => {
                           </DropdownMenuItem>
 
                           <DropdownMenuItem>
-                          <Link
-            href="/api/blog"
-            className={path === "/api/blog" ? "text-[#dcfce7]" : ""}
-          >
-            <button className="text-[14px] text-gray-700 uppercase ">
-              Blog
-            </button>
-          </Link>
+                            <Link
+                              href="/api/blog"
+                              className={
+                                path === "/api/blog" ? "text-[#dcfce7]" : ""
+                              }
+                            >
+                              <button className="text-[14px] text-gray-700 uppercase ">
+                                Blog
+                              </button>
+                            </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                          <Link
-            href="/api/contact"
-            className={path === "/api/contact" ? "text-[#dcfce7]" : ""}
-          >
-            <button className="text-[14px] text-gray-700  uppercase ">
-              Contact
-            </button>
-          </Link>
+                            <Link
+                              href="/api/contact"
+                              className={
+                                path === "/api/contact" ? "text-[#dcfce7]" : ""
+                              }
+                            >
+                              <button className="text-[14px] text-gray-700  uppercase ">
+                                Contact
+                              </button>
+                            </Link>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -157,7 +161,7 @@ const Header = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="hidden md:flex">
+                  <div className="xl:flex md:hidden hidden">
                     <Select onValueChange={handleLocation}>
                       <SelectTrigger className="w-[180px] h-[50px]">
                         <SelectValue placeholder="Select a Location" />
@@ -175,12 +179,12 @@ const Header = () => {
                     </Select>
                   </div>
                 </div>
-                <div className="lg:flex items-center hidden ml-8 gap-6">
+                <div className="lg:flex  items-center hidden ml-8 gap-6">
                   <div>
                     <div className="relative">
                       <input
                         onChange={handleSearch}
-                        className="bg-[#f3f4f7] outline-none px-8 py-4 rounded-md w-[600px]"
+                        className="bg-[#f3f4f7] outline-none px-8 py-4 rounded-md md:w-[440px] xl:w-[600px]"
                         type="text"
                         placeholder="Search for products..."
                       />

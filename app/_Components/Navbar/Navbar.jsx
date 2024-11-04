@@ -69,7 +69,7 @@ const Navbar = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex md:flex-wrap items-center gap-2">
           <NavbarLink name={"HOME"} Home={Home} link={"/"} path={path} />
           <NavbarLink
             name={"SHOP"}

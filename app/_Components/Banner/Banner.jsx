@@ -6,15 +6,15 @@ const Banner = () => {
     <div className="my-10">
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-8">
         <div className="col-span-4">
-          <div className="md:w-full md:h-[545px] bg-cover rounded-md bg-no-repeat bg-center bg-[url('/Banner1.png')]">
-            <div className="md:pt-[110px] pt-[20px] pl-[20px] pb-[20px] md:pb-[0px] md:pl-[80px]">
+          <div className="md:w-full xl:h-[545px] lg:h-[405px] md:h-[290px] bg-cover rounded-md bg-no-repeat bg-center bg-[url('/Banner1.png')]">
+            <div className="md:pt-[50px] lx:pt-[120px] pt-[20px] pl-[20px] pb-[20px] md:pb-[0px] md:pl-[80px]">
               <h2 className="uppercase text-gray-600">
                 Exclusive Offer{" "}
                 <button className="text-[#1d8e42] uppercase ml-2 rounded-full px-3 py-[4px] bg-gradient-to-r from-[#c4e4d3] to-gray-100">
                   -20% Off
                 </button>
               </h2>
-              <h1 className="md:text-[55px] text-[20px] font-extrabold md:w-[400px] my-2 md:leading-[60px]">
+              <h1 className="md:text-[25px] xl:text-[55px] lg:text-[55px] text-[20px] font-extrabold md:w-[400px] lx:my-2 md:my-1 my-2 md:leading-[60px]">
                 Feed your family the best
               </h1>
               <h2 className="md:text-lg text-gray-600">
@@ -22,7 +22,9 @@ const Banner = () => {
               </h2>
               <h2 className="md:text-lg text-gray-600 my-4">
                 from{" "}
-                <span className="md:text-4xl text-lg text-red-500">$7.99</span>
+                <span className="md:text-2xl xl:text-4xl lg:text-4xl text-lg text-red-500">
+                  $7.99
+                </span>
               </h2>
               <button className="bg-[#80b500] rounded-full text-sm md:text-base flex justify-center text-white items-center gap-2 md:py-2 md:px-6 py-[4px] px-3">
                 Shop Now <MoveRight />{" "}
@@ -63,8 +65,8 @@ const Banner = () => {
             </div>
           </div>
           <div className="col-span-1">
-            <div className="w-full md:h-[250px] rounded-md bg-cover bg-no-repeat bg-center bg-[url('/Banner4.png')]">
-              <div className="flex justify-end md:mr-[40px] pt-[20px] mr-[20px] pb-[20px] md:pb-[0px] md:pt-[45px]">
+            <div className="w-full md:h-[185px] xl:h-[250px] lg:h-[250px] rounded-md bg-cover bg-no-repeat bg-center bg-[url('/Banner4.png')]">
+              <div className="flex justify-end md:mr-[40px] pt-[20px] mr-[20px] pb-[20px] md:pb-[0px] md:pt-[25px] xl:pt-[45px] lg:pt-[45px]">
                 <div>
                   <h2 className="lg:text-2xl text-lg text-gray-600">
                     Big Discount
