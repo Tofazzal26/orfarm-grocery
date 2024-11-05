@@ -77,7 +77,7 @@ const UserProduct = () => {
 
         <div className="relative overflow-auto">
           <div className="overflow-x-auto rounded-lg">
-            <table className="min-w-full bg-white border mb-4">
+            <table className="w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
                   <th className="p-0">
