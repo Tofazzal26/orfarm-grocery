@@ -2,12 +2,17 @@ import ConnectMongoose from "@/lib/ConnectMongoose/ConnectMongoose";
 import UserModel from "../UserModel/UserModel";
 import { NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (request) => {
   try {
     await ConnectMongoose();
     const query = { vendor: "Yes" };
+    const { searchParams } = new URL(request.url);
+    const size = parseInt(searchParams.get("size"));
+    const page = parseInt(searchParams.get("page"));
     const requestCounter = await UserModel.countDocuments(query);
-    const vendorRequestData = await UserModel.find(query);
+    const vendorRequestData = await UserModel.find(query)
+      .skip(size * (page - 1))
+      .limit(size);
     return NextResponse.json(
       {
         data: vendorRequestData,
