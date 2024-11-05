@@ -193,7 +193,20 @@ const Sidebar = () => {
                   </li>
                 ))
               ) : userRole?.data === "vendor" ? (
-                ""
+                NAV_VENDOR_ITEM.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`p-4 flex items-center gap-3 cursor-pointer rounded-md ${
+                      dashboardSelect === item.id
+                        ? "bg-green-500"
+                        : "hover:bg-gray-700"
+                    }`}
+                    onClick={() => handleNavigation(item.id)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </li>
+                ))
               ) : (
                 NAV_ADMIN_ITEM.map((item) => (
                   <li

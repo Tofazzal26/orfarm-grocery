@@ -51,7 +51,7 @@ const VendorDashboard = () => {
         </div>
       </div>
       {/* VendorStatistics code end */}
-      <div className=" w-[1500px] mx-auto">
+      <div className=" xl:w-[1000px] w-[220px] md:w-[620px] 2xl:w-[1500px] mx-auto">
         <VendorRevenueChart />
       </div>
     </div>
