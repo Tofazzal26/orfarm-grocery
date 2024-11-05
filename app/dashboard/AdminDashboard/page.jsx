@@ -17,7 +17,7 @@ import IncomeCircleChart from "./IncomeCircleChart/page";
 const AdminDashBoard = () => {
   return (
     <div className="">
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-3 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-6 gap-3 xl:gap-6">
         <div className="col-span-4">
           <div className="text-base bg-white rounded-md md:h-[205px] h-[342px] shadow-Cards">
             <div className="p-6 flex md:flex-row flex-col justify-between">
@@ -44,7 +44,7 @@ const AdminDashBoard = () => {
           </div>
           <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3">
             <div className="p-6">
-              <div className="flex md:flex-row flex-col gap-4">
+              <div className="flex md:flex-col xl:flex-row flex-col gap-4">
                 <div>
                   <div className="flex justify-between ">
                     <h2 className="text-[18px] text-[#57626c]">
@@ -99,7 +99,7 @@ const AdminDashBoard = () => {
             </div>
           </div>
           {/* last row chart  */}
-          <div className="flex md:flex-row flex-col gap-3 md:gap-6">
+          <div className="flex md:flex-col xl:flex-row flex-col gap-3 md:gap-6">
             <div className="text-base bg-white rounded-md shadow-Cards md:mt-6 mt-3 md:w-[500px]">
               <div className="p-6">
                 <div className="flex justify-between">
@@ -254,7 +254,7 @@ const AdminDashBoard = () => {
         </div>
         {/* right side content */}
         <div className="col-span-2">
-          <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-6">
+          <div className="flex md:flex-row  xl:flex-row flex-col md:items-center gap-3 md:gap-6">
             <div className="text-base bg-white rounded-md md:w-[220px] w-[290px]  h-[205px] shadow-Cards">
               <div className="p-6 space-y-3">
                 <div className="flex justify-between">

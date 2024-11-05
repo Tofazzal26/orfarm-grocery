@@ -154,7 +154,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="flex h-[calc(160vh-83px)]">
+      <div className="flex md:h-[520vh] xl:h-[calc(160vh-83px)]">
         {/* Sidebar */}
         <div className="md:hidden flex z-50">
           <button
