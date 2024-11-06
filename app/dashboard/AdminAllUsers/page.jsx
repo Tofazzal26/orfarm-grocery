@@ -2,11 +2,16 @@ import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import React, { useContext, useState } from "react";
 import { ChevronLeft, ChevronRight, Trash } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 import axios from "axios";
 const AdminAllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const UserPerPage = 4;
-  const { isLoading: allUserLoading, data: allUserData = {} } = useQuery({
+  const {
+    refetch,
+    isLoading: allUserLoading,
+    data: allUserData = {},
+  } = useQuery({
     queryKey: ["allUser", currentPage, UserPerPage],
     queryFn: async () => {
       const resp = await axios.get(
@@ -39,7 +44,85 @@ const AdminAllUsers = () => {
     }
   };
 
- 
+  const handleRoleChange = async (id, role) => {
+    if (role === "user") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to make him a vendor?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Vendor it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const Role = "vendor";
+          const resp = await axios.patch(
+            `http://localhost:3000/api/UserRoleChange/${id}`,
+            { Role }
+          );
+          refetch();
+
+          Swal.fire({
+            title: "Vendored!",
+            text: "Your role change success",
+            icon: "success",
+          });
+        }
+      });
+    }
+    if (role === "vendor") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to make him a User?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, User it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const Role = "user";
+          const resp = await axios.patch(
+            `http://localhost:3000/api/UserRoleChange/${id}`,
+            { Role }
+          );
+          refetch();
+
+          Swal.fire({
+            title: "User!",
+            text: "Your role change success",
+            icon: "success",
+          });
+        }
+      });
+    }
+  };
+
+  const handleUserDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to remove this user?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const resp = await axios.delete(
+          `http://localhost:3000/api/UserDelete/${id}`
+        );
+        refetch();
+
+        Swal.fire({
+          title: "Removed!",
+          text: "Your user has been removed",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div className="bg-white md:px-8 md:py-2">
@@ -91,11 +174,13 @@ const AdminAllUsers = () => {
                 <td className="p-2 md:p-4">{item?.userRole}</td>
                 <td className="relative p-2 md:p-4 flex justify-center space-x-2">
                   <button
+                    onClick={() => handleRoleChange(item?._id, item?.userRole)}
                     className={`bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
                   >
                     {item?.userRole === "user" ? "Vendor" : "User"}
                   </button>
                   <button
+                    onClick={() => handleUserDelete(item?._id)}
                     className={`bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
                   >
                     <Trash size={20} />
