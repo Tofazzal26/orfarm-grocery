@@ -2,6 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ChevronLeft, ChevronRight, Trash } from "lucide-react";
 import { useState } from "react";
+
+import { Copy } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Image from "next/image";
+
 const AdminAllVendors = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 4;
@@ -87,17 +103,37 @@ const AdminAllVendors = () => {
                 {/* Show Email, Status, and Actions on all screens */}
                 <td className="p-2 md:p-4">{item?.email}</td>
                 <td className="p-2 md:p-4">{item?.userRole}</td>
-                <td className="relative p-2 md:p-4 flex justify-center space-x-2">
-                  <button
-                    className={`bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
-                  >
-                    Details
-                  </button>
-                  <button
-                    className={`bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
-                  >
-                    <Trash size={20} />
-                  </button>
+                <td className="relative p-2 md:p-4">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="bg-none">
+                        {" "}
+                        <button
+                          className={`bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
+                        >
+                          Details
+                        </button>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <div className="">
+                        <div className="flex gap-4">
+                          <div>
+                            <img
+                              src={item?.image}
+                              className="xl:w-[400px] xl:h-[150px]"
+                              alt={"profile"}
+                            />
+                          </div>
+                          <div>
+                            <h2 className="text-lg">{item?.name}</h2>
+                            <h2 className="text-lg">{item?.email}</h2>
+                            <h2 className="text-lg text-red-500">{item?.userRole}</h2>
+                          </div>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </td>
               </tr>
             ))}
