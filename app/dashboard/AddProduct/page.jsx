@@ -10,9 +10,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import Swal from 'sweetalert2'
 const AddProduct = () => {
   const [images, setImages] = useState(null);
+  const session = useSession();
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -41,7 +45,7 @@ const AddProduct = () => {
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
-
+    const vendorEmail = session?.data?.user?.email;
     const formData = new FormData();
     if (images) {
       formData.append("image", images);
@@ -71,6 +75,11 @@ const AddProduct = () => {
     const location = prdLocation;
     const category = prdCategory;
     const stock = prdStock;
+
+    if (parseFloat(rating) > 5) {
+      return toast.error("Rating Cannot be given more than 5");
+    }
+
     const allData = {
       image,
       discount,
@@ -82,8 +91,24 @@ const AddProduct = () => {
       location,
       category,
       stock,
+      vendorEmail,
     };
     console.log(allData);
+
+    const resp = await axios.post(
+      `http://localhost:3000/api/VendorProductAdd`,
+      allData
+    );
+    if (resp?.data.success) {
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Your product has been added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      event.target.reset();
+    }
   };
 
   return (

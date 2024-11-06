@@ -11,6 +11,10 @@ const ProductSchema = new mongoose.Schema({
   location: { type: String, required: true },
   category: { type: String, required: true },
   stock: { type: String, required: true },
+  vendorEmail: {
+    type: String,
+    required: true,
+  },
 });
 
 const ProductModel =
