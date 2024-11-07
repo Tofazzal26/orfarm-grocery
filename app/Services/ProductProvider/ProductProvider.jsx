@@ -22,6 +22,7 @@ const ProductProvider = ({ children }) => {
   const disPatch = useDispatch();
   const router = useRouter();
   const [myCart, setMyCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -215,6 +216,8 @@ const ProductProvider = ({ children }) => {
     userRoleLoading,
     singleUserData,
     singleUserLoading,
+    setTotalPrice,
+    totalPrice
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>

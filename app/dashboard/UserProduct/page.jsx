@@ -12,8 +12,27 @@ import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+
+import { Copy } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm/page";
+
 const UserProduct = () => {
   const session = useSession();
+  const { setTotalPrice, totalPrice } = useContext(AuthProduct);
   const [userProduct, setUserProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 4;
@@ -29,6 +48,7 @@ const UserProduct = () => {
   useEffect(() => {
     const carts = JSON.parse(localStorage.getItem("carts")) || [];
     setUserProduct(carts);
+    setTotalPrice(carts);
   }, []);
   const product = userProduct.filter(
     (item) => item.email === session?.data?.user?.email
@@ -70,10 +90,46 @@ const UserProduct = () => {
     }
   };
 
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLIC_API_KEY
+  );
+
+  const totalProductPrice = userProduct.reduce(
+    (before, prev) => parseInt(before) + parseInt(prev.price),
+    0
+  );
+
+  // console.log(userProduct);
+
   return (
     <div>
       <div className="bg-white md:px-8 md:py-2 overflow-auto">
-        <h2 className="text-lg md:text-2xl mb-4">My Product</h2>
+        <div>
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg md:text-2xl my-4">My Product</h2>
+            <h2 className="text-lg md:text-2xl my-4">
+              Total Price: {totalProductPrice}$
+            </h2>
+            <div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="bg-none">
+                    <button className="bg-[#8498e0] px-4 text-white text-base py-[8px] rounded-md">
+                      Pay
+                    </button>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <div className="p-4">
+                    <Elements stripe={stripePromise}>
+                      <CheckoutForm></CheckoutForm>
+                    </Elements>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+        </div>
 
         <div className="relative overflow-auto">
           <div className="overflow-x-auto rounded-lg">
@@ -121,10 +177,7 @@ const UserProduct = () => {
                     <td className="p-2 md:p-4">{item?.category}</td>
                     <td className="p-2 md:p-4">{item?.quantity}</td>
                     <td className="p-2 md:p-4">${item?.price}</td>
-                    <td className="relative p-2 md:p-4 flex justify-center space-x-2">
-                      <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                        <CircleDollarSign size={20} />
-                      </button>
+                    <td className="relative p-2 md:p-4">
                       <button
                         onClick={() => handleDeleteProduct(item?.prdID)}
                         className="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"

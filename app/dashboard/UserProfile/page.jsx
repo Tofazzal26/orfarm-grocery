@@ -12,7 +12,7 @@ const UserProfile = () => {
         <div
           className="bg-cover bg-center h-40 sm:h-56"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1503264116251-35a269479413')`,
+            backgroundImage: `url('/profileBack.jpg')`,
           }}
         ></div>
         <div className="p-6 sm:p-8">
