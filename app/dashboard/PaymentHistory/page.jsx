@@ -16,8 +16,6 @@ const PaymentHistory = () => {
     },
   });
 
-
-
   return (
     <div>
       <div>
@@ -78,6 +76,18 @@ const PaymentHistory = () => {
                   ))}
                 </tbody>
               </table>
+              {UserPaymentHistory?.length === 0 && (
+                <>
+                  <div className="flex items-center flex-col xl:mb-4">
+                    <img
+                      src="/no-payment.png"
+                      alt=""
+                      className="xl:w-[300px] xl:h-[300px]"
+                    />
+                    <h2>No Payment History</h2>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

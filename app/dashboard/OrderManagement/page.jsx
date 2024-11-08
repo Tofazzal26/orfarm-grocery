@@ -114,6 +114,18 @@ const OrderManagement = () => {
                 ))}
               </tbody>
             </table>
+            {order?.length === 0 && (
+              <>
+                <div className="flex items-center flex-col">
+                  <img
+                    src="/no-found.png"
+                    alt=""
+                    className="xl:w-[300px] xl:h-[300px]"
+                  />
+                  <h2>No Order Management</h2>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -142,8 +142,20 @@ const UserWishList = () => {
                   </tr>
                 ))}
               </tbody>
+             
             </table>
-
+            {paginationProduct?.length === 0 && (
+                <>
+                  <div className="flex items-center flex-col">
+                    <img
+                      src="/no-found.png"
+                      alt=""
+                      className="xl:w-[300px] xl:h-[300px]"
+                    />
+                    <h2>No Wishlist</h2>
+                  </div>
+                </>
+              )}
             <div className="flex md:justify-between md:flex-row flex-col items-center">
               <h1></h1>
               <div className="flex justify-center items-center">

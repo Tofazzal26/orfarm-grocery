@@ -101,6 +101,8 @@ const UserProduct = () => {
 
   // console.log(userProduct);
 
+  console.log(paginationData.length);
+
   return (
     <div>
       <div className="bg-white md:px-8 md:py-2 overflow-auto">
@@ -133,6 +135,7 @@ const UserProduct = () => {
 
         <div className="relative overflow-auto">
           <div className="overflow-x-auto rounded-lg">
+          
             <table className="w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
@@ -165,6 +168,7 @@ const UserProduct = () => {
                 </tr>
               </thead>
               <tbody>
+                
                 {paginationData.map((item) => (
                   <tr
                     key={item?.prdID}
@@ -189,7 +193,15 @@ const UserProduct = () => {
                 ))}
               </tbody>
             </table>
-
+            {paginationData?.length === 0 && (
+                  <>
+                    <div className="flex items-center flex-col"><img src="/no-found.png" alt="" className="xl:w-[300px] xl:h-[300px]"/>
+                    <h2>
+                      No Product
+                    </h2>
+                    </div>
+                  </>
+                )}
             <div className="flex md:justify-between md:flex-row flex-col items-center">
               <div>
                 <h1></h1>

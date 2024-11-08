@@ -31,6 +31,7 @@ import VendorDashboard from "./VendorDashboard/page";
 import OrderManagement from "./OrderManagement/page";
 import AddProduct from "./AddProduct/page";
 import PaymentHistory from "./PaymentHistory/page";
+import { useQuery } from "@tanstack/react-query";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
@@ -102,10 +103,10 @@ const Sidebar = () => {
       confirmButtonText: "Yes, send it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const email = session?.data?.user?.email;
+        const emails = session?.data?.user?.email;
 
         const resp = await axios.patch(
-          `http://localhost:3000/api/VendorRequestSend/${email}`
+          `http://localhost:3000/api/VendorRequestSend/${emails}`
         );
         singleUserLoading();
         if (resp?.data?.success) {

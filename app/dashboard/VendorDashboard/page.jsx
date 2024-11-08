@@ -1,7 +1,26 @@
 import { DollarSign, Box, ShoppingBag, TrendingUp } from "lucide-react";
 import VendorRevenueChart from "./VendorRevenueChart/page";
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const VendorDashboard = () => {
+  const session = useSession();
+  const email = session?.data?.user?.email;
+
+  const { data: VendorDashBoardData = [] } = useQuery({
+    queryKey: ["VendorDashBoardData"],
+    queryFn: async () => {
+      const reps = await axios.get(
+        `http://localhost:3000/api/VendorDashboardData/${email}`
+      );
+      return reps?.data?.data;
+    },
+  });
+
+  console.log(VendorDashBoardData);
+  const discountedPrice = VendorDashBoardData?.totalPrice * 0.8;
+
   return (
     <div>
       {/* VendorStatistics code start */}
@@ -12,7 +31,9 @@ const VendorDashboard = () => {
             <DollarSign className="w-10 h-10" />
           </div>
           <div className="ml-4">
-            <h3 className="text-2xl font-semibold text-gray-800">5000</h3>
+            <h3 className="text-2xl font-semibold text-gray-800">
+              {discountedPrice.toFixed(2)}
+            </h3>
             <p className="text-gray-600">Total Earnings</p>
           </div>
         </div>
@@ -23,7 +44,9 @@ const VendorDashboard = () => {
             <Box className="w-10 h-10" />
           </div>
           <div className="ml-4">
-            <h3 className="text-2xl font-semibold text-gray-800">120</h3>
+            <h3 className="text-2xl font-semibold text-gray-800">
+              {VendorDashBoardData?.totalProduct}
+            </h3>
             <p className="text-gray-600">Total Products</p>
           </div>
         </div>
@@ -34,7 +57,9 @@ const VendorDashboard = () => {
             <ShoppingBag className="w-10 h-10" />
           </div>
           <div className="ml-4">
-            <h3 className="text-2xl font-semibold text-gray-800">320</h3>
+            <h3 className="text-2xl font-semibold text-gray-800">
+              {VendorDashBoardData?.totalOrders}
+            </h3>
             <p className="text-gray-600">Total Orders</p>
           </div>
         </div>
@@ -45,7 +70,9 @@ const VendorDashboard = () => {
             <TrendingUp className="w-10 h-10" />
           </div>
           <div className="ml-4">
-            <h3 className="text-2xl font-semibold text-gray-800">200</h3>
+            <h3 className="text-2xl font-semibold text-gray-800">
+              {VendorDashBoardData?.totalPrice}
+            </h3>
             <p className="text-gray-600">Total Sales</p>
           </div>
         </div>
