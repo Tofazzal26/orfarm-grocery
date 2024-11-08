@@ -14,6 +14,7 @@ import {
   GitPullRequestCreateArrow,
   ShoppingBag,
   PlusSquare,
+  CreditCard,
 } from "lucide-react";
 import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
@@ -29,6 +30,7 @@ import axios from "axios";
 import VendorDashboard from "./VendorDashboard/page";
 import OrderManagement from "./OrderManagement/page";
 import AddProduct from "./AddProduct/page";
+import PaymentHistory from "./PaymentHistory/page";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
@@ -50,6 +52,7 @@ const Sidebar = () => {
   const NAV_ITEMS = [
     { id: "my-product", label: "My Product", icon: <ShoppingCart /> },
     { id: "my-wishlist", label: "My Wishlist", icon: <Heart /> },
+    { id: "payment-history", label: "Payment History", icon: <CreditCard /> },
     { id: "my-profile", label: "My Profile", icon: <User /> },
     { id: "exit", label: "Exit", icon: <LogOut /> },
   ];
@@ -289,6 +292,7 @@ const Sidebar = () => {
             <div className="text-2xl font-bold">
               {selected === "my-product" && <UserProduct />}
               {selected === "my-profile" && <UserProfile />}
+              {selected === "payment-history" && <PaymentHistory />}
               {selected === "my-wishlist" && <UserWishList />}
             </div>
           ) : userRole?.data === "vendor" ? (

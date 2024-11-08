@@ -2,10 +2,12 @@ import PaymentModel from "@/app/PaymentModel/PaymentModel";
 import ConnectMongoose from "@/lib/ConnectMongoose/ConnectMongoose";
 import { NextResponse } from "next/server";
 
-export const GET = async (request) => {
+export const GET = async (request, { params }) => {
   try {
     await ConnectMongoose();
-    const paymentData = await PaymentModel.find();
+    const email = params.email;
+    const query = { email: email };
+    const paymentData = await PaymentModel.find(query);
     return NextResponse.json(
       { data: paymentData, message: "payment data get success", success: true },
       { status: 200 }

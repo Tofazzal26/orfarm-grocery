@@ -7,8 +7,24 @@ import {
   Truck,
   X,
 } from "lucide-react";
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 const OrderManagement = () => {
+  const session = useSession();
+  const email = session?.data?.user?.email;
+
+  const { data: OrderManageMent = [] } = useQuery({
+    queryKey: ["OrderManageMent"],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/VendorDeliveryPayment/${email}`
+      );
+      return resp?.data?.data;
+    },
+  });
+  console.log(OrderManageMent);
+
   return (
     <div>
       <div className="bg-white md:px-8 md:py-2 overflow-auto">
@@ -31,7 +47,7 @@ const OrderManagement = () => {
                   </th>
                   <th className="p-0">
                     <span className="block py-2 px-3 border-r border-gray-300 uppercase">
-                      Order Date
+                      Product Category
                     </span>
                   </th>
                   <th className="p-0">
@@ -44,18 +60,25 @@ const OrderManagement = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b text-xs md:text-sm text-center text-gray-800">
-                  <td className="p-2 md:p-4">manage</td>
-                  <td className="p-2 md:p-4">manage</td>
-                  <td className="p-2 md:p-4">manage</td>
-                  <td className="p-2 md:p-4">manage</td>
+                {OrderManageMent.map((item, idx) => (
+                  <tr
+                    key={idx}
+                    className="border-b text-xs md:text-sm text-center text-gray-800"
+                  >
+                    <td className="p-2 md:p-4">{item?.transaction}</td>
+                    <td className="p-2 md:p-4">{item?.price}$</td>
+                    <td className="p-2 md:p-4">{item?.category}</td>
+                    <td className="p-2 md:p-4">
+                      <button className="bg-green-500 px-2 py-[6px] text-sm text-white rounded-md">Payed</button>
+                    </td>
 
-                  <td className="relative p-2 md:p-4">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                      <Truck size={20} />
-                    </button>
-                  </td>
-                </tr>
+                    <td className="relative p-2 md:p-4">
+                      <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
+                        <Truck size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
