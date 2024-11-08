@@ -9,12 +9,13 @@ import {
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 const OrderManagement = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
 
-  const { data: OrderManageMent = [] } = useQuery({
+  const { refetch, data: OrderManageMent = [] } = useQuery({
     queryKey: ["OrderManageMent"],
     queryFn: async () => {
       const resp = await axios.get(
@@ -23,7 +24,34 @@ const OrderManagement = () => {
       return resp?.data?.data;
     },
   });
-  console.log(OrderManageMent);
+  const order = OrderManageMent.filter((item) => item?.status === "pending");
+
+  const handleDelivery = async (trans) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to deliver?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delivery it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const resp = await axios.patch(
+          `http://localhost:3000/api/VendorProductDelivery/${trans}`
+        );
+        // console.log(resp?.data)
+
+        refetch();
+
+        Swal.fire({
+          title: "Delivery",
+          text: "Delivery has been made.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div>
@@ -60,7 +88,7 @@ const OrderManagement = () => {
                 </tr>
               </thead>
               <tbody>
-                {OrderManageMent.map((item, idx) => (
+                {order.map((item, idx) => (
                   <tr
                     key={idx}
                     className="border-b text-xs md:text-sm text-center text-gray-800"
@@ -69,11 +97,16 @@ const OrderManagement = () => {
                     <td className="p-2 md:p-4">{item?.price}$</td>
                     <td className="p-2 md:p-4">{item?.category}</td>
                     <td className="p-2 md:p-4">
-                      <button className="bg-green-500 px-2 py-[6px] text-sm text-white rounded-md">Payed</button>
+                      <button className="bg-green-500 px-2 py-[6px] text-sm text-white rounded-md">
+                        Payed
+                      </button>
                     </td>
 
                     <td className="relative p-2 md:p-4">
-                      <button className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">
+                      <button
+                        onClick={() => handleDelivery(item?.transaction)}
+                        className="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                      >
                         <Truck size={20} />
                       </button>
                     </td>

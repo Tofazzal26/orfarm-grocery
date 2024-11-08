@@ -16,6 +16,8 @@ const PaymentHistory = () => {
     },
   });
 
+
+
   return (
     <div>
       <div>
@@ -67,8 +69,8 @@ const PaymentHistory = () => {
                             {item?.status}
                           </span>
                         ) : (
-                          <span className="bg-green-200 px-3 py-[7px] text-white rounded">
-                            {item?.status}
+                          <span className="bg-green-500 px-3 py-[7px] text-white rounded">
+                            On The Way
                           </span>
                         )}
                       </td>
