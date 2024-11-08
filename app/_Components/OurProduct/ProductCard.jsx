@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
+import ProductCardStyle from "./ProductCardStyle/ProductCardStyle.module.css";
 const ProductCard = ({ item }) => {
   const {
     singleProductShow,
@@ -17,6 +18,7 @@ const ProductCard = ({ item }) => {
     handleDecrement,
     count,
     handleDetailsAddToCart,
+    singleProductLoading,
   } = useContext(AuthProduct);
   const {
     category,
@@ -34,7 +36,9 @@ const ProductCard = ({ item }) => {
 
   return (
     <div>
-      <div className={`max-w-xs border-[1px] ${Card.card} relative`}>
+      <div
+        className={`max-w-xs border-[1px] ${Card.card} ${ProductCardStyle.CardAnimation} relative`}
+      >
         <img
           src={image}
           alt=""
@@ -62,6 +66,7 @@ const ProductCard = ({ item }) => {
               handleDecrement={handleDecrement}
               count={count}
               handleDetailsAddToCart={handleDetailsAddToCart}
+              singleProductLoading={singleProductLoading}
             />
             <button
               onClick={() => handleAddToCart(item)}

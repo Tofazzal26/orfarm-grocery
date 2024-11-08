@@ -14,6 +14,7 @@ export const AuthProduct = createContext();
 
 const ProductProvider = ({ children }) => {
   const [singleProduct, setSingleProduct] = useState([]);
+  const [singleProductLoading, setSingleProductLoading] = useState(false);
   const session = useSession();
   const count = useSelector((state) => state.counter.value);
   const [productLocation, setProductLocation] = useState("");
@@ -81,9 +82,11 @@ const ProductProvider = ({ children }) => {
 
   const singleProductShow = async (id) => {
     try {
+      setSingleProductLoading(true);
       const resp = await axios.get(
         `http://localhost:3000/api/SingleProduct/${id}`
       );
+      setSingleProductLoading(false);
       setSingleProduct(resp?.data?.data);
     } catch (error) {
       console.log("Server Error");
@@ -217,7 +220,8 @@ const ProductProvider = ({ children }) => {
     singleUserData,
     singleUserLoading,
     setTotalPrice,
-    totalPrice
+    totalPrice,
+    singleProductLoading,
   };
   return (
     <AuthProduct.Provider value={productInfo}>{children}</AuthProduct.Provider>
