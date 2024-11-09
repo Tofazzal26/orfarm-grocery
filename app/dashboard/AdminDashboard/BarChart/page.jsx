@@ -9,37 +9,40 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const StackedBarChart = () => {
+  const { data: AdminDashboardAllData = {} } = useQuery({
+    queryKey: ["AdminDashboardAllData"],
+    queryFn: async () => {
+      const resp = await axios.get(`http://localhost:3000/api/AdminDashboardAllData`);
+      return resp?.data?.data;
+    },
+  });
+
+  // Calculate 20% of totalRevenue dynamically
+  const totalRevenue = AdminDashboardAllData?.totalSales || 0;
+  const percentage = 20;
+  const Revenue = (totalRevenue * percentage) / 100;
+
+  // Get the current month name
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
+
+  // Dynamic data for chart showing only the current month
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: [currentMonth], // Use the current month as the only label
     datasets: [
       {
-        label: "2023 Sales",
-        data: [65, 59, 80, 81, 56, 55],
-        backgroundColor: "#03c3ec", // Color for 2023 Sales
-        borderColor: "#ffffff", // Gap color between the bars
-        borderWidth: 3, // Width of the gap between colors
-        borderRadius: { topLeft: 10, topRight: 10 }, // Rounded corners at the top
-        barThickness: 20, // Width of the bars
-      },
-      {
-        label: "2024 Sales",
-        data: [75, 69, 90, 91, 66, 65],
-        backgroundColor: "#696cff", // Color for 2024 Sales
-        borderColor: "#ffffff", // Gap color between the bars
-        borderWidth: 3, // Width of the gap between colors
-        borderRadius: { bottomLeft: 10, bottomRight: 10 }, // Rounded corners at the bottom
-        barThickness: 20, // Width of the bars
+        label: "Current Month Sales",
+        data: [Revenue], // Show only the calculated Revenue for this month
+        backgroundColor: "#03c3ec",
+        borderColor: "#ffffff",
+        borderWidth: 3,
+        borderRadius: { topLeft: 10, topRight: 10 },
+        barThickness: 20,
       },
     ],
   };
@@ -53,12 +56,10 @@ const StackedBarChart = () => {
     },
     scales: {
       x: {
-        stacked: true, // Stack the bars on x-axis
-        barPercentage: 0.4, // Adjust bar percentage for spacing
-        categoryPercentage: 0.5, // Adjust category percentage for spacing
+        stacked: true,
       },
       y: {
-        stacked: true, // Stack the bars on y-axis
+        stacked: true,
         beginAtZero: true,
       },
     },
@@ -66,8 +67,6 @@ const StackedBarChart = () => {
 
   return (
     <div className="md:w-[650px]">
-      {" "}
-      {/* Set the width of the chart container */}
       <Bar data={data} options={options} />
     </div>
   );

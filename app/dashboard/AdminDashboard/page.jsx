@@ -13,8 +13,32 @@ import LineChart from "./LineChart/page";
 import WeekRoundedChart from "./WeekRoundedChart/page";
 import BalanceLineChart from "./BalanceLineChart/page";
 import IncomeCircleChart from "./IncomeCircleChart/page";
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AdminDashBoard = () => {
+  const session = useSession();
+  const name = session?.data?.user?.name;
+
+  const { data: AdminDashboardAllData = [] } = useQuery({
+    queryKey: ["AdminDashboardAllData"],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:3000/api/AdminDashboardAllData`
+      );
+      return resp?.data?.data;
+    },
+  });
+
+  const totalRevenue = AdminDashboardAllData?.totalSales;
+  const percentage = 20;
+  const Profit = (totalRevenue * percentage) / 100;
+  const percentageSale = 90;
+  const Payments = (totalRevenue * percentageSale) / 100;
+  // console.log(AdminDashboardAllData);
+  // console.log(Payments);
+
   return (
     <div className="">
       <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-6 gap-3 xl:gap-6">
@@ -23,7 +47,7 @@ const AdminDashBoard = () => {
             <div className="p-6 flex md:flex-row flex-col justify-between">
               <div>
                 <h1 className="text-[#696cff] text-[18px]">
-                  Congratulations Tofazzal! 🎉
+                  Congratulations {name}! 🎉
                 </h1>
                 <p className="text-[#767f88] text-[15px] md:w-[250px] my-4">
                   You have done 72% more sales today. Check your new badge in
@@ -64,7 +88,7 @@ const AdminDashBoard = () => {
                     <RoundedChart />
                   </div>
                   <h2 className="text-center text-[17px] text-[#57626c]">
-                    62% Company Growth
+                    78% Company Growth
                   </h2>
                   <div className="flex justify-center items-center">
                     <div className="flex items-center gap-[60px]">
@@ -75,8 +99,8 @@ const AdminDashBoard = () => {
                           </h2>
                         </div>
                         <div>
-                          <h2 className="text-sm text-gray-500">2023</h2>
-                          <h2 className="text-gray-600">$32.5k</h2>
+                          <h2 className="text-sm text-gray-500">2024</h2>
+                          <h2 className="text-gray-600">${Payments}k</h2>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -88,8 +112,10 @@ const AdminDashBoard = () => {
                           />
                         </div>
                         <div>
-                          <h2 className="text-sm text-gray-500">2022</h2>
-                          <h2 className="text-gray-600">$41.2k</h2>
+                          <h2 className="text-sm text-gray-500">2024</h2>
+                          <h2 className="text-gray-600">
+                            ${AdminDashboardAllData?.totalSales}k
+                          </h2>
                         </div>
                       </div>
                     </div>
@@ -267,7 +293,9 @@ const AdminDashBoard = () => {
                 </div>
                 <div className="space-y-3">
                   <h2 className="text-[16px] text-[#767f88]">Profit</h2>
-                  <h2 className="text-[28px] text-[#384551]">$12,628</h2>
+                  <h2 className="text-[28px] text-[#384551]">
+                    ${Profit.toFixed(1)}
+                  </h2>
                   <h2 className="text-[#74de3c] flex gap-2 items-center">
                     <ArrowUp size={18} /> +72.80%
                   </h2>
@@ -286,7 +314,9 @@ const AdminDashBoard = () => {
                 </div>
                 <div className="space-y-3">
                   <h2 className="text-[16px] text-[#767f88]">Sales</h2>
-                  <h2 className="text-[28px] text-[#384551]">$4,679</h2>
+                  <h2 className="text-[28px] text-[#384551]">
+                    ${AdminDashboardAllData?.totalSales}
+                  </h2>
                   <h2 className="text-[#74de3c] flex gap-2 items-center">
                     <ArrowUp size={18} /> +28.42%
                   </h2>
@@ -308,7 +338,9 @@ const AdminDashBoard = () => {
                 </div>
                 <div className="space-y-3">
                   <h2 className="text-[16px] text-[#767f88]">Payments</h2>
-                  <h2 className="text-[28px] text-[#384551]">$2,456</h2>
+                  <h2 className="text-[28px] text-[#384551]">
+                    ${Payments?.toFixed(2)}
+                  </h2>
                   <h2 className="text-[#e6381a] flex gap-2 items-center">
                     <ArrowDown size={18} /> -14.82%
                   </h2>
@@ -327,7 +359,9 @@ const AdminDashBoard = () => {
                 </div>
                 <div className="space-y-3">
                   <h2 className="text-[16px] text-[#767f88]">Transactions</h2>
-                  <h2 className="text-[28px] text-[#384551]">$14,857</h2>
+                  <h2 className="text-[28px] text-[#384551]">
+                    ${AdminDashboardAllData?.totalSales?.toFixed(1)}
+                  </h2>
                   <h2 className="text-[#74de3c] flex gap-2 items-center">
                     <ArrowUp size={18} /> +28.14%
                   </h2>
@@ -341,12 +375,12 @@ const AdminDashBoard = () => {
                 <div className="h-[120px]">
                   <h2 className="text-gray-600 text-[20px]">Profile Report</h2>
                   <button className="text-[#ffb41c] bg-[#fff2d6] px-3 text-[16px] rounded-md">
-                    YEAR 2022
+                    YEAR 2024
                   </button>
                   <h2 className="text-[#74de3c] flex gap-2 items-center text-[16px]">
                     <ArrowUp size={18} /> -14.82%
                   </h2>
-                  <h2 className="text-[#384551]">$84,686k</h2>
+                  <h2 className="text-[#384551]">${AdminDashboardAllData?.totalSales}k</h2>
                 </div>
                 <div className="">
                   <LineChart />
