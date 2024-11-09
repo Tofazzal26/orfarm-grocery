@@ -1,34 +1,49 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const RevenueChart = () => {
+  const session = useSession();
+  const email = session?.data?.user?.email;
+
+  const { data: VendorDashBoardData = [] } = useQuery({
+    queryKey: ["VendorDashBoardData"],
+    queryFn: async () => {
+      const reps = await axios.get(
+        `http://localhost:3000/api/VendorDashboardData/${email}`
+      );
+      return reps?.data?.data;
+    },
+  });
+
+  const discountedPrice = VendorDashBoardData?.totalPrice * 0.8;
+
+  // Get the current month name
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const currentMonth = monthNames[new Date().getMonth()];
+
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: [currentMonth], // Dynamically setting the label to the current month
     datasets: [
       {
         label: "Revenue",
-        data: [55, 60, 80, 75, 50, 55, 40],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 205, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(201, 203, 207, 1)',
-        ],
+        data: [discountedPrice], // Using discountedPrice as the only data point
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
       },
     ],
@@ -36,13 +51,14 @@ const RevenueChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Ensures responsiveness for different screen sizes
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
       },
       title: {
         display: true,
-        text: 'Monthly Revenue',
+        text: `Revenue for ${currentMonth}`, // Displaying current month in the title
       },
     },
   };
@@ -50,7 +66,9 @@ const RevenueChart = () => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-lg font-semibold mb-4">Revenue Chart</h2>
-      <Bar data={data} options={options} />
+      <div className="w-full h-64 sm:h-80 lg:h-96"> {/* Responsive height for different devices */}
+        <Bar data={data} options={options} />
+      </div>
     </div>
   );
 };

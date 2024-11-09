@@ -18,7 +18,7 @@ const VendorDashboard = () => {
     },
   });
 
-  console.log(VendorDashBoardData);
+  // console.log(VendorDashBoardData);
   const discountedPrice = VendorDashBoardData?.totalPrice * 0.8;
 
   return (
@@ -32,7 +32,7 @@ const VendorDashboard = () => {
           </div>
           <div className="ml-4">
             <h3 className="text-2xl font-semibold text-gray-800">
-              {discountedPrice.toFixed(2)}
+              {discountedPrice.toFixed(2)}$
             </h3>
             <p className="text-gray-600">Total Earnings</p>
           </div>
@@ -71,14 +71,14 @@ const VendorDashboard = () => {
           </div>
           <div className="ml-4">
             <h3 className="text-2xl font-semibold text-gray-800">
-              {VendorDashBoardData?.totalPrice}
+              {VendorDashBoardData?.totalPrice}$
             </h3>
             <p className="text-gray-600">Total Sales</p>
           </div>
         </div>
       </div>
       {/* VendorStatistics code end */}
-      <div className=" xl:w-[1000px] w-[220px] md:w-[620px] 2xl:w-[1500px] mx-auto">
+      <div className="xl:w-[1000px] w-[300px] md:w-[620px] 2xl:w-[1500px] mx-auto">
         <VendorRevenueChart />
       </div>
     </div>
