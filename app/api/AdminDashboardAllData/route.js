@@ -16,9 +16,10 @@ export const GET = async () => {
       (prev, after) => parseInt(prev) + parseInt(after?.price),
       0
     );
+    const totalProduct = await VendorPaymentModel.countDocuments();
     return NextResponse.json(
       {
-        data: { totalRevenue, totalSales },
+        data: { totalRevenue, totalSales, totalProduct },
         message: "Admin all data get success",
         success: true,
       },

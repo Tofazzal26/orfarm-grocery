@@ -143,7 +143,9 @@ const AdminDashBoard = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-[28px]">8,258</h2>
+                    <h2 className="text-[28px]">
+                      {AdminDashboardAllData?.totalProduct}
+                    </h2>
                     <h2 className="text-[#a7acb2] mt-3">Total Orders</h2>
                   </div>
                   <div>
@@ -249,7 +251,7 @@ const AdminDashBoard = () => {
                         Total Balance
                       </h2>
                       <h2 className="flex items-center gap-2 text-gray-700">
-                        $459.10{" "}
+                        ${Profit.toFixed(1)}
                         <span className="text-[#71dd37] flex items-center gap-2">
                           {" "}
                           <ArrowUp size={18} className="text-[#71dd37]" /> 42.9%
@@ -269,7 +271,7 @@ const AdminDashBoard = () => {
                     <div>
                       <h2 className="text-gray-700">Income this week</h2>
                       <h2 className="text-gray-400">
-                        $39k less than last week
+                        ${Profit.toFixed(1)}k less than last week
                       </h2>
                     </div>
                   </div>
@@ -380,7 +382,9 @@ const AdminDashBoard = () => {
                   <h2 className="text-[#74de3c] flex gap-2 items-center text-[16px]">
                     <ArrowUp size={18} /> -14.82%
                   </h2>
-                  <h2 className="text-[#384551]">${AdminDashboardAllData?.totalSales}k</h2>
+                  <h2 className="text-[#384551]">
+                    ${AdminDashboardAllData?.totalSales}k
+                  </h2>
                 </div>
                 <div className="">
                   <LineChart />
