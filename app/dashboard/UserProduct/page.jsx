@@ -101,7 +101,7 @@ const UserProduct = () => {
 
   // console.log(userProduct);
 
-  console.log(paginationData.length);
+  // console.log(paginationData.length);
 
   return (
     <div>
@@ -113,29 +113,34 @@ const UserProduct = () => {
               Total Price: {totalProductPrice}$
             </h2>
             <div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="bg-none">
-                    <button className="bg-[#8498e0] px-4 text-white text-base py-[8px] rounded-md">
-                      Pay
-                    </button>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
-                  <div className="p-4">
-                    <Elements stripe={stripePromise}>
-                      <CheckoutForm></CheckoutForm>
-                    </Elements>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              {paginationData?.length === 0 ? (
+                <button className="bg-[#8498e0] px-4 text-white text-base py-[8px] rounded-md">
+                  Pay
+                </button>
+              ) : (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="bg-none">
+                      <button className="bg-[#8498e0] px-4 text-white text-base py-[8px] rounded-md">
+                        Pay
+                      </button>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px]">
+                    <div className="p-4">
+                      <Elements stripe={stripePromise}>
+                        <CheckoutForm></CheckoutForm>
+                      </Elements>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
             </div>
           </div>
         </div>
 
         <div className="relative overflow-auto">
           <div className="overflow-x-auto rounded-lg">
-          
             <table className="w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
@@ -168,7 +173,6 @@ const UserProduct = () => {
                 </tr>
               </thead>
               <tbody>
-                
                 {paginationData.map((item) => (
                   <tr
                     key={item?.prdID}
@@ -194,14 +198,17 @@ const UserProduct = () => {
               </tbody>
             </table>
             {paginationData?.length === 0 && (
-                  <>
-                    <div className="flex items-center flex-col"><img src="/no-found.png" alt="" className="xl:w-[300px] xl:h-[300px]"/>
-                    <h2>
-                      No Product
-                    </h2>
-                    </div>
-                  </>
-                )}
+              <>
+                <div className="flex items-center flex-col">
+                  <img
+                    src="/no-found.png"
+                    alt=""
+                    className="xl:w-[300px] xl:h-[300px]"
+                  />
+                  <h2>No Product</h2>
+                </div>
+              </>
+            )}
             <div className="flex md:justify-between md:flex-row flex-col items-center">
               <div>
                 <h1></h1>

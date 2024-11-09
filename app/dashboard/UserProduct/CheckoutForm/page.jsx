@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+
 const CheckoutForm = () => {
   const session = useSession();
   const { totalPrice } = useContext(AuthProduct);
@@ -13,6 +14,7 @@ const CheckoutForm = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [transactionId, setTransactionId] = useState("");
   const [allUserProduct, setAllUserProduct] = useState([]);
+  const [loading, setLoading] = useState(false); // Add loading state
   const stripe = useStripe();
   const elements = useElements();
   const route = useRouter();
@@ -47,12 +49,16 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) {
-      return;
+
+    if (!stripe || !elements || loading) {
+      return; 
     }
+
+    setLoading(true); 
 
     const card = elements.getElement(CardElement);
     if (card == null) {
+      setLoading(false); 
       return;
     }
 
@@ -63,6 +69,7 @@ const CheckoutForm = () => {
     if (error) {
       console.log("payment error", error);
       setErrorMessage(error.message);
+      setLoading(false); 
     } else {
       console.log("Payment Method", paymentMethod);
       setErrorMessage("");
@@ -81,10 +88,9 @@ const CheckoutForm = () => {
 
     if (confirmError) {
       console.log("Confirm error");
+      setLoading(false); 
     } else {
-      // console.log("Payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        // console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
         const payment = {
@@ -102,8 +108,6 @@ const CheckoutForm = () => {
           status: "pending",
         }));
 
-        // console.log(allUserProduct);
-        // console.log(vendorData);
         const reps = await axios.post(
           `http://localhost:3000/api/UserPayments`,
           payment
@@ -113,10 +117,7 @@ const CheckoutForm = () => {
           `http://localhost:3000/api/VendorPaymentRush`,
           vendorData
         );
-        // console.log(rep?.data);
 
-         // console.log(payment);
-         // console.log(reps.data?.success);
         if (reps.data?.success) {
           localStorage.removeItem("carts");
           setAllUserProduct([]);
@@ -127,6 +128,8 @@ const CheckoutForm = () => {
         }
       }
     }
+
+    setLoading(false); 
   };
 
   return (
@@ -151,9 +154,9 @@ const CheckoutForm = () => {
         <button
           type="submit"
           className="bg-blue-600 px-3 text-[15px] py-[6px] text-white rounded-md"
-          disabled={!stripe || !clientSecret}
+          disabled={loading || !stripe || !clientSecret} 
         >
-          Pay
+          {loading ? "Processing..." : "Pay"} 
         </button>
         <p className="text-red-600 font-semibold">{errorMessage}</p>
         {transactionId && (
