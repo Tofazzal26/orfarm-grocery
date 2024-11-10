@@ -1,3 +1,5 @@
+"use client"
+
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import React, { useContext, useState } from "react";
 import { ChevronLeft, ChevronRight, Trash } from "lucide-react";

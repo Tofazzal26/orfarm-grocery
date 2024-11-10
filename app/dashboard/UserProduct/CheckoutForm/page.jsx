@@ -1,3 +1,4 @@
+"use client";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
@@ -5,7 +6,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
 
 const CheckoutForm = () => {
   const session = useSession();
@@ -51,14 +51,14 @@ const CheckoutForm = () => {
     event.preventDefault();
 
     if (!stripe || !elements || loading) {
-      return; 
+      return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     const card = elements.getElement(CardElement);
     if (card == null) {
-      setLoading(false); 
+      setLoading(false);
       return;
     }
 
@@ -69,7 +69,7 @@ const CheckoutForm = () => {
     if (error) {
       // console.log("payment error", error);
       setErrorMessage(error.message);
-      setLoading(false); 
+      setLoading(false);
     } else {
       // console.log("Payment Method", paymentMethod);
       setErrorMessage("");
@@ -88,7 +88,7 @@ const CheckoutForm = () => {
 
     if (confirmError) {
       // console.log("Confirm error");
-      setLoading(false); 
+      setLoading(false);
     } else {
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
@@ -129,7 +129,7 @@ const CheckoutForm = () => {
       }
     }
 
-    setLoading(false); 
+    setLoading(false);
   };
 
   return (
@@ -154,9 +154,9 @@ const CheckoutForm = () => {
         <button
           type="submit"
           className="bg-blue-600 px-3 text-[15px] py-[6px] text-white rounded-md"
-          disabled={loading || !stripe || !clientSecret} 
+          disabled={loading || !stripe || !clientSecret}
         >
-          {loading ? "Processing..." : "Pay"} 
+          {loading ? "Processing..." : "Pay"}
         </button>
         <p className="text-red-600 font-semibold">{errorMessage}</p>
         {transactionId && (

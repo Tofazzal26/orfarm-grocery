@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import * as React from "react";
 import axios from "axios";
@@ -12,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 const AddProduct = () => {
   const [images, setImages] = useState(null);
   const session = useSession();
