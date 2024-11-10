@@ -79,22 +79,22 @@ const UserWishList = () => {
       <div className="bg-white md:px-8 md:py-2 overflow-auto">
         <h2 className="text-lg md:text-2xl mb-4">My Wishlist</h2>
 
-        <div className="relative overflow-auto">
-          <div className="overflow-x-auto rounded-lg">
+        <div className="relative">
+          <div className="rounded-lg">
             <table className="min-w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
-                  <th className="p-0">
+                  <th className="p-0 hidden md:table-cell">
                     <span className="block py-2 px-3 border-r border-gray-300">
                       IMAGE
                     </span>
                   </th>
-                  <th className="p-0">
+                  <th className="p-0 hidden md:table-cell">
                     <span className="block py-2 px-3 border-r border-gray-300">
                       TITLE
                     </span>
                   </th>
-                  <th className="p-0">
+                  <th className="p-0 hidden md:table-cell">
                     <span className="block py-2 px-3 border-r border-gray-300">
                       CATEGORY
                     </span>
@@ -118,11 +118,15 @@ const UserWishList = () => {
                     key={item?.prdID}
                     className="border-b text-xs md:text-sm text-center text-gray-800"
                   >
-                    <td className="p-2 md:p-4">
+                    <td className="p-2 md:p-4 hidden md:table-cell">
                       <img src={item.image} alt="" className="w-[40px]" />
                     </td>
-                    <td className="p-2 md:p-4">{item?.title}</td>
-                    <td className="p-2 md:p-4">{item?.category}</td>
+                    <td className="p-2 md:p-4 hidden md:table-cell">
+                      {item?.title}
+                    </td>
+                    <td className="p-2 md:p-4 hidden md:table-cell">
+                      {item?.category}
+                    </td>
                     <td className="p-2 md:p-4">{item?.quantity}</td>
                     <td className="p-2 md:p-4">${item?.price}</td>
                     <td className="relative p-2 md:p-4 flex justify-center space-x-2">
@@ -142,20 +146,20 @@ const UserWishList = () => {
                   </tr>
                 ))}
               </tbody>
-             
             </table>
+
             {paginationProduct?.length === 0 && (
-                <>
-                  <div className="flex items-center flex-col">
-                    <img
-                      src="/no-found.png"
-                      alt=""
-                      className="xl:w-[300px] xl:h-[300px]"
-                    />
-                    <h2>No Wishlist</h2>
-                  </div>
-                </>
-              )}
+              <>
+                <div className="flex items-center flex-col">
+                  <img
+                    src="/no-found.png"
+                    alt=""
+                    className="xl:w-[300px] xl:h-[300px]"
+                  />
+                  <h2>No Wishlist</h2>
+                </div>
+              </>
+            )}
             <div className="flex md:justify-between md:flex-row flex-col items-center">
               <h1></h1>
               <div className="flex justify-center items-center">
