@@ -63,7 +63,7 @@ const OrderManagement = () => {
             <table className="min-w-full bg-white border mb-4">
               <thead>
                 <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
-                  <th className="p-0">
+                  <th className="hidden md:table-cell p-0">
                     <span className="block py-2 px-3 border-r border-gray-300 uppercase">
                       Transaction ID
                     </span>
@@ -73,7 +73,7 @@ const OrderManagement = () => {
                       Total Amount
                     </span>
                   </th>
-                  <th className="p-0">
+                  <th className="hidden md:table-cell p-0">
                     <span className="block py-2 px-3 border-r border-gray-300 uppercase">
                       Product Category
                     </span>
@@ -83,7 +83,6 @@ const OrderManagement = () => {
                       Status
                     </span>
                   </th>
-
                   <th className="p-4 text-xs md:text-sm">ACTIONS</th>
                 </tr>
               </thead>
@@ -93,15 +92,18 @@ const OrderManagement = () => {
                     key={idx}
                     className="border-b text-xs md:text-sm text-center text-gray-800"
                   >
-                    <td className="p-2 md:p-4">{item?.transaction}</td>
+                    <td className="hidden md:table-cell p-2 md:p-4">
+                      {item?.transaction}
+                    </td>
                     <td className="p-2 md:p-4">{item?.price}$</td>
-                    <td className="p-2 md:p-4">{item?.category}</td>
+                    <td className="hidden md:table-cell p-2 md:p-4">
+                      {item?.category}
+                    </td>
                     <td className="p-2 md:p-4">
                       <button className="bg-green-500 px-2 py-[6px] text-sm text-white rounded-md">
                         Payed
                       </button>
                     </td>
-
                     <td className="relative p-2 md:p-4">
                       <button
                         onClick={() => handleDelivery(item?.transaction)}
