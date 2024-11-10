@@ -1,5 +1,6 @@
 import React from "react";
 import ImageStyle from "./BakeryStyle/Bakery.module.css";
+import Image from "next/image";
 const BakeryCards = ({ item }) => {
   const { image, title, paragraph } = item || {};
 
@@ -7,10 +8,12 @@ const BakeryCards = ({ item }) => {
     <div>
       <div className="cursor-pointer">
         <div className={`${ImageStyle.imageParent} ${ImageStyle.parentStyle}`}>
-          <img
+          <Image
             src={image}
             alt=""
-            className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${ImageStyle.imageStyle} ${ImageStyle.parentStyle}`}
+            width={0} layout="responsive"
+            height={288}
+            className={`object-cover object-center  rounded-t-md  dark:bg-gray-500 ${ImageStyle.imageStyle} ${ImageStyle.parentStyle}`}
           />
         </div>
         <div className="flex flex-col justify-between mt-4 space-y-8">

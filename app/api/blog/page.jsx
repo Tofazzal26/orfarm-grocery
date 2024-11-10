@@ -1,5 +1,6 @@
 import React from "react";
 import BlogCard from "./BlogCard";
+import Image from "next/image";
 
 const page = () => {
   const ourBlog = [
@@ -84,10 +85,12 @@ const page = () => {
                   <div className="">
                     <div className="flex items-center gap-4">
                       <div>
-                        <img
+                        <Image
                           src={item.image}
-                          alt=""
-                          className="w-[60px] rounded-full h-[60px]"
+                          alt="postImage"
+                          className=" rounded-full h-[60px]"
+                          width={60}
+                          height={60}
                         />
                       </div>
                       <div>

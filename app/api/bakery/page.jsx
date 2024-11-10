@@ -1,5 +1,6 @@
 import React from "react";
 import BakeryCards from "./BakeryCards";
+import Image from "next/image";
 
 const Bakery = () => {
   const ourBakery = [
@@ -28,7 +29,14 @@ const Bakery = () => {
   return (
     <div className="my-10">
       <div>
-        <img src="/bannerCollection.png" className="w-full" />
+        <Image
+          src="/bannerCollection.png"
+          className=""
+          width={0}
+          height={0}
+          layout="responsive"
+          alt="banner"
+        />
       </div>
       <div className="text-center mt-[50px]">
         <h2 className="text-[25px] md:text-3xl">Curated collections</h2>

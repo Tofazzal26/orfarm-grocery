@@ -206,9 +206,12 @@ const Header = () => {
                                     className="rounded-full"
                                   >
                                     <Button variant="none">
-                                      <img
+                                      <Image
                                         alt=""
-                                        className="w-10 h-10 rounded-full ring-2 ring-offset-4 dark:bg-gray-500 dark:ring-violet-600 dark:ring-offset-gray-100"
+                                        width={40}
+                                        height={40}
+                                        layout="intrinsic"
+                                        className=" rounded-full ring-2 ring-offset-4 dark:bg-gray-500 dark:ring-violet-600 dark:ring-offset-gray-100"
                                         src={session?.data?.user?.image}
                                       />
                                     </Button>

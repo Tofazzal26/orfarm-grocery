@@ -4,6 +4,7 @@ import axios from "axios";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import ProductCard from "@/app/_Components/OurProduct/ProductCard";
 import { useContext, useState } from "react";
+import Image from "next/image";
 
 const Shop = () => {
   const { productLocation, productSearch, productCategory } =
@@ -154,7 +155,7 @@ const Shop = () => {
             </div>
           </div>
           <div className="mt-6">
-            <img src="/Banner2.gif" alt="" />
+            <Image width={0} height={0} src="/Banner2.gif" alt="banner" layout="responsive"/>
           </div>
         </div>
         <div className="">

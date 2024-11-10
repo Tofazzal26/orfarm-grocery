@@ -16,6 +16,7 @@ import IncomeCircleChart from "./IncomeCircleChart/page";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 
 const AdminDashBoard = () => {
   const session = useSession();
@@ -58,10 +59,13 @@ const AdminDashBoard = () => {
                 </button>
               </div>
               <div>
-                <img
+                <Image
                   src="/man-with-laptop.png"
-                  alt=""
-                  className="md:mr-8 md:mt-0  ml-[12px]"
+                  alt="man with laptop"
+                  width={222}
+                  height={222}
+                  layout="intrinsic"
+                  className="md:mr-8 md:mt-0 ml-[12px]"
                 />
               </div>
             </div>
@@ -105,10 +109,13 @@ const AdminDashBoard = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-[40px] bg-[#e7e7ff] rounded-md">
-                          <img
+                          <Image
                             src="/wallet-info.png"
                             alt=""
-                            className="w-[38px]"
+                            width={0}
+                            height={38}
+                            layout="intrinsic"
+                            className=""
                           />
                         </div>
                         <div>
@@ -244,7 +251,9 @@ const AdminDashBoard = () => {
                 <div className="mt-4">
                   <div className="flex items-center gap-3">
                     <div>
-                      <img src="/wallet.png" alt="" className="w-[40px]" />
+                      <Image src="/wallet.png" alt=""   width={40}
+                  height={0}
+                  layout="intrinsic" className="" />
                     </div>
                     <div>
                       <h2 className="text-gray-500 text-[16px]">
@@ -287,7 +296,9 @@ const AdminDashBoard = () => {
               <div className="p-6 space-y-3">
                 <div className="flex justify-between">
                   <div>
-                    <img src="/chart-success.png" alt="" className="w-[40px]" />
+                    <Image   width={40}
+                  height={0}
+                  layout="intrinsic" src="/chart-success.png" alt="" className="" />
                   </div>
                   <div>
                     <EllipsisVertical size={20} className="text-gray-400" />
@@ -308,7 +319,9 @@ const AdminDashBoard = () => {
               <div className="p-6 space-y-3">
                 <div className="flex justify-between">
                   <div>
-                    <img src="/wallet-info.png" alt="" className="w-[40px]" />
+                    <Image   width={40}
+                  height={0}
+                  layout="intrinsic" src="/wallet-info.png" alt="" className="" />
                   </div>
                   <div>
                     <EllipsisVertical size={20} className="text-gray-400" />
@@ -332,7 +345,9 @@ const AdminDashBoard = () => {
               <div className="p-6 space-y-3">
                 <div className="flex justify-between">
                   <div>
-                    <img src="/paypal.png" alt="" className="w-[40px]" />
+                    <Image   width={40}
+                  height={0}
+                  layout="intrinsic" src="/paypal.png" alt="" className="" />
                   </div>
                   <div>
                     <EllipsisVertical size={20} className="text-gray-400" />
@@ -353,7 +368,9 @@ const AdminDashBoard = () => {
               <div className="p-6 space-y-3">
                 <div className="flex justify-between">
                   <div>
-                    <img src="/cc-primary.png" alt="" className="w-[40px]" />
+                    <Image   width={40}
+                  height={0}
+                  layout="intrinsic" src="/cc-primary.png" alt="" className="" />
                   </div>
                   <div>
                     <EllipsisVertical size={20} className="text-gray-400" />
@@ -403,7 +420,9 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/paypal.png" alt="" />
+                        <Image   width={0}
+                  height={0}
+                  layout="responsive" src="/paypal.png" alt="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">Paypal</h2>
@@ -421,7 +440,9 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/wallet.png" alt="" className="w-[40px]" />
+                        <Image   width={40}
+                  height={0}
+                  layout="intrinsic" src="/wallet.png" alt="" className="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">Wallet</h2>
@@ -437,7 +458,11 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/chart.png" alt="" />
+                        <Image
+                
+                  layout="intrinsic"   width={40}
+                  height={0}
+                src="/chart.png" alt="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">Transfer</h2>
@@ -453,7 +478,8 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/cc-primary.png" alt="" />
+                        <Image  layout="intrinsic"   width={40}
+                  height={0} src="/cc-primary.png" alt="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">
@@ -473,7 +499,8 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/wallet.png" alt="" className="w-[40px]" />
+                        <Image  layout="intrinsic"   width={40}
+                  height={0} src="/wallet.png" alt="" className="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">Wallet</h2>
@@ -489,7 +516,8 @@ const AdminDashBoard = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       <div>
-                        <img src="/cc-warning.png" alt="" />
+                        <Image  layout="intrinsic"   width={40}
+                  height={0} src="/cc-warning.png" alt="" />
                       </div>
                       <div className="leading-[22px]">
                         <h2 className="text-[14px] text-gray-500">

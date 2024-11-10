@@ -8,6 +8,7 @@ import Card from "./Card/card.module.css";
 import ProductButton from "./ProductButton/ProductButton";
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import ProductCardStyle from "./ProductCardStyle/ProductCardStyle.module.css";
+import Image from "next/image";
 const ProductCard = ({ item }) => {
   const {
     singleProductShow,
@@ -39,10 +40,13 @@ const ProductCard = ({ item }) => {
       <div
         className={`max-w-xs border-[1px] ${Card.card} ${ProductCardStyle.CardAnimation} relative`}
       >
-        <img
+        <Image
+        height={288}
+        width={308}
+        layout="intrinsic"  
           src={image}
           alt=""
-          className={`object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500 ${Card.cardImage}`}
+          className={`object-cover object-center  rounded-t-md  dark:bg-gray-500 ${Card.cardImage}`}
         />
         <div className="absolute top-5 right-5">
           <span className="bg-[#80b500] text-white px-4 text-base py-1 rounded-tl-[15px] rounded-tr-none rounded-bl-none rounded-br-[15px]">

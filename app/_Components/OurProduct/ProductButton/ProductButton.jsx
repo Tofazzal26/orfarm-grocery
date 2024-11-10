@@ -11,6 +11,7 @@ import {
 import { Rating } from "@smastrom/react-rating";
 
 import { ArrowRightLeft, Eye, Heart, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
 const ProductButton = ({
   item,
@@ -63,7 +64,14 @@ const ProductButton = ({
                 ) : (
                   <div className="flex gap-[50px]">
                     <div>
-                      <img src={image} alt="" className="h-[444px] w-[444px]" />
+                      <Image
+                        src={image}
+                        alt=""
+                        width={444}
+                        height={444}
+                        layout="intrinsic"
+                        className=""
+                      />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">

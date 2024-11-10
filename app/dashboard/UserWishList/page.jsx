@@ -12,6 +12,7 @@ import {
 
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Image from "next/image";
 const UserWishList = () => {
   const [userWishlistProduct, setUserWishlistProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -121,7 +122,13 @@ const UserWishList = () => {
                     className="border-b text-xs md:text-sm text-center text-gray-800"
                   >
                     <td className="p-2 md:p-4 hidden md:table-cell">
-                      <img src={item.image} alt="" className="w-[40px]" />
+                      <Image
+                        width={40}
+                        height={0}
+                        src={item.image}
+                        alt=""
+                        className=""
+                      />
                     </td>
                     <td className="p-2 md:p-4 hidden md:table-cell">
                       {item?.title}
@@ -153,10 +160,12 @@ const UserWishList = () => {
             {paginationProduct?.length === 0 && (
               <>
                 <div className="flex items-center flex-col">
-                  <img
+                  <Image
+                    width={300}
+                    height={300}
                     src="/no-found.png"
                     alt=""
-                    className="xl:w-[300px] xl:h-[300px]"
+                    className=""
                   />
                   <h2>No Wishlist</h2>
                 </div>

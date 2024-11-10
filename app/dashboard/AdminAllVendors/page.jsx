@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -59,7 +59,7 @@ const AdminAllVendors = () => {
 
   return (
     <div className="bg-white md:px-8 md:py-2">
-      <h2 className="text-lg md:text-2xl mb-4">All Vendor</h2>
+      <h2 className="text-lg md:text-2xl my-4">All Vendor</h2>
 
       {/* Table container with horizontal scroll for smaller screens */}
       <div className="relative overflow-x-auto">
@@ -123,10 +123,12 @@ const AdminAllVendors = () => {
                       <div>
                         <div className="flex lg:flex-row flex-col gap-4">
                           <div>
-                            <img
+                            <Image
                               src={item?.image}
                               className="xl:w-[400px] xl:h-[150px]"
                               alt="profile"
+                              width={400}
+                              height={150}
                             />
                           </div>
                           <div>

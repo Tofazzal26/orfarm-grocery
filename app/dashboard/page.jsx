@@ -32,6 +32,7 @@ import OrderManagement from "./OrderManagement/page";
 import AddProduct from "./AddProduct/page";
 import PaymentHistory from "./PaymentHistory/page";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");
@@ -130,7 +131,8 @@ const Sidebar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 ml-4">
             {" "}
-            <img src="/logo1.png" alt="logo" className="md:w-[50px] w-[30px]" />
+            <Image src="/logo1.png" alt="logo"  layout="intrinsic"   width={50}
+                  height={0} className="" />
             <h1 className="md:text-[25px] text-[16px] mt-2">Orfarm-Grocery</h1>
           </div>
           <div className="mr-4">

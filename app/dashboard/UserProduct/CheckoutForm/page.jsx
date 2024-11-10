@@ -41,11 +41,11 @@ const CheckoutForm = () => {
       }
     };
 
-    const product = JSON.parse(localStorage.getItem("carts"));
+    const product = JSON.parse(localStorage.getItem("carts")) || [];
     setAllUserProduct(product);
 
     payment();
-  }, [price, setAllUserProduct]);
+  }, [price, allUserProduct.length]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

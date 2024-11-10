@@ -29,6 +29,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm/page";
+import Image from "next/image";
 
 const UserProduct = () => {
   const session = useSession();
@@ -49,7 +50,7 @@ const UserProduct = () => {
     const carts = JSON.parse(localStorage.getItem("carts")) || [];
     setUserProduct(carts);
     setTotalPrice(carts);
-  }, []);
+  }, [setTotalPrice]);
   const product = userProduct.filter(
     (item) => item.email === session?.data?.user?.email
   );
@@ -179,7 +180,8 @@ const UserProduct = () => {
                     className="border-b text-xs md:text-sm text-center text-gray-800"
                   >
                     <td className="p-2 md:p-4">
-                      <img src={item.image} alt="" className="w-[40px]" />
+                      <Image  layout="intrinsic"   width={40}
+                  height={0} src={item.image} alt="" className="" />
                     </td>
                     <td className="p-2 md:p-4 hidden md:table-cell">
                       {item?.title}
@@ -205,10 +207,12 @@ const UserProduct = () => {
             {paginationData?.length === 0 && (
               <>
                 <div className="flex items-center flex-col">
-                  <img
+                  <Image
+                   layout="intrinsic"   width={300}
+                   height={300}
                     src="/no-found.png"
                     alt=""
-                    className="xl:w-[300px] xl:h-[300px]"
+                    className=""
                   />
                   <h2>No Product</h2>
                 </div>

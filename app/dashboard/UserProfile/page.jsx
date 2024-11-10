@@ -1,7 +1,7 @@
 import React from "react";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { useSession } from "next-auth/react";
-
+import Image from "next/image";
 const UserProfile = () => {
   const session = useSession();
 
@@ -17,7 +17,9 @@ const UserProfile = () => {
         <div className="p-4 sm:p-6 md:p-8">
           <div className="flex flex-col sm:flex-row items-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-200 rounded-full overflow-hidden">
-              <img
+              <Image
+              width={0} height={0}
+              layout="responsive"
                 className="object-cover w-full h-full"
                 src={session?.data?.user?.image}
                 alt="Profile"

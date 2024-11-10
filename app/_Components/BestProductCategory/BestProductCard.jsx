@@ -25,7 +25,14 @@ const BestProductCard = ({ item }) => {
           className={`flex flex-col md:flex-row items-center py-8 px-6 gap-4 `}
         >
           <div>
-            <img src={image} alt="" className={`w-[100px]`} />
+            <Image
+              src={image}
+              alt=""
+              layout="intrinsic"
+              width={100}
+              height={0}
+              className={``}
+            />
           </div>
           <div className="space-y-3">
             <Rating style={{ maxWidth: 100 }} value={4} readOnly />

@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 const OrderManagement = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
@@ -119,10 +120,13 @@ const OrderManagement = () => {
             {order?.length === 0 && (
               <>
                 <div className="flex items-center flex-col">
-                  <img
+                  <Image
+                    layout="intrinsic"
+                    width={300}
+                    height={300}
                     src="/no-found.png"
                     alt=""
-                    className="xl:w-[300px] xl:h-[300px]"
+                    className=""
                   />
                   <h2>No Order Management</h2>
                 </div>

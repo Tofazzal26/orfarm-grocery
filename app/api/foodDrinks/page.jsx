@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const FoodDrinks = () => {
@@ -40,7 +41,13 @@ const FoodDrinks = () => {
               </button>
             </div>
             <div>
-              <img src="/foodTree.png" alt="tree" />
+              <Image
+                src="/foodTree.png"
+                width={0}
+                height={0}
+                layout="responsive"
+                alt="tree"
+              />
             </div>
             <div className="space-y-4">
               <div>
@@ -73,9 +80,12 @@ const FoodDrinks = () => {
               <div className="p-4 shadow-md dark:bg-gray-50 dark:text-gray-800 h-full">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <img
+                    <Image
                       src={item?.image}
                       alt=""
+                      height={288}
+                      width={0}
+                      layout="responsive"
                       className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
                     />
                     <div className="flex items-center text-xs">

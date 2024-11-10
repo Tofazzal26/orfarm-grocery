@@ -1,10 +1,18 @@
 import { Bookmark, Clock, Pill, PillIcon } from "lucide-react";
+import Image from "next/image";
 
 const BlogCard = ({ item }) => {
   const { image, title, paragraph, readMore, date, tips, food } = item || {};
   return (
     <div>
-      <img src={image} alt="" className="rounded-md w-full" />
+      <Image
+        src={image}
+        alt="blogCard"
+        className="rounded-md w-full"
+        height={0}
+        width={0}
+        layout="responsive"
+      />
       <div className="flex flex-col md:flex-row md:items-center gap-4 my-4">
         <span className="flex items-center gap-2">
           <Clock size={18} className="text-blue-500" /> {date}

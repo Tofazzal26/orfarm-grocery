@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React from "react";
+import Image from "next/image";
 
 const PaymentHistory = () => {
   const session = useSession();
@@ -80,10 +81,12 @@ const PaymentHistory = () => {
               {UserPaymentHistory?.length === 0 && (
                 <>
                   <div className="flex items-center flex-col xl:mb-4">
-                    <img
+                    <Image
+                     layout="intrinsic"   width={300}
+                     height={300}
                       src="/no-payment.png"
                       alt=""
-                      className="xl:w-[300px] xl:h-[300px]"
+                      className=""
                     />
                     <h2>No Payment History</h2>
                   </div>
