@@ -82,7 +82,7 @@ const page = () => {
             <div className=" border-2">
               <div className="p-2 space-y-6">
                 {ourBlog.map((item, idx) => (
-                  <div className="">
+                  <div className="" key={idx}>
                     <div className="flex items-center gap-4">
                       <div>
                         <Image
