@@ -10,7 +10,7 @@ const AdminVendorRequest = () => {
     queryKey: ["AllRequestVendor", currentPage, itemPerPage],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllVendorRequest?page=${currentPage}&size=${itemPerPage}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllVendorRequest?page=${currentPage}&size=${itemPerPage}`
       );
       return resp?.data;
     },
@@ -37,7 +37,7 @@ const AdminVendorRequest = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const resp = await axios.patch(
-          `http://localhost:3000/api/VendorAccept/${id}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorAccept/${id}`
         );
         refetch();
         Swal.fire({
@@ -61,7 +61,7 @@ const AdminVendorRequest = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const resp = await axios.patch(
-          `http://localhost:3000/api/VendorRequestCancel/${id}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorRequestCancel/${id}`
         );
         refetch();
         Swal.fire({

@@ -24,7 +24,7 @@ const RevenueChart = () => {
     queryKey: ["VendorDashBoardData"],
     queryFn: async () => {
       const reps = await axios.get(
-        `http://localhost:3000/api/VendorDashboardData/${email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDashboardData/${email}`
       );
       return reps?.data?.data;
     },

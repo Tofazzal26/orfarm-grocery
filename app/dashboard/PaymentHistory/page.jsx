@@ -10,7 +10,7 @@ const PaymentHistory = () => {
     queryKey: ["UserPaymentHistory"],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/UserPaymentHistory/${email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPaymentHistory/${email}`
       );
       return resp?.data?.data;
     },

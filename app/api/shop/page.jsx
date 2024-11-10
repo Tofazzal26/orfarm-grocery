@@ -50,7 +50,7 @@ const Shop = () => {
     ],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllProduct?page=${
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct?page=${
           currentPage - 1
         }&size=${itemPerPage}&price=${price}&New=${NewStatus}&Stock=${StockStatus}&location=${productLocation}&search=${productSearch}&category=${productCategory}`
       );

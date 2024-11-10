@@ -15,7 +15,7 @@ const AdminAllUsers = () => {
     queryKey: ["allUser", currentPage, UserPerPage],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllUser?page=${currentPage}&size=${UserPerPage}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllUser?page=${currentPage}&size=${UserPerPage}`
       );
       return resp?.data;
     },
@@ -58,7 +58,7 @@ const AdminAllUsers = () => {
         if (result.isConfirmed) {
           const Role = "vendor";
           const resp = await axios.patch(
-            `http://localhost:3000/api/UserRoleChange/${id}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserRoleChange/${id}`,
             { Role }
           );
           refetch();
@@ -84,7 +84,7 @@ const AdminAllUsers = () => {
         if (result.isConfirmed) {
           const Role = "user";
           const resp = await axios.patch(
-            `http://localhost:3000/api/UserRoleChange/${id}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserRoleChange/${id}`,
             { Role }
           );
           refetch();
@@ -111,7 +111,7 @@ const AdminAllUsers = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const resp = await axios.delete(
-          `http://localhost:3000/api/UserDelete/${id}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserDelete/${id}`
         );
         refetch();
 

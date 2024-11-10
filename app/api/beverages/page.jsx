@@ -16,7 +16,7 @@ const Beverages = () => {
   } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct`);
       return resp?.data?.data;
     },
   });

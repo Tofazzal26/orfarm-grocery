@@ -93,10 +93,10 @@ const AddProduct = () => {
       stock,
       vendorEmail,
     };
-    console.log(allData);
+    // console.log(allData);
 
     const resp = await axios.post(
-      `http://localhost:3000/api/VendorProductAdd`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductAdd`,
       allData
     );
     if (resp?.data.success) {

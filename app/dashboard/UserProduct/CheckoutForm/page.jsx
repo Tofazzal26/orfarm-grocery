@@ -28,13 +28,13 @@ const CheckoutForm = () => {
     const payment = async () => {
       try {
         if (allUserProduct.length === 0) {
-          console.log("Cart is now empty");
+          // console.log("Cart is now empty");
         }
         const resp = await axios.post(
-          `http://localhost:3000/api/create-payment-intent`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/create-payment-intent`,
           { price }
         );
-        console.log(resp?.data?.clientSecret);
+        // console.log(resp?.data?.clientSecret);
         setClientSecret(resp?.data?.clientSecret);
       } catch (error) {
         console.error("Payment creation error:", error);
@@ -67,11 +67,11 @@ const CheckoutForm = () => {
       card,
     });
     if (error) {
-      console.log("payment error", error);
+      // console.log("payment error", error);
       setErrorMessage(error.message);
       setLoading(false); 
     } else {
-      console.log("Payment Method", paymentMethod);
+      // console.log("Payment Method", paymentMethod);
       setErrorMessage("");
     }
 
@@ -87,7 +87,7 @@ const CheckoutForm = () => {
       });
 
     if (confirmError) {
-      console.log("Confirm error");
+      // console.log("Confirm error");
       setLoading(false); 
     } else {
       if (paymentIntent.status === "succeeded") {
@@ -109,12 +109,12 @@ const CheckoutForm = () => {
         }));
 
         const reps = await axios.post(
-          `http://localhost:3000/api/UserPayments`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPayments`,
           payment
         );
 
         const rep = await axios.post(
-          `http://localhost:3000/api/VendorPaymentRush`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorPaymentRush`,
           vendorData
         );
 

@@ -19,7 +19,7 @@ const OrderManagement = () => {
     queryKey: ["OrderManageMent"],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/VendorDeliveryPayment/${email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDeliveryPayment/${email}`
       );
       return resp?.data?.data;
     },
@@ -38,7 +38,7 @@ const OrderManagement = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const resp = await axios.patch(
-          `http://localhost:3000/api/VendorProductDelivery/${trans}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductDelivery/${trans}`
         );
         // console.log(resp?.data)
 

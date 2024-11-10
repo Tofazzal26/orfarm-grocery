@@ -38,7 +38,7 @@ const ProductProvider = ({ children }) => {
     queryKey: ["singleUserData", !email],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/SingleUserData/${email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/SingleUserData/${email}`
       );
       return resp?.data?.data;
     },
@@ -48,7 +48,7 @@ const ProductProvider = ({ children }) => {
     queryKey: ["userRole", !email],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllUserRole/${email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllUserRole/${email}`
       );
       return resp?.data;
     },
@@ -61,7 +61,9 @@ const ProductProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AllProduct`);
+      const resp = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct`
+      );
       return resp?.data?.data;
     },
   });
@@ -74,7 +76,7 @@ const ProductProvider = ({ children }) => {
     queryKey: ["manageAllProduct"],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllProductManage`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProductManage`
       );
       return resp?.data?.data;
     },
@@ -84,12 +86,12 @@ const ProductProvider = ({ children }) => {
     try {
       setSingleProductLoading(true);
       const resp = await axios.get(
-        `http://localhost:3000/api/SingleProduct/${id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/SingleProduct/${id}`
       );
       setSingleProductLoading(false);
       setSingleProduct(resp?.data?.data);
     } catch (error) {
-      console.log("Server Error");
+      // console.log("Server Error");
     }
   };
 

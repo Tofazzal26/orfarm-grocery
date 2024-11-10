@@ -26,7 +26,7 @@ const AdminAllVendors = () => {
     queryKey: ["allVendor", currentPage, itemPerPage],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllVendor?page=${currentPage}&size=${itemPerPage}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllVendor?page=${currentPage}&size=${itemPerPage}`
       );
       return resp.data;
     },

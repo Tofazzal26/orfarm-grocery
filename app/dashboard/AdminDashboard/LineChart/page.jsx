@@ -17,7 +17,7 @@ const LineChart = () => {
   const { data: AdminDashboardAllData = {}, isLoading, isError } = useQuery({
     queryKey: ["AdminDashboardAllData"],
     queryFn: async () => {
-      const resp = await axios.get(`http://localhost:3000/api/AdminDashboardAllData`);
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`);
       return resp?.data?.data;
     },
   });

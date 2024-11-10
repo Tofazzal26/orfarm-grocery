@@ -106,7 +106,7 @@ const Sidebar = () => {
         const emails = session?.data?.user?.email;
 
         const resp = await axios.patch(
-          `http://localhost:3000/api/VendorRequestSend/${emails}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorRequestSend/${emails}`
         );
         singleUserLoading();
         if (resp?.data?.success) {

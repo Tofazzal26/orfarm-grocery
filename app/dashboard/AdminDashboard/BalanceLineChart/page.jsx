@@ -26,7 +26,7 @@ const BalanceLineChart = () => {
     queryKey: ["AdminDashboardAllData"],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AdminDashboardAllData`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`
       );
       return resp?.data?.data;
     },

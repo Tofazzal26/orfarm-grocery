@@ -6,7 +6,7 @@ export const POST = async (request) => {
   try {
     await ConnectMongoose();
     const WishProduct = await request.json();
-    console.log(WishProduct);
+    // console.log(WishProduct);
     const wishProductExisting = await WishListModel.findOne({
       prdID: WishProduct.prdID,
     });

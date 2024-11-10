@@ -47,7 +47,7 @@ const Register = () => {
     const image = await response.data.data.url;
 
     try {
-      const resp = await axios.post(`http://localhost:3000/api/User`, {
+      const resp = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/User`, {
         name,
         email,
         password,
@@ -66,7 +66,7 @@ const Register = () => {
       }
       setLoginLoading(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

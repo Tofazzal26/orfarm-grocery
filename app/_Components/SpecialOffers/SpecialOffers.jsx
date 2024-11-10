@@ -24,7 +24,7 @@ const SpecialOffers = () => {
     queryKey: ["manageAllProduct"],
     queryFn: async () => {
       const resp = await axios.get(
-        `http://localhost:3000/api/AllProductManage`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProductManage`
       );
       return resp?.data?.data;
     },
