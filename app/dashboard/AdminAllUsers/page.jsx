@@ -133,19 +133,18 @@ const AdminAllUsers = () => {
         <table className="min-w-full bg-white border mb-4">
           <thead>
             <tr className="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
-              {/* ID and Name columns hidden on small screens */}
+              {/* ID column hidden on small screens */}
               <th className="p-0 hidden md:table-cell">
                 <span className="block py-2 px-3 border-r border-gray-300">
                   ID
                 </span>
               </th>
-              <th className="p-0 hidden md:table-cell">
+              <th className="p-0">
                 <span className="block py-2 px-3 border-r border-gray-300">
                   NAME
                 </span>
               </th>
-              {/* Email, Status, and Actions are always visible */}
-              <th className="p-0">
+              <th className="p-0 hidden md:table-cell">
                 <span className="block py-2 px-3 border-r border-gray-300">
                   EMAIL
                 </span>
@@ -164,24 +163,29 @@ const AdminAllUsers = () => {
                 key={item?._id}
                 className="border-b text-xs md:text-sm text-center text-gray-800"
               >
-                {/* Hide ID and Name on small screens */}
+                {/* ID column hidden on small screens */}
                 <td className="p-2 md:p-4 hidden md:table-cell">{item?._id}</td>
+                {/* Show NAME, STATUS, and ACTIONS on all screens */}
+                <td className="p-2 md:p-4">{item?.name}</td>
+                {/* EMAIL column hidden on small screens */}
                 <td className="p-2 md:p-4 hidden md:table-cell">
-                  {item?.name}
+                  {item?.email}
                 </td>
-                {/* Show Email, Status, and Actions on all screens */}
-                <td className="p-2 md:p-4">{item?.email}</td>
                 <td className="p-2 md:p-4">{item?.userRole}</td>
                 <td className="relative p-2 md:p-4 flex justify-center space-x-2">
                   <button
                     onClick={() => handleRoleChange(item?._id, item?.userRole)}
-                    className={`bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
+                    className={`bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${
+                      item?.userRole === "admin" ? "hidden" : ""
+                    }`}
                   >
                     {item?.userRole === "user" ? "Vendor" : "User"}
                   </button>
                   <button
                     onClick={() => handleUserDelete(item?._id)}
-                    className={`bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${item?.userRole === "admin" ? "hidden" : ""}`}
+                    className={`bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm ${
+                      item?.userRole === "admin" ? "hidden" : ""
+                    }`}
                   >
                     <Trash size={20} />
                   </button>
