@@ -11,26 +11,39 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip
+);
 
 const LineChart = () => {
-  const { data: AdminDashboardAllData = {}, isLoading, isError } = useQuery({
+  const {
+    data: AdminDashboardAllData = {},
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["AdminDashboardAllData"],
     queryFn: async () => {
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`);
-      return resp?.data?.data;
+      try {
+        const resp = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`
+        );
+        return resp?.data?.data;
+      } catch (error) {
+        // console.log(error)
+      }
     },
   });
 
   if (isLoading) return <p>Loading chart data...</p>;
   if (isError) return <p>Error loading chart data.</p>;
 
-
   const ProfileReport = Array.isArray(AdminDashboardAllData?.totalSales)
     ? AdminDashboardAllData.totalSales
-    : [ 10, 20, 30, 40 || AdminDashboardAllData.totalSales]; 
-
-
+    : [10, 20, 30, 40 || AdminDashboardAllData.totalSales];
 
   const data = {
     labels: ProfileReport.map((_, index) => `Month ${index + 1}`),

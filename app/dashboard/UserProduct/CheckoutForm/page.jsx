@@ -90,42 +90,46 @@ const CheckoutForm = () => {
       // console.log("Confirm error");
       setLoading(false);
     } else {
-      if (paymentIntent.status === "succeeded") {
-        setTransactionId(paymentIntent.id);
+      try {
+        if (paymentIntent.status === "succeeded") {
+          setTransactionId(paymentIntent.id);
 
-        const payment = {
-          email: session?.data?.user?.email,
-          price: price,
-          transaction: paymentIntent.id,
-          date: new Date(),
-          status: "pending",
-        };
-        const vendorData = allUserProduct.map((item) => ({
-          ...item,
-          userEmail: session?.data?.user?.email,
-          price: price,
-          transaction: paymentIntent.id,
-          status: "pending",
-        }));
+          const payment = {
+            email: session?.data?.user?.email,
+            price: price,
+            transaction: paymentIntent.id,
+            date: new Date(),
+            status: "pending",
+          };
+          const vendorData = allUserProduct.map((item) => ({
+            ...item,
+            userEmail: session?.data?.user?.email,
+            price: price,
+            transaction: paymentIntent.id,
+            status: "pending",
+          }));
 
-        const reps = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPayments`,
-          payment
-        );
-
-        const rep = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorPaymentRush`,
-          vendorData
-        );
-
-        if (reps.data?.success) {
-          localStorage.removeItem("carts");
-          setAllUserProduct([]);
-          route.push("/api/shop");
-          toast.success(
-            `Your payment is done. Your Transaction is ${paymentIntent.id}`
+          const reps = await axios.post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPayments`,
+            payment
           );
+
+          const rep = await axios.post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorPaymentRush`,
+            vendorData
+          );
+
+          if (reps.data?.success) {
+            localStorage.removeItem("carts");
+            setAllUserProduct([]);
+            route.push("/api/shop");
+            toast.success(
+              `Your payment is done. Your Transaction is ${paymentIntent.id}`
+            );
+          }
         }
+      } catch (error) {
+        // console.log(error)
       }
     }
 

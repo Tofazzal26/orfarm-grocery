@@ -19,39 +19,47 @@ const OrderManagement = () => {
   const { refetch, data: OrderManageMent = [] } = useQuery({
     queryKey: ["OrderManageMent"],
     queryFn: async () => {
-      const resp = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDeliveryPayment/${email}`
-      );
-      return resp?.data?.data;
+      try {
+        const resp = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDeliveryPayment/${email}`
+        );
+        return resp?.data?.data;
+      } catch (error) {
+        // console.log(error)
+      }
     },
   });
   const order = OrderManageMent.filter((item) => item?.status === "pending");
 
   const handleDelivery = async (trans) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to deliver?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delivery it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const resp = await axios.patch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductDelivery/${trans}`
-        );
-        // console.log(resp?.data)
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to deliver?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delivery it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const resp = await axios.patch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductDelivery/${trans}`
+          );
+          // console.log(resp?.data)
 
-        refetch();
+          refetch();
 
-        Swal.fire({
-          title: "Delivery",
-          text: "Delivery has been made.",
-          icon: "success",
-        });
-      }
-    });
+          Swal.fire({
+            title: "Delivery",
+            text: "Delivery has been made.",
+            icon: "success",
+          });
+        }
+      });
+    } catch (error) {
+      // console.log(error)
+    }
   };
 
   return (

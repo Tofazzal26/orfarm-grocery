@@ -8,10 +8,10 @@ const IncomeCircleChart = () => {
   const data = {
     datasets: [
       {
-        data: [65, 35], // $65 value and remaining part
-        backgroundColor: ["#696CFF", "#e0e0e0"], // Main color and background color
-        borderWidth: 2, // Border width
-        cutout: "80%", // Inner circle size
+        data: [65, 35],
+        backgroundColor: ["#696CFF", "#e0e0e0"],
+        borderWidth: 2,
+        cutout: "80%",
       },
     ],
   };
@@ -20,20 +20,20 @@ const IncomeCircleChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Disable the legend
+        display: false,
       },
       tooltip: {
-        enabled: false, // Disable tooltips
+        enabled: false,
       },
     },
-    circumference: 360, // Full circle effect
-    rotation: 0, // Start from top center
+    circumference: 360,
+    rotation: 0,
   };
 
   return (
     <div style={{ width: "55px", height: "55px", position: "relative" }}>
       <Doughnut data={data} options={options} />
-      {/* Centered text inside the chart */}
+
       <div
         style={{
           position: "absolute",

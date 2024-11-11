@@ -18,8 +18,13 @@ const StackedBarChart = () => {
   const { data: AdminDashboardAllData = {} } = useQuery({
     queryKey: ["AdminDashboardAllData"],
     queryFn: async () => {
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`);
+      try {
+        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`);
       return resp?.data?.data;
+      } catch (error) {
+        console.log(error)
+      }
+      
     },
   });
 

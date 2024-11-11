@@ -11,10 +11,14 @@ const VendorDashboard = () => {
   const { data: VendorDashBoardData = [] } = useQuery({
     queryKey: ["VendorDashBoardData"],
     queryFn: async () => {
-      const reps = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDashboardData/${email}`
-      );
-      return reps?.data?.data;
+      try {
+        const reps = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorDashboardData/${email}`
+        );
+        return reps?.data?.data;
+      } catch (error) {
+        // console.log(error)
+      }
     },
   });
 
