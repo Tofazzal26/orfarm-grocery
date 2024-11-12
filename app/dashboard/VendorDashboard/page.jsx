@@ -1,3 +1,4 @@
+"use client"
 import { DollarSign, Box, ShoppingBag, TrendingUp } from "lucide-react";
 import VendorRevenueChart from "./VendorRevenueChart/page";
 import { useSession } from "next-auth/react";

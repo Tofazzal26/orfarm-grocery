@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -12,19 +14,27 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const StackedBarChart = () => {
   const { data: AdminDashboardAllData = {} } = useQuery({
     queryKey: ["AdminDashboardAllData"],
     queryFn: async () => {
       try {
-        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`);
-      return resp?.data?.data;
+        const resp = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/AdminDashboardAllData`
+        );
+        return resp?.data?.data;
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      
     },
   });
 

@@ -1,5 +1,4 @@
 "use client";
-
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import {
   CircleDollarSign,
