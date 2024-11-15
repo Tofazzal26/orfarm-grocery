@@ -1,20 +1,21 @@
 "use client";
+
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const CheckoutForm = () => {
+const PaymentModel = () => {
   const session = useSession();
   const { totalPrice } = useContext(AuthProduct);
   const [clientSecret, setClientSecret] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   const [transactionId, setTransactionId] = useState("");
   const [allUserProduct, setAllUserProduct] = useState([]);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const route = useRouter();
@@ -173,4 +174,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default PaymentModel;

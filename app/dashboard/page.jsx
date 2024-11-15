@@ -131,8 +131,14 @@ const Sidebar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 ml-4">
             {" "}
-            <Image src="/logo1.png" alt="logo"  layout="intrinsic"   width={50}
-                  height={0} className="" />
+            <Image
+              src="/logo1.png"
+              alt="logo"
+              layout="intrinsic"
+              width={50}
+              height={0}
+              className=""
+            />
             <h1 className="md:text-[25px] text-[16px] mt-2">Orfarm-Grocery</h1>
           </div>
           <div className="mr-4">
