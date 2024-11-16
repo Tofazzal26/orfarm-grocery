@@ -46,69 +46,74 @@ const AddProduct = () => {
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
-    const vendorEmail = session?.data?.user?.email;
-    const formData = new FormData();
-    if (images) {
-      formData.append("image", images);
-    } else {
-      console.error("No image selected!");
-      return;
-    }
 
-    const response = await axios.post(
-      "https://api.imgbb.com/1/upload",
-      formData,
-      {
-        params: {
-          key: process.env.NEXT_PUBLIC_ImageBB_API_Key,
-        },
+    try {
+      const vendorEmail = session?.data?.user?.email;
+      const formData = new FormData();
+      if (images) {
+        formData.append("image", images);
+      } else {
+        console.error("No image selected!");
+        return;
       }
-    );
 
-    let from = event.target;
-    const image = await response.data.data.url;
-    const discount = from.discount.value;
-    const rating = from.rating.value;
-    const title = from.title.value;
-    const price = from.price.value;
-    const disPrice = from.discountPrice.value;
-    const productStatus = prdStatus;
-    const location = prdLocation;
-    const category = prdCategory;
-    const stock = prdStock;
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formData,
+        {
+          params: {
+            key: process.env.NEXT_PUBLIC_ImageBB_API_Key,
+          },
+        }
+      );
 
-    if (parseFloat(rating) > 5) {
-      return toast.error("Rating Cannot be given more than 5");
-    }
+      let from = event.target;
+      const image = await response.data.data.url;
+      const discount = from.discount.value;
+      const rating = from.rating.value;
+      const title = from.title.value;
+      const price = from.price.value;
+      const disPrice = from.discountPrice.value;
+      const productStatus = prdStatus;
+      const location = prdLocation;
+      const category = prdCategory;
+      const stock = prdStock;
 
-    const allData = {
-      image,
-      discount,
-      rating,
-      title,
-      price,
-      disPrice,
-      productStatus,
-      location,
-      category,
-      stock,
-      vendorEmail,
-    };
-    // console.log(allData);
+      if (parseFloat(rating) > 5) {
+        return toast.error("Rating Cannot be given more than 5");
+      }
 
-    const resp = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductAdd`,
-      allData
-    );
-    if (resp?.data.success) {
-      Swal.fire({
-        position: "top-center",
-        icon: "success",
-        title: "Your product has been added",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      event.target.reset();
+      const allData = {
+        image,
+        discount,
+        rating,
+        title,
+        price,
+        disPrice,
+        productStatus,
+        location,
+        category,
+        stock,
+        vendorEmail,
+      };
+      // console.log(allData);
+
+      const resp = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorProductAdd`,
+        allData
+      );
+      if (resp?.data.success) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Your product has been added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        event.target.reset();
+      }
+    } catch (error) {
+      // console.log(error)
     }
   };
 
