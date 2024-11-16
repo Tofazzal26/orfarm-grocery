@@ -14,9 +14,12 @@ import {
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 const AddProduct = () => {
   const [images, setImages] = useState(null);
   const session = useSession();
+  const { refetch, manageRefetch } = useContext(AuthProduct);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -103,6 +106,8 @@ const AddProduct = () => {
         allData
       );
       if (resp?.data.success) {
+        refetch();
+        manageRefetch();
         Swal.fire({
           position: "top-center",
           icon: "success",

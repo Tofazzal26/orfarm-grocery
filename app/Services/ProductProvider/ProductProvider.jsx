@@ -61,10 +61,14 @@ const ProductProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["allProduct"],
     queryFn: async () => {
-      const resp = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct`
-      );
-      return resp?.data?.data;
+      try {
+        const resp = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct`
+        );
+        return resp?.data?.data;
+      } catch (error) {
+        // console.log(error)
+      }
     },
   });
 
@@ -75,10 +79,14 @@ const ProductProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["manageAllProduct"],
     queryFn: async () => {
-      const resp = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProductManage`
-      );
-      return resp?.data?.data;
+      try {
+        const resp = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProductManage`
+        );
+        return resp?.data?.data;
+      } catch (error) {
+        // console.log(error)
+      }
     },
   });
 
@@ -197,6 +205,7 @@ const ProductProvider = ({ children }) => {
   const productInfo = {
     allProduct,
     refetch,
+    manageRefetch,
     isLoading,
     singleProductShow,
     singleProduct,
