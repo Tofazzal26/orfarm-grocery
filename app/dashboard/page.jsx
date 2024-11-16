@@ -16,7 +16,6 @@ import {
   PlusSquare,
   CreditCard,
 } from "lucide-react";
-import UserProduct from "./UserProduct/page";
 import UserProfile from "./UserProfile/page";
 import UserWishList from "./UserWishList/page";
 import { AuthProduct } from "../Services/ProductProvider/ProductProvider";
@@ -33,6 +32,7 @@ import AddProduct from "./AddProduct/page";
 import PaymentHistory from "./PaymentHistory/page";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import UserProduct from "./UserProduct/page";
 const Sidebar = () => {
   const [selected, setSelected] = useState("my-product");
   const [dashboardSelect, setDashboardSelect] = useState("dashboard");

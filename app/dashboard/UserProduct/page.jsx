@@ -5,45 +5,46 @@ import { ChevronLeft, ChevronRight, Trash } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import CheckoutForm from "@/app/_Components/CheckoutForm/page";
 
 // Dynamically import PaymentModel without server-side rendering
-const PaymentModel = dynamic(() => import("./CheckoutForm/page.jsx"), {
-  ssr: false,
-});
+// const PaymentModel = dynamic(() => import("./CheckoutForm/page.jsx"), {
+//   ssr: false,
+// });
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_API_KEY);
 
-const ProductCartModel = () => {
+const UserProduct = () => {
   const session = useSession();
   const { setTotalPrice, totalPrice } = useContext(AuthProduct);
   const [userProduct, setUserProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 4;
-  const startIndex = (currentPage - 1) * itemPerPage;
-  const endIndex = startIndex + itemPerPage;
-  const paginationData = userProduct.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(userProduct.length / itemPerPage);
-  const pageNumbers = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1
-  );
+
+  const validateCarts = (data) => {
+    try {
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
 
   useEffect(() => {
-    const carts = JSON.parse(localStorage.getItem("carts")) || [];
+    const carts = validateCarts(localStorage.getItem("carts"));
     setUserProduct(carts);
     setTotalPrice(carts);
   }, [setTotalPrice]);
 
-  const product = userProduct.filter(
-    (item) => item.email === session?.data?.user?.email
-  );
+  const product = Array.isArray(userProduct)
+    ? userProduct.filter((item) => item.email === session?.data?.user?.email)
+    : [];
 
   const handleDeleteProduct = (id) => {
     Swal.fire({
@@ -81,11 +82,21 @@ const ProductCartModel = () => {
     }
   };
 
-  const totalProductPrice =
-    userProduct.reduce(
-      (before, prev) => parseInt(before) + parseInt(prev.price),
-      0
-    ) || 0;
+  const totalProductPrice = Array.isArray(userProduct)
+    ? userProduct.reduce(
+        (before, prev) => parseInt(before) + parseInt(prev.price || 0),
+        0
+      )
+    : 0;
+
+  const startIndex = (currentPage - 1) * itemPerPage;
+  const endIndex = startIndex + itemPerPage;
+  const paginationData = product.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(product.length / itemPerPage);
+  const pageNumbers = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1
+  );
 
   return (
     <Elements stripe={stripePromise}>
@@ -112,7 +123,8 @@ const ProductCartModel = () => {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[500px]">
                     <div className="p-4">
-                      <PaymentModel />
+                      {/* <PaymentModel /> */}
+                      <CheckoutForm />
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -128,26 +140,30 @@ const ProductCartModel = () => {
               key={product.prdID}
               className="p-4 border border-gray-200 rounded-md"
             >
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={100}
-                height={100}
-              />
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-500">{product.price}$</p>
-              <button
-                onClick={() => handleDeleteProduct(product.prdID)}
-                className="text-red-500 mt-2"
-              >
-                <Trash /> Remove
-              </button>
+              <div className="flex items-center gap-4">
+                <Image
+                  src={product.image}
+                  alt="product"
+                  width={100}
+                  height={100}
+                />
+                <div>
+                  <p className="text-gray-600 text-lg">{product.price}$</p>
+                  <h3 className="text-lg font-semibold">{product?.title}</h3>
+                  <button
+                    onClick={() => handleDeleteProduct(product.prdID)}
+                    className="text-red-500 mt-2 flex text-lg items-center gap-1"
+                  >
+                    <Trash size={20}/> Remove
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Pagination Controls */}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center gap-2 mt-4">
           <Button onClick={handlePrevious} disabled={currentPage === 1}>
             <ChevronLeft /> Previous
           </Button>
@@ -155,7 +171,7 @@ const ProductCartModel = () => {
             <Button
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
-              className={currentPage === pageNum ? "bg-gray-300" : ""}
+              className={currentPage === pageNum ? "bg-[#8cbc19]" : "bg-gray-300"}
             >
               {pageNum}
             </Button>
@@ -169,4 +185,4 @@ const ProductCartModel = () => {
   );
 };
 
-export default ProductCartModel;
+export default UserProduct;

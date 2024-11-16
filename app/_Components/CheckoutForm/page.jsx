@@ -1,24 +1,23 @@
 "use client";
-
 import { AuthProduct } from "@/app/Services/ProductProvider/ProductProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const PaymentModel = () => {
+const CheckoutForm = () => {
   const session = useSession();
   const { totalPrice } = useContext(AuthProduct);
   const [clientSecret, setClientSecret] = useState("");
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [allUserProduct, setAllUserProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  const route = useRouter();
+  const router = useRouter();
 
   const price = totalPrice.reduce(
     (before, after) => parseInt(before) + parseInt(after.price),
@@ -26,34 +25,31 @@ const PaymentModel = () => {
   );
 
   useEffect(() => {
+    const product = JSON.parse(localStorage.getItem("carts")) || [];
+    setAllUserProduct(product);
+  }, []);
+
+  useEffect(() => {
     const payment = async () => {
       try {
-        if (allUserProduct.length === 0) {
-          // console.log("Cart is now empty");
-        }
         const resp = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/create-payment-intent`,
           { price }
         );
-        // console.log(resp?.data?.clientSecret);
         setClientSecret(resp?.data?.clientSecret);
       } catch (error) {
         console.error("Payment creation error:", error);
+        toast.error("Failed to create payment intent.");
       }
     };
 
-    const product = JSON.parse(localStorage.getItem("carts")) || [];
-    setAllUserProduct(product);
-
-    payment();
-  }, [price, allUserProduct.length]);
+    if (price > 0) payment();
+  }, [price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements || loading) {
-      return;
-    }
+    if (!stripe || !elements || loading) return;
 
     setLoading(true);
 
@@ -67,13 +63,12 @@ const PaymentModel = () => {
       type: "card",
       card,
     });
+
     if (error) {
-      // console.log("payment error", error);
       setErrorMessage(error.message);
+      toast.error(error.message);
       setLoading(false);
-    } else {
-      // console.log("Payment Method", paymentMethod);
-      setErrorMessage("");
+      return;
     }
 
     const { paymentIntent, error: confirmError } =
@@ -88,49 +83,50 @@ const PaymentModel = () => {
       });
 
     if (confirmError) {
-      // console.log("Confirm error");
       setLoading(false);
-    } else {
+      return;
+    }
+
+    if (paymentIntent.status === "succeeded") {
+      setTransactionId(paymentIntent.id);
+
+      const payment = {
+        email: session?.data?.user?.email,
+        price: price,
+        transaction: paymentIntent.id,
+        date: new Date(),
+        status: "pending",
+      };
+      const vendorData = allUserProduct.map((item) => ({
+        ...item,
+        userEmail: session?.data?.user?.email,
+        price: price,
+        transaction: paymentIntent.id,
+        status: "pending",
+      }));
+
       try {
-        if (paymentIntent.status === "succeeded") {
-          setTransactionId(paymentIntent.id);
+        const reps = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPayments`,
+          payment
+        );
 
-          const payment = {
-            email: session?.data?.user?.email,
-            price: price,
-            transaction: paymentIntent.id,
-            date: new Date(),
-            status: "pending",
-          };
-          const vendorData = allUserProduct.map((item) => ({
-            ...item,
-            userEmail: session?.data?.user?.email,
-            price: price,
-            transaction: paymentIntent.id,
-            status: "pending",
-          }));
+        const rep = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorPaymentRush`,
+          vendorData
+        );
 
-          const reps = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/UserPayments`,
-            payment
+        if (reps.data?.success) {
+          localStorage.removeItem("carts");
+          setAllUserProduct([]);
+          router.push("/api/shop"); // Update to frontend page if necessary
+          toast.success(
+            `Payment successful. Transaction ID: ${paymentIntent.id}`
           );
-
-          const rep = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/VendorPaymentRush`,
-            vendorData
-          );
-
-          if (reps.data?.success) {
-            localStorage.removeItem("carts");
-            setAllUserProduct([]);
-            route.push("/api/shop");
-            toast.success(
-              `Your payment is done. Your Transaction is ${paymentIntent.id}`
-            );
-          }
         }
       } catch (error) {
-        // console.log(error)
+        console.error("Payment confirmation error:", error);
+        toast.error("Payment confirmation failed.");
       }
     }
 
@@ -145,13 +141,9 @@ const PaymentModel = () => {
             base: {
               fontSize: "16px",
               color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
-              },
+              "::placeholder": { color: "#aab7c4" },
             },
-            invalid: {
-              color: "#9e2146",
-            },
+            invalid: { color: "#9e2146" },
           },
         }}
       />
@@ -166,7 +158,7 @@ const PaymentModel = () => {
         <p className="text-red-600 font-semibold">{errorMessage}</p>
         {transactionId && (
           <p className="text-green-600 font-semibold">
-            Your transaction id:{transactionId}
+            Your transaction id: {transactionId}
           </p>
         )}
       </div>
@@ -174,4 +166,4 @@ const PaymentModel = () => {
   );
 };
 
-export default PaymentModel;
+export default CheckoutForm;
