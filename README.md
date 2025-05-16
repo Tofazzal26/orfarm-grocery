@@ -8,12 +8,7 @@ This platform is designed to offer a smooth and intuitive shopping experience fo
 
 ## Live Link --> [OrfarmGrocery](https://orfarm-grocery.vercel.app/)
 
-
-<div align="center">
-  <a >
-    <img width="100%" src="/OrfarmGrocery.png" />
-  </a>
-</div>
+![Orfarm Grocery Image](/OrfarmGrocery.png)
 
 ## Characteristics
 
