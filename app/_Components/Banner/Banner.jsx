@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="my-10">
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-8">
-        <div className="col-span-4">
+        <div className="lg:col-span-4">
           <div className="md:w-full xl:h-[545px] lg:h-[405px] md:h-[290px] bg-cover rounded-md bg-no-repeat bg-center bg-[url('/Banner1.png')]">
             <div className="md:pt-[50px] lx:pt-[120px] pt-[20px] pl-[20px] pb-[20px] md:pb-[0px] md:pl-[80px]">
               <h2 className="uppercase text-gray-600">
@@ -32,13 +32,13 @@ const Banner = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="lg:col-span-2">
           <Image
-            className="rounded-md"
             src={"/Banner2.gif"}
             width={400}
             height={110}
             alt="banner"
+            className="rounded-md lg:w-[400px] w-full"
           />
         </div>
       </div>

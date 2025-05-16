@@ -106,8 +106,8 @@ const AddProduct = () => {
         allData
       );
       if (resp?.data.success) {
-        refetch();
-        manageRefetch();
+        // refetch();
+        // manageRefetch();
         Swal.fire({
           position: "top-center",
           icon: "success",
